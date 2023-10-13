@@ -1,0 +1,274 @@
+{
+  "active": false,
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape data from bursamarketplace": {
+      "main": [
+        [
+          {
+            "node": "Extract top 5 gainers & top 5 losers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Globals": {
+      "main": [
+        [
+          {
+            "node": "Get image template",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Scrape data from bursamarketplace",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get image template": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract top 5 gainers & top 5 losers": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-10-13T14:14:57.686Z",
+  "id": "u1FgP10Ngi8KHYJD",
+  "name": "Instagram - Market Update Post",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -100,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "222a3bf6-2c1d-4761-8802-fa4bc003ab14"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "a2721655-327d-4c2b-9ff2-ae1d1238159d",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "stock",
+              "cssSelector": "div.tb_stck >a",
+              "returnArray": true
+            },
+            {
+              "key": "LAST",
+              "cssSelector": "div.tb_cell.tb_chge.txt_up,div.tb_cell.tb_chge.txt_down",
+              "returnArray": true
+            },
+            {
+              "key": "CHG",
+              "cssSelector": "div.tb_cell.tb_chge.txt_up,div.tb_cell.tb_chge.txt_down",
+              "returnArray": true
+            },
+            {
+              "key": "%CHG",
+              "cssSelector": "div.tb_cell.tb_pchg.txt_up,div.tb_cell.tb_pchg.txt_down",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {
+          "trimValues": true
+        }
+      },
+      "id": "538ac06a-c8bb-483d-867c-45ca66a50751",
+      "name": "Extract top 5 gainers & top 5 losers",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        640,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.imageData }}",
+        "responseFormat": "file",
+        "dataPropertyName": "bg",
+        "options": {}
+      },
+      "name": "Get image template",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        460,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "78c46f69-a1e8-4d88-a3e9-9a666ab4da10"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.top_5_gainers_and_losers }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5bfab412-bd0d-48d3-a6f2-b95e9d03c017",
+      "name": "Scrape data from bursamarketplace",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        440,
+        380
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XnuODFh7pDzm9fh5",
+          "name": "User Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "imageData",
+              "stringValue": "https://raw.githubusercontent.com/tan-yong-sheng/IN_automation/main/template/IN%20market%20update.png"
+            },
+            {
+              "name": "top_5_gainers_and_losers",
+              "stringValue": "https://www.bursamarketplace.com/index.php?tpl=themkt_securities"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5cdece2d-415f-48e1-b0a0-691949f84fb1",
+      "name": "Globals",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        160,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "multiStep",
+        "dataPropertyName": "bg",
+        "operations": {
+          "operations": [
+            {
+              "operation": "text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d39edfa6-702a-49a8-8d0e-846e5b66cf83",
+      "name": "Edit Image",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        920,
+        320
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "493af3c1-451b-4a10-b963-046c14b3a68a",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        760,
+        200
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-10-13T15:36:49.402Z",
+  "versionId": "5344269d-5a67-48ee-ac99-19a2d648609e"
+}
