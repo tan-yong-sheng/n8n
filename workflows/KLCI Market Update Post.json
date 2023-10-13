@@ -40,6 +40,11 @@
             "node": "Get KLCI statistics",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Get sector statistics",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -88,17 +93,6 @@
         ]
       ]
     },
-    "Get KLCI statistics": {
-      "main": [
-        [
-          {
-            "node": "HTML",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Add top 5 gainers & losers to the image": {
       "main": [
         [
@@ -110,22 +104,11 @@
         ]
       ]
     },
-    "HTML": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Merge1": {
       "main": [
         [
           {
-            "node": "IF",
+            "node": "Edit Image1",
             "type": "main",
             "index": 0
           }
@@ -136,23 +119,73 @@
       "main": [
         [
           {
-            "node": "Edit Image1",
+            "node": "Set color to green",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Edit Image",
+            "node": "Set color to red",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Edit Image1": {
+    "Set color to red": {
       "main": [
-        []
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Set color to green": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get KLCI statistics": {
+      "main": [
+        [
+          {
+            "node": "Extract KLCI stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get sector statistics": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract KLCI stats": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -224,8 +257,8 @@
       "type": "n8n-nodes-base.html",
       "typeVersion": 1,
       "position": [
-        580,
-        360
+        660,
+        300
       ]
     },
     {
@@ -255,6 +288,10 @@
             {
               "name": "top_5_gainers_and_losers",
               "stringValue": "https://www.bursamarketplace.com/index.php?tpl=themkt_securities"
+            },
+            {
+              "name": "klci_stats",
+              "stringValue": "https://www.bursamarketplace.com/mkt/themarket"
             }
           ]
         },
@@ -280,8 +317,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        680,
-        140
+        860,
+        240
       ]
     },
     {
@@ -299,8 +336,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1800,
-        120
+        1880,
+        160
       ],
       "credentials": {
         "telegramApi": {
@@ -324,8 +361,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1840,
-        420
+        1880,
+        380
       ],
       "credentials": {
         "telegramApi": {
@@ -370,8 +407,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        420,
-        360
+        480,
+        320
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -379,75 +416,6 @@
           "name": "User Agent"
         }
       }
-    },
-    {
-      "parameters": {
-        "url": "=https://www.bursamarketplace.com/mkt/themarket",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "*/*"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "aaf1bf63-d3a7-45fb-9848-91ef25c83e3f",
-      "name": "Get KLCI statistics",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        460,
-        600
-      ],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "XnuODFh7pDzm9fh5",
-          "name": "User Agent"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "extractHtmlContent",
-        "extractionValues": {
-          "values": [
-            {
-              "key": "market_index",
-              "cssSelector": "div.stkCode > a",
-              "returnArray": true
-            },
-            {
-              "key": "index_%CHG",
-              "cssSelector": "div.stkCode + div.pctg_chg",
-              "returnArray": true
-            },
-            {
-              "key": "index_CHG",
-              "cssSelector": "div.stkCode + div.pctg_chg + div.chg",
-              "returnArray": true
-            },
-            {
-              "key": "index_price",
-              "cssSelector": "div.stkCode + div.pctg_chg + div.chg + div.volume",
-              "returnArray": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "12f68715-b1b8-4c6b-85b5-0e72d7367bb3",
-      "name": "HTML",
-      "type": "n8n-nodes-base.html",
-      "typeVersion": 1,
-      "position": [
-        680,
-        600
-      ]
     },
     {
       "parameters": {
@@ -460,8 +428,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        980,
-        380
+        1320,
+        420
       ]
     },
     {
@@ -480,8 +448,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1120,
-        380
+        820,
+        640
       ]
     },
     {
@@ -503,7 +471,7 @@
               "operation": "text",
               "text": "={{ $json.index_CHG[0] }}",
               "fontSize": 46,
-              "fontColor": "#12b14b",
+              "fontColor": "={{ $json.color }}",
               "positionX": 470,
               "positionY": 490
             },
@@ -511,7 +479,7 @@
               "operation": "text",
               "text": "={{ $json[\"index_%CHG\"][0] }}",
               "fontSize": 46,
-              "fontColor": "#12b14b",
+              "fontColor": "={{ $json.color }}",
               "positionX": 760,
               "positionY": 490
             }
@@ -524,8 +492,8 @@
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        1300,
-        260
+        1520,
+        620
       ]
     },
     {
@@ -575,52 +543,188 @@
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        860,
-        160
+        1060,
+        280
       ]
     },
     {
       "parameters": {
-        "operation": "multiStep",
-        "dataPropertyName": "bg",
-        "operations": {
-          "operations": [
+        "fields": {
+          "values": [
             {
-              "operation": "text",
-              "text": "={{ $json.index_price[0] }}",
-              "fontSize": 46,
-              "fontColor": "#fea72b",
-              "positionX": 130,
-              "positionY": 490,
-              "font": "/usr/share/fonts/truetype/msttcorefonts/Arial_Black.ttf"
-            },
-            {
-              "operation": "text",
-              "text": "={{ $json.index_CHG[0] }}",
-              "fontSize": 46,
-              "fontColor": "#f14d3f",
-              "positionX": 470,
-              "positionY": 490
-            },
-            {
-              "operation": "text",
-              "text": "={{ $json[\"index_%CHG\"][0] }}",
-              "fontSize": 46,
-              "fontColor": "#f14d3f",
-              "positionX": 760,
-              "positionY": 490
+              "name": "color",
+              "stringValue": "#f14d3f"
             }
           ]
         },
         "options": {}
       },
-      "id": "ded19262-6fcf-4e30-ba8e-03aece626efc",
-      "name": "Edit Image",
-      "type": "n8n-nodes-base.editImage",
+      "id": "5cafbf3f-f5a2-4394-9ac2-bdace288e30a",
+      "name": "Set color to red",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "color",
+              "stringValue": "#12b14b"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "82ce8e4a-9a49-4e2c-a11d-be02f0c70975",
+      "name": "Set color to green",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**KLCI data stats**",
+        "height": 317.9665519593602,
+        "width": 829.4849377995633
+      },
+      "id": "9492ef02-9ca6-4aa4-a4b8-2bfa3eeb95d6",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1300,
-        500
+        400,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.klci_stats }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "73fae106-2b3b-4015-a2cc-09fce93a87d1",
+      "name": "Get KLCI statistics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        440,
+        640
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XnuODFh7pDzm9fh5",
+          "name": "User Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "sector",
+              "cssSelector": "table#MainContent2_tbStockWithAlphabet > tbody > tr > td",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4bdf7b1c-c849-44a7-84a9-6083dd330d50",
+      "name": "HTML1",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        620,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://www.malaysiastock.biz/Market-Watch.aspx?type=C&value=BURSA-INDICES",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "64a69f0a-3c8d-411e-8247-c2ded409f22e",
+      "name": "Get sector statistics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        400,
+        960
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XnuODFh7pDzm9fh5",
+          "name": "User Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "market_index",
+              "cssSelector": "div.stkCode > a",
+              "returnArray": true
+            },
+            {
+              "key": "index_%CHG",
+              "cssSelector": "div.stkCode + div.pctg_chg",
+              "returnArray": true
+            },
+            {
+              "key": "index_CHG",
+              "cssSelector": "div.stkCode + div.pctg_chg + div.chg",
+              "returnArray": true
+            },
+            {
+              "key": "index_price",
+              "cssSelector": "div.stkCode + div.pctg_chg + div.chg + div.volume",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "12f68715-b1b8-4c6b-85b5-0e72d7367bb3",
+      "name": "Extract KLCI stats",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        640,
+        640
       ]
     }
   ],
@@ -631,6 +735,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-10-13T18:12:10.229Z",
-  "versionId": "d6cb99e9-e682-4d0a-88af-d5a252bbdbf5"
+  "updatedAt": "2023-10-13T18:39:44.038Z",
+  "versionId": "ba942186-3c7d-444d-a5a1-f1e439f7ce23"
 }
