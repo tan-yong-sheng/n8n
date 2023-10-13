@@ -173,6 +173,17 @@
           }
         ]
       ]
+    },
+    "Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-10-13T13:48:30.423Z",
@@ -481,6 +492,21 @@
         440
       ],
       "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "events": [
+          "update"
+        ]
+      },
+      "id": "c8efc1d2-aa06-4a6e-b13c-a9b0daedca44",
+      "name": "Workflow Trigger",
+      "type": "n8n-nodes-base.workflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        820,
+        800
+      ]
     }
   ],
   "pinData": {},
@@ -489,7 +515,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2023-10-13T14:03:30.555Z",
-  "versionId": "2081748b-4cd7-4e64-b01f-5f8ed4dfa930"
+  "triggerCount": 2,
+  "updatedAt": "2023-10-13T18:12:42.779Z",
+  "versionId": "6c3b27d0-fd8d-41d3-9d11-139629ee375c"
 }
