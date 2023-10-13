@@ -496,7 +496,8 @@
     {
       "parameters": {
         "events": [
-          "update"
+          "update",
+          "activate"
         ]
       },
       "id": "c8efc1d2-aa06-4a6e-b13c-a9b0daedca44",
@@ -516,6 +517,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-10-13T18:12:42.779Z",
-  "versionId": "6c3b27d0-fd8d-41d3-9d11-139629ee375c"
+  "updatedAt": "2023-10-13T18:40:45.809Z",
+  "versionId": "307fa80a-d5e6-4d24-a079-8c5c754ddb38"
 }
