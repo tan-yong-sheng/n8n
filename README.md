@@ -35,3 +35,5 @@ docker compose up -d
 
 The default name of the database, user and password for PostgreSQL can be changed in the [`.env`](.env) file in the current directory.
 
+Reference: github.com/ready4mars/n8n-render
+
