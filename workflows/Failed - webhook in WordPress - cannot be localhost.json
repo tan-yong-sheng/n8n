@@ -1,0 +1,89 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-10-14T14:23:54.131Z",
+  "id": "nrU3lTMlj9I3GYO7",
+  "meta": null,
+  "name": "Failed - webhook in WordPress - cannot be localhost",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "2e9b66b4-3605-44ad-9b8e-6556f17d185b",
+        "options": {}
+      },
+      "id": "ff3e3bb9-da07-454f-bfc3-11fde8ff058d",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        920,
+        200
+      ],
+      "webhookId": "2e9b66b4-3605-44ad-9b8e-6556f17d185b"
+    },
+    {
+      "parameters": {},
+      "id": "10b27ba1-e60f-4bdd-8346-112619e66a6b",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        920,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-1001678378433",
+        "text": "Post created!",
+        "additionalFields": {}
+      },
+      "id": "63fe8872-f95c-4d95-83ae-3993d5f6cdd4",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "eyC8LOJJNwIz4ikW",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-10-14T15:28:40.253Z",
+  "versionId": "70be66a3-718c-4747-a092-810a8489a295"
+}
