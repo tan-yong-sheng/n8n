@@ -242,11 +242,6 @@
           }
         ]
       ]
-    },
-    "Send message to telegram bot": {
-      "main": [
-        []
-      ]
     }
   },
   "createdAt": "2023-10-13T14:14:57.686Z",
@@ -422,8 +417,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2540,
-        360
+        1720,
+        1800
       ],
       "credentials": {
         "telegramApi": {
@@ -684,7 +679,7 @@
       "type": "n8n-nodes-base.html",
       "typeVersion": 1,
       "position": [
-        660,
+        640,
         980
       ]
     },
@@ -773,7 +768,7 @@
       "typeVersion": 2.1,
       "position": [
         1840,
-        860
+        780
       ]
     },
     {
@@ -930,7 +925,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        880,
+        820,
         980
       ]
     },
@@ -994,6 +989,21 @@
         2180,
         100
       ]
+    },
+    {
+      "parameters": {
+        "content": "# Created by Tan Yong Sheng",
+        "height": 80,
+        "width": 627.0206354874701
+      },
+      "id": "9e309945-0ca6-4c5a-96d2-f99010d2f3e7",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        -140
+      ]
     }
   ],
   "pinData": {},
@@ -1007,6 +1017,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-10-14T04:41:31.666Z",
-  "versionId": "44f5cfc0-c77e-4f07-ad13-9079947658c5"
+  "updatedAt": "2023-10-14T12:29:58.116Z",
+  "versionId": "064b7c03-b2e9-4f9c-a80f-3d18271de44a"
 }
