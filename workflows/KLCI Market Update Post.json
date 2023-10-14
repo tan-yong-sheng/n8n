@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "On clicking 'execute'": {
       "main": [
@@ -108,7 +108,7 @@
       "main": [
         [
           {
-            "node": "Edit Image1",
+            "node": "Add KLCI market data stats to post",
             "type": "main",
             "index": 0
           }
@@ -187,10 +187,49 @@
           }
         ]
       ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add KLCI market data stats to post": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Image": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2023-10-13T14:14:57.686Z",
   "id": "u1FgP10Ngi8KHYJD",
+  "meta": null,
   "name": "KLCI Market Update Post",
   "nodes": [
     {
@@ -208,7 +247,10 @@
       "parameters": {
         "rule": {
           "interval": [
-            {}
+            {
+              "triggerAtHour": 17,
+              "triggerAtMinute": 5
+            }
           ]
         }
       },
@@ -336,8 +378,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1880,
-        160
+        2440,
+        320
       ],
       "credentials": {
         "telegramApi": {
@@ -361,8 +403,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1880,
-        380
+        2440,
+        540
       ],
       "credentials": {
         "telegramApi": {
@@ -382,8 +424,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1760,
-        -100
+        2320,
+        60
       ]
     },
     {
@@ -450,50 +492,6 @@
       "position": [
         820,
         640
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "multiStep",
-        "dataPropertyName": "bg",
-        "operations": {
-          "operations": [
-            {
-              "operation": "text",
-              "text": "={{ $json.index_price[0] }}",
-              "fontSize": 46,
-              "fontColor": "#fea72b",
-              "positionX": 130,
-              "positionY": 490,
-              "font": "/usr/share/fonts/truetype/msttcorefonts/Arial_Black.ttf"
-            },
-            {
-              "operation": "text",
-              "text": "={{ $json.index_CHG[0] }}",
-              "fontSize": 46,
-              "fontColor": "={{ $json.color }}",
-              "positionX": 470,
-              "positionY": 490
-            },
-            {
-              "operation": "text",
-              "text": "={{ $json[\"index_%CHG\"][0] }}",
-              "fontSize": 46,
-              "fontColor": "={{ $json.color }}",
-              "positionX": 760,
-              "positionY": 490
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "e29a3350-8b87-42bd-8676-5e038fb13911",
-      "name": "Edit Image1",
-      "type": "n8n-nodes-base.editImage",
-      "typeVersion": 1,
-      "position": [
-        1520,
-        620
       ]
     },
     {
@@ -654,8 +652,8 @@
       "type": "n8n-nodes-base.html",
       "typeVersion": 1,
       "position": [
-        620,
-        960
+        1140,
+        880
       ]
     },
     {
@@ -679,8 +677,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        400,
-        960
+        840,
+        900
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -726,15 +724,102 @@
         640,
         640
       ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "f0c4d9a3-0d0d-43d1-afe9-f7100ab6cc80",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1700,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "multiStep",
+        "dataPropertyName": "bg",
+        "operations": {
+          "operations": [
+            {
+              "operation": "text",
+              "text": "Construction\n\nTechnology\n\nFinancial Services\n\nProperty\n\nEnergy",
+              "fontSize": 34
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "891cd75f-dac6-477c-add1-9b48474ea140",
+      "name": "Edit Image",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "multiStep",
+        "dataPropertyName": "bg",
+        "operations": {
+          "operations": [
+            {
+              "operation": "text",
+              "text": "={{ $json.index_price[0] }}",
+              "fontSize": 46,
+              "fontColor": "#fea72b",
+              "positionX": 130,
+              "positionY": 490,
+              "font": "/usr/share/fonts/truetype/msttcorefonts/Arial_Black.ttf"
+            },
+            {
+              "operation": "text",
+              "text": "={{ $json.index_CHG[0] }}",
+              "fontSize": 46,
+              "fontColor": "={{ $json.color }}",
+              "positionX": 470,
+              "positionY": 490
+            },
+            {
+              "operation": "text",
+              "text": "={{ $json[\"index_%CHG\"][0] }}",
+              "fontSize": 46,
+              "fontColor": "={{ $json.color }}",
+              "positionX": 760,
+              "positionY": 490
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e29a3350-8b87-42bd-8676-5e038fb13911",
+      "name": "Add KLCI market data stats to post",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        620
+      ]
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2023-10-13T18:39:44.038Z",
-  "versionId": "ba942186-3c7d-444d-a5a1-f1e439f7ce23"
+  "triggerCount": 1,
+  "updatedAt": "2023-10-14T01:31:40.892Z",
+  "versionId": "01e31e5e-06fe-43fa-aa34-fb537f23fd17"
 }
