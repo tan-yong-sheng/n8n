@@ -184,6 +184,17 @@
           }
         ]
       ]
+    },
+    "n8n Trigger": {
+      "main": [
+        [
+          {
+            "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-10-13T13:48:30.423Z",
@@ -509,6 +520,21 @@
         820,
         800
       ]
+    },
+    {
+      "parameters": {
+        "events": [
+          "init"
+        ]
+      },
+      "id": "043da4ec-2e89-42ac-88c7-a8b6505bdf6d",
+      "name": "n8n Trigger",
+      "type": "n8n-nodes-base.n8nTrigger",
+      "typeVersion": 1,
+      "position": [
+        820,
+        1020
+      ]
     }
   ],
   "pinData": {},
@@ -517,7 +543,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2023-10-13T18:40:45.809Z",
-  "versionId": "307fa80a-d5e6-4d24-a079-8c5c754ddb38"
+  "triggerCount": 3,
+  "updatedAt": "2023-10-14T08:03:04.663Z",
+  "versionId": "6c50c6e6-e5b5-4739-b7a8-2bf2c2c4153a"
 }
