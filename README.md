@@ -1,4 +1,4 @@
-# n8n with PostgreSQL
+# n8n with PostgreSQL, Docker in localhost
 
 Starts n8n with PostgreSQL as database.
 
