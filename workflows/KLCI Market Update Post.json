@@ -354,7 +354,7 @@
           "values": [
             {
               "name": "imageData",
-              "stringValue": "https://raw.githubusercontent.com/tan-yong-sheng/IN_automation/main/template/IN%20market%20update.png"
+              "stringValue": "https://raw.githubusercontent.com/tan-yong-sheng/n8n/master/img/IN%20market%20update.png"
             },
             {
               "name": "top_5_gainers_and_losers",
@@ -1017,6 +1017,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-10-14T12:29:58.116Z",
-  "versionId": "064b7c03-b2e9-4f9c-a80f-3d18271de44a"
+  "updatedAt": "2023-10-14T15:50:20.844Z",
+  "versionId": "2e9b9e0d-eada-4df7-9d2a-1d91e7bd305e"
 }
