@@ -156,8 +156,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "Edit Fields1": {
@@ -171,12 +170,7 @@
         ]
       ]
     },
-    "HTTP Request1": {
-      "main": [
-        []
-      ]
-    },
-    "Merge2": {
+    "Code": {
       "main": [
         []
       ]
@@ -208,8 +202,8 @@
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
       "position": [
-        2760,
-        440
+        2700,
+        560
       ],
       "credentials": {
         "openAiApi": {
@@ -462,7 +456,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2720,
+        3000,
         240
       ],
       "executeOnce": false,
@@ -489,8 +483,8 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        2460,
-        680
+        2500,
+        500
       ]
     },
     {
@@ -586,8 +580,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        2160,
-        260
+        2120,
+        320
       ]
     },
     {
@@ -602,6 +596,19 @@
         1840,
         240
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "id": "13b05ba0-d53b-4573-bbe4-d6fa4467b8ba",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        520
+      ]
     }
   ],
   "pinData": {},
@@ -611,6 +618,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-10-14T09:39:49.579Z",
-  "versionId": "8e92c095-2a3c-4b7f-8621-5d757b484c0a"
+  "updatedAt": "2023-10-14T10:03:21.115Z",
+  "versionId": "5f57c748-7775-4229-9806-cd3010cc5bed"
 }
