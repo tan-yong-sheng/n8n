@@ -101,8 +101,8 @@
       ]
     }
   },
-  "createdAt": "2023-10-29T15:53:55.471Z",
-  "id": "oisznwfxE5nofkA0",
+  "createdAt": "2023-10-29T15:53:55.550Z",
+  "id": "BTjdV55kBTPYcz6i",
   "meta": null,
   "name": "My workflow 2",
   "nodes": [
@@ -272,6 +272,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-10-29T15:53:55.471Z",
-  "versionId": "6167bc29-1c59-42bc-ab47-df877863cdd0"
+  "updatedAt": "2023-10-29T15:53:55.550Z",
+  "versionId": "abcf7c22-01ef-4598-bc79-9eb5898b90ba"
 }
