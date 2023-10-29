@@ -1,0 +1,277 @@
+{
+  "active": false,
+  "connections": {
+    "Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Binary Input Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Binary Input Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarization Chain": {
+      "main": [
+        [
+          {
+            "node": "Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-10-29T15:53:55.570Z",
+  "id": "7pP5tyHNaaiaggO3",
+  "meta": null,
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ab47380a-9f82-4c9a-9f94-b0c696c87e48",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "76b0bbca-0e59-4ab0-89ad-42f0629a4441",
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        580,
+        140
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "52d04ced-c413-4a4f-b517-a7025e1b6f52",
+      "name": "Binary Input Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentBinaryInputLoader",
+      "typeVersion": 1,
+      "position": [
+        780,
+        460
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1d101956-b8c6-427c-8f93-2563a17be7e0",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        700,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "type": "stuff",
+        "options": {}
+      },
+      "id": "37614833-5cf6-4a48-969b-db7e732a6527",
+      "name": "Summarization Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+      "typeVersion": 1,
+      "position": [
+        780,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "1ce7c0b8-7316-4558-92fd-69f352ea9efe",
+      "name": "Google PaLM Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        280,
+        540
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sKkbB4Bd0Z3UQIET",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://github.com/tan-yong-sheng/business_analytics/raw/main/Homework%20-%20Self/n8n%20langchain%20contest/Digital%20Marketing%20Analytics%20(SuperCheeky.inc).xlsx",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {}
+          }
+        }
+      },
+      "id": "eee83d27-7728-4463-83c1-8164d7774d37",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        400,
+        140
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XnuODFh7pDzm9fh5",
+          "name": "User Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "cd9b0cb8-4b50-48ae-b6d7-d80a6f186120",
+      "name": "Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "2dc05896-976a-4140-a8df-af5857ea8db2",
+      "name": "Google PaLM Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        360
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sKkbB4Bd0Z3UQIET",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "66aafaf4-e5e8-422a-827e-4853c30f40e4",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        360
+      ],
+      "notes": "useful for when you need to answer questions about math"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-10-29T15:53:55.570Z",
+  "versionId": "461ca535-bb6e-4527-a3b0-4389d92753cd"
+}
