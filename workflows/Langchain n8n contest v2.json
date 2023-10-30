@@ -1,0 +1,294 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres1": {
+      "main": [
+        [
+          {
+            "node": "Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-10-29T15:53:55.550Z",
+  "id": "BTjdV55kBTPYcz6i",
+  "meta": null,
+  "name": "Langchain n8n contest v2",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "ab47380a-9f82-4c9a-9f94-b0c696c87e48",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://github.com/tan-yong-sheng/business_analytics/raw/main/Homework%20-%20Self/n8n%20langchain%20contest/Digital%20Marketing%20Analytics%20(SuperCheeky.inc).xlsx",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "eee83d27-7728-4463-83c1-8164d7774d37",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        440,
+        140
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "XnuODFh7pDzm9fh5",
+          "name": "User Agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "277f92c3-2a22-428c-ae02-6bd9adf6492e",
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        640,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_analytics",
+          "mode": "list",
+          "cachedResultName": "n8n_analytics"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Campaign": "={{ $json.Campaign }}",
+            "Click": "={{ $json.Click }}",
+            "Conversion": "={{ $json.Conversion }}",
+            "Platform": "={{ $json.Platform }}",
+            "Feedback": "={{ $json.Feedback }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Click",
+              "displayName": "Click",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Conversion",
+              "displayName": "Conversion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Platform",
+              "displayName": "Platform",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Campaign",
+              "displayName": "Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Feedback",
+              "displayName": "Feedback",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {
+          "connectionTimeout": 30,
+          "queryBatching": "independently",
+          "skipOnConflict": true,
+          "replaceEmptyStrings": true
+        }
+      },
+      "id": "d872255e-d9d4-48ee-89ee-e70dda6b539f",
+      "name": "Postgres1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        860,
+        120
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "K8OqNSpixmvSwtcB",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nplatform = [item.json.Platform for item in _input.all()]\ncampaign = [item.json.Campaign for item in _input.all()]\nclick = [item.json.Click for item in _input.all()]\nconversion = [item.json.Conversion for item in _input.all()]\nfeedback = [item.json.Feedback for item in _input.all()]\n\nreturn [{\"Platform\": platform,\n        \"Campaign\":campaign,\n         \"Click\":click,\n        \"Conversion\":conversion,\n        \"Feedback\":feedback}]"
+      },
+      "id": "eb1c41df-ac33-4ca5-9f2e-9c70bcc2ff94",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3665007c-7287-48f4-a415-9bfc1dc79117",
+      "name": "Google PaLM Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        920,
+        560
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sKkbB4Bd0Z3UQIET",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "agent": "reActAgent",
+        "text": "={{ $json.Feedback }}",
+        "options": {}
+      },
+      "id": "aac09c52-4671-464a-b26a-ec0e7702a254",
+      "name": "Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9292d9ca-75ec-45ce-a0dc-49149df8a3b7",
+      "name": "Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        200
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-10-30T15:50:19.338Z",
+  "versionId": "26ef2f2b-3e0a-43c0-9c8a-3b488b1a24c4"
+}
