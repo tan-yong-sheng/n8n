@@ -33,7 +33,7 @@
       "parameters": {
         "httpRequestMethod": "POST",
         "graphApiVersion": "v17.0",
-        "node": "171188196071772/photos",
+        "node": "={{ $json.facebook_page_id }}/photos",
         "options": {
           "queryParameters": {
             "parameter": [
@@ -74,7 +74,7 @@
             "parameter": [
               {
                 "name": "message",
-                "value": "🚀 Unlock automation hacks & marketing insights to boost your work — join our Telegram channel now: https://bit.ly/49KyUF2"
+                "value": "🚀 Unlock automation hacks & marketing insights to boost your work — join our Telegram channel now: https://bit.ly/3G2CRHM"
               }
             ]
           }
@@ -85,7 +85,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        540,
+        520,
         40
       ],
       "credentials": {
@@ -102,8 +102,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        20,
-        80
+        40,
+        40
       ]
     }
   ],
@@ -114,6 +114,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-18T15:15:27.000Z",
-  "versionId": "cbb373c9-9a15-4828-8d44-6f196e20660e"
+  "updatedAt": "2023-11-18T16:29:21.000Z",
+  "versionId": "baec4469-2885-4fc7-bfa2-fba4ddcc3d8f"
 }
