@@ -5,23 +5,50 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Extract blog title, post excerpt, url and thumbnail",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "(Need Edit) Social media settings configuration",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Edit Fields": {
+    "Merge": {
       "main": [
         [
           {
-            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(Need Edit) Social media settings configuration": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Extract blog title, post excerpt, url and thumbnail": {
+      "main": [
+        [
+          {
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
@@ -52,21 +79,6 @@
     },
     {
       "parameters": {
-        "include": "selected",
-        "includeFields": "body.post.post_title, body.post.post_excerpt, body.post_permalink, body.post_thumbnail",
-        "options": {}
-      },
-      "id": "1b3dc1c7-3921-4605-a209-dc8e9cef62f9",
-      "name": "Edit Fields",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.2,
-      "position": [
-        700,
-        -180
-      ]
-    },
-    {
-      "parameters": {
         "workflowId": "pPg5GT17OwiI4aSn"
       },
       "id": "1b89cd2b-6b99-433a-bd63-2f0a038734fb",
@@ -74,8 +86,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        1060,
-        -300
+        1200,
+        -320
       ]
     },
     {
@@ -87,8 +99,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        1060,
-        -100
+        1200,
+        20
       ]
     },
     {
@@ -159,6 +171,60 @@
         960,
         920
       ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "9af81525-1201-437c-b383-eea3ab462481",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        880,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "facebook_page_id",
+              "stringValue": "171188196071772"
+            },
+            {
+              "name": "telegram_channel_id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "41bbffc9-df2a-47a2-83e3-6123a9141566",
+      "name": "(Need Edit) Social media settings configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        620,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "include": "selected",
+        "includeFields": "body.post.post_title, body.post.post_excerpt, body.post_permalink, body.post_thumbnail",
+        "options": {}
+      },
+      "id": "1b3dc1c7-3921-4605-a209-dc8e9cef62f9",
+      "name": "Extract blog title, post excerpt, url and thumbnail",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        620,
+        -300
+      ]
     }
   ],
   "pinData": {},
@@ -168,6 +234,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-18T15:13:49.000Z",
-  "versionId": "46eb9020-af91-4575-b1b7-465e8ceca76c"
+  "updatedAt": "2023-11-18T16:24:43.000Z",
+  "versionId": "10d91850-8bb3-4964-a631-c741515afed6"
 }
