@@ -1,0 +1,173 @@
+{
+  "active": true,
+  "connections": {
+    "When WordPress post is Published": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-18T12:03:51.967Z",
+  "id": "DGhBDno2Dbkb8Ayn",
+  "meta": null,
+  "name": "Automate wordpress posting",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "d27d9401-00b4-4be6-9f61-e1d82e47d65f",
+        "options": {}
+      },
+      "id": "19fd047d-8d16-49e5-a5d2-f7db2d953445",
+      "name": "When WordPress post is Published",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -200
+      ],
+      "webhookId": "d27d9401-00b4-4be6-9f61-e1d82e47d65f"
+    },
+    {
+      "parameters": {
+        "include": "selected",
+        "includeFields": "body.post.post_title, body.post.post_excerpt, body.post_permalink, body.post_thumbnail",
+        "options": {}
+      },
+      "id": "1b3dc1c7-3921-4605-a209-dc8e9cef62f9",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        700,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "pPg5GT17OwiI4aSn"
+      },
+      "id": "1b89cd2b-6b99-433a-bd63-2f0a038734fb",
+      "name": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "zto5ieWYNupvp5p5"
+      },
+      "id": "a4886aa9-f559-4fee-b4b2-bd3d8e374ead",
+      "name": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        -100
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "b298174c-a9a2-4085-a306-b639b3d884f3",
+      "name": "Reddit",
+      "type": "n8n-nodes-base.reddit",
+      "typeVersion": 1,
+      "position": [
+        980,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "732406b8-7db4-4fc1-b1fc-d3ff9b4151f8",
+      "name": "X",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1020,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "7feca032-6570-4e2f-a87a-15ce87d6b60a",
+      "name": "Send to Telegram Group",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        1280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "pj6044qZWUZTzUOL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "20d28c8b-f6db-48c2-85ee-df8134bd6e2b",
+      "name": "Send to Facebook Group",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "db918c92-c852-4dca-a30a-620fe7ffc044",
+      "name": "Send to Instagram",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        960,
+        920
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-11-18T15:13:49.000Z",
+  "versionId": "46eb9020-af91-4575-b1b7-465e8ceca76c"
+}
