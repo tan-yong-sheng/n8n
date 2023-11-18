@@ -32,7 +32,7 @@
     {
       "parameters": {
         "operation": "sendPhoto",
-        "chatId": "-1001678378433",
+        "chatId": "={{ $json.telegram_channel_id }}",
         "file": "={{ $json.post_thumbnail }}",
         "additionalFields": {
           "caption": "={{ $json.post_title }}\n\n{{ $json.post_excerpt }} \n\nRead more here: {{ $json.post_permalink }}"
@@ -61,6 +61,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-18T15:09:35.000Z",
-  "versionId": "10db0991-dd57-463b-a30c-65a38276faa2"
+  "updatedAt": "2023-11-18T16:33:53.000Z",
+  "versionId": "93e27b21-948c-4889-9a3d-6d528959aac3"
 }
