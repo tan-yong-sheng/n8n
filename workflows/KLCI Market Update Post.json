@@ -244,8 +244,8 @@
       ]
     }
   },
-  "createdAt": "2023-10-13T14:14:57.686Z",
-  "id": "u1FgP10Ngi8KHYJD",
+  "createdAt": "2023-11-18T08:54:48.206Z",
+  "id": "IwyAVgmXPO0mjFng",
   "meta": null,
   "name": "KLCI Market Update Post",
   "nodes": [
@@ -254,11 +254,11 @@
       "name": "On clicking 'execute'",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        -100,
-        160
+        -1120,
+        480
       ],
       "typeVersion": 1,
-      "id": "222a3bf6-2c1d-4761-8802-fa4bc003ab14"
+      "id": "6b36e423-a459-4f60-961f-fb71d29d2ca7"
     },
     {
       "parameters": {
@@ -279,13 +279,13 @@
           ]
         }
       },
-      "id": "a2721655-327d-4c2b-9ff2-ae1d1238159d",
+      "id": "581e9fe6-ca06-4389-af54-e55e02b2c8d3",
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        -100,
-        360
+        -1120,
+        680
       ]
     },
     {
@@ -319,13 +319,13 @@
           "trimValues": true
         }
       },
-      "id": "538ac06a-c8bb-483d-867c-45ca66a50751",
+      "id": "74e6e10f-bc27-4fa1-a355-c3de71fef4c9",
       "name": "Extract top 5 gainers & top 5 losers",
       "type": "n8n-nodes-base.html",
       "typeVersion": 1,
       "position": [
-        660,
-        300
+        -360,
+        620
       ]
     },
     {
@@ -340,11 +340,11 @@
       "name": "Get image template",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        460,
-        160
+        -560,
+        480
       ],
       "typeVersion": 1,
-      "id": "78c46f69-a1e8-4d88-a3e9-9a666ab4da10",
+      "id": "47209d44-7aae-4b02-ba57-9ae8606c2d48",
       "alwaysOutputData": true,
       "retryOnFail": true
     },
@@ -368,13 +368,13 @@
         },
         "options": {}
       },
-      "id": "5cdece2d-415f-48e1-b0a0-691949f84fb1",
+      "id": "033991b4-6868-487f-b97b-503056f9d356",
       "name": "Globals",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3,
       "position": [
-        160,
-        260
+        -860,
+        580
       ]
     },
     {
@@ -387,17 +387,17 @@
           "caption": "Hi guys, it's market update!"
         }
       },
-      "id": "dfe502bb-f398-443e-b870-a7f71f7e5be8",
+      "id": "6c6d74db-e3b9-479a-9d57-7ed4d091ec55",
       "name": "Send message to telegram channel",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        2260,
-        320
+        1240,
+        640
       ],
       "credentials": {
         "telegramApi": {
-          "id": "eyC8LOJJNwIz4ikW",
+          "id": "pj6044qZWUZTzUOL",
           "name": "Telegram account"
         }
       }
@@ -412,20 +412,14 @@
           "caption": "Hi guys, it's market update in this bot!"
         }
       },
-      "id": "94f60d33-9977-41d3-ab17-f102c846627d",
+      "id": "2cdadadb-38ea-4f51-a448-abc3ddc1ddc8",
       "name": "Send message to telegram bot",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1720,
-        1800
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "eyC8LOJJNwIz4ikW",
-          "name": "Telegram account"
-        }
-      }
+        700,
+        2120
+      ]
     },
     {
       "parameters": {
@@ -433,13 +427,13 @@
         "height": 692.5129573985971,
         "width": 601.2513846348166
       },
-      "id": "5ff4c591-ceb1-4d1a-9b07-ada8d7ddffdd",
+      "id": "2cdfa92c-e916-4d7b-995b-5a107d30f6db",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2160,
-        0
+        1140,
+        320
       ]
     },
     {
@@ -460,20 +454,20 @@
           "timeout": 20000
         }
       },
-      "id": "5bfab412-bd0d-48d3-a6f2-b95e9d03c017",
+      "id": "c1621c55-c37b-411c-a4d3-f67af2807417",
       "name": "Scrape top 5 gainers and losers from bursamarketplace",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        460,
-        320
+        -560,
+        640
       ],
       "alwaysOutputData": true,
       "retryOnFail": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "XnuODFh7pDzm9fh5",
-          "name": "User Agent"
+          "id": "zkMf1ADZ6eWkkMGz",
+          "name": "Header Auth account"
         }
       }
     },
@@ -483,13 +477,13 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "81c1bfe8-57b8-42d1-90ab-0e10fa9d3403",
+      "id": "3d619496-afc6-4428-8548-fbe3ec25d89b",
       "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1520,
-        480
+        500,
+        800
       ]
     },
     {
@@ -503,13 +497,13 @@
           ]
         }
       },
-      "id": "eb046a22-c5f1-42d5-942e-3ce9c866726a",
+      "id": "8abf8c38-5655-4e6b-913c-c994c38906d6",
       "name": "IF",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        820,
-        640
+        -200,
+        960
       ]
     },
     {
@@ -554,13 +548,13 @@
         },
         "options": {}
       },
-      "id": "d39edfa6-702a-49a8-8d0e-846e5b66cf83",
+      "id": "d7a89458-bd21-4c41-bb02-3e0f155ba456",
       "name": "Add top 5 gainers & losers to the image",
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        1400,
-        300
+        380,
+        620
       ]
     },
     {
@@ -575,13 +569,13 @@
         },
         "options": {}
       },
-      "id": "5cafbf3f-f5a2-4394-9ac2-bdace288e30a",
+      "id": "0738f6fe-c97a-4e20-beee-42c2107ff3c0",
       "name": "Set color to red",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3,
       "position": [
-        1020,
-        700
+        0,
+        1020
       ]
     },
     {
@@ -596,13 +590,13 @@
         },
         "options": {}
       },
-      "id": "82ce8e4a-9a49-4e2c-a11d-be02f0c70975",
+      "id": "0dc0e9bc-4aa6-4013-8b17-734127973ba6",
       "name": "Set color to green",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3,
       "position": [
-        1020,
-        540
+        0,
+        860
       ]
     },
     {
@@ -611,13 +605,13 @@
         "height": 332.05698987409846,
         "width": 772.4378295370383
       },
-      "id": "9492ef02-9ca6-4aa4-a4b8-2bfa3eeb95d6",
+      "id": "fb8f7e70-aaab-47f5-b6eb-bad96c9939f5",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        520
+        -620,
+        840
       ]
     },
     {
@@ -638,20 +632,20 @@
           "timeout": 20000
         }
       },
-      "id": "73fae106-2b3b-4015-a2cc-09fce93a87d1",
+      "id": "a83ccccb-b74c-444c-b1be-cdf8a3e1e15a",
       "name": "Get KLCI statistics",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        460,
-        640
+        -560,
+        960
       ],
       "alwaysOutputData": true,
       "retryOnFail": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "XnuODFh7pDzm9fh5",
-          "name": "User Agent"
+          "id": "zkMf1ADZ6eWkkMGz",
+          "name": "Header Auth account"
         }
       }
     },
@@ -674,13 +668,13 @@
         },
         "options": {}
       },
-      "id": "4bdf7b1c-c849-44a7-84a9-6083dd330d50",
+      "id": "d30fd7a5-4847-4c96-97ef-19cf4ac9125a",
       "name": "HTML1",
       "type": "n8n-nodes-base.html",
       "typeVersion": 1,
       "position": [
-        640,
-        980
+        -380,
+        1300
       ]
     },
     {
@@ -701,20 +695,20 @@
           "timeout": 20000
         }
       },
-      "id": "64a69f0a-3c8d-411e-8247-c2ded409f22e",
+      "id": "f999b316-cfbc-45a9-8be0-6291a28dcff6",
       "name": "Get sector statistics",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        460,
-        980
+        -560,
+        1300
       ],
       "retryOnFail": true,
       "alwaysOutputData": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "XnuODFh7pDzm9fh5",
-          "name": "User Agent"
+          "id": "zkMf1ADZ6eWkkMGz",
+          "name": "Header Auth account"
         }
       }
     },
@@ -747,13 +741,13 @@
         },
         "options": {}
       },
-      "id": "12f68715-b1b8-4c6b-85b5-0e72d7367bb3",
+      "id": "31f61358-202d-4a25-81a8-f93a75c99646",
       "name": "Extract KLCI stats",
       "type": "n8n-nodes-base.html",
       "typeVersion": 1,
       "position": [
-        640,
-        640
+        -380,
+        960
       ]
     },
     {
@@ -762,13 +756,13 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "f0c4d9a3-0d0d-43d1-afe9-f7100ab6cc80",
+      "id": "aabab1bc-2e31-4451-9529-b9c80b9e86fb",
       "name": "Merge2",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1840,
-        780
+        820,
+        1100
       ]
     },
     {
@@ -833,13 +827,13 @@
         },
         "options": {}
       },
-      "id": "891cd75f-dac6-477c-add1-9b48474ea140",
+      "id": "52217928-41dd-45e8-bf86-e15a5f308c81",
       "name": "Edit Image",
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        2000,
-        680
+        980,
+        1000
       ]
     },
     {
@@ -877,13 +871,13 @@
         },
         "options": {}
       },
-      "id": "e29a3350-8b87-42bd-8676-5e038fb13911",
+      "id": "ec73bb0a-65e5-4412-ab3c-9d13ce9ba140",
       "name": "Add KLCI market data stats to post",
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        1640,
-        700
+        620,
+        1020
       ]
     },
     {
@@ -892,13 +886,13 @@
         "height": 1168.0104657579943,
         "width": 805.653668440722
       },
-      "id": "5bd0f444-a45e-4c69-b774-99c41cb8f18a",
+      "id": "17128480-7f88-419c-ad5b-9a4c3f34c430",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        360,
-        0
+        -660,
+        320
       ]
     },
     {
@@ -907,26 +901,26 @@
         "height": 253.2776498925171,
         "width": 625.7452654334037
       },
-      "id": "76cf3771-68cd-46ea-b85e-df845cb75d65",
+      "id": "4b1fba2b-a9ed-4a6f-a973-f2198197fa9d",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        880
+        -620,
+        1200
       ]
     },
     {
       "parameters": {
         "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet items = $input.all();\n\n// Assuming 'sector_%CHG' is an array in the first item\nitems[0].json.color = items[0].json[\"sector_%CHG\"].map(item => (parseFloat(item) > 0 ? \"green\" : \"red\"));\n\nreturn items;"
       },
-      "id": "b2462fe2-ebf1-4e2b-a15a-eaaa9c7b5f97",
+      "id": "4a248b77-3a7f-4afa-815d-5fb57f56cfa3",
       "name": "Code",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        820,
-        980
+        -200,
+        1300
       ]
     },
     {
@@ -935,13 +929,13 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "493af3c1-451b-4a10-b963-046c14b3a68a",
+      "id": "f7edb3a4-8a7e-4cf9-ab56-f17b841c9b72",
       "name": "Merge json data with binary data",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        1240,
-        160
+        220,
+        480
       ],
       "notesInFlow": false
     },
@@ -951,13 +945,13 @@
         "height": 1047.2183599305008,
         "width": 905.0062906031442
       },
-      "id": "3c5f63a0-3cd9-4178-9fe9-ec8674ab0e2c",
+      "id": "6b953214-bc2d-4b44-ac2b-b42cc3ca39a8",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1220,
-        0
+        200,
+        320
       ]
     },
     {
@@ -966,13 +960,13 @@
         "height": 390.90496201498024,
         "width": 685.5107502406686
       },
-      "id": "b93b3fa8-efa3-4618-a547-b8921c3dd797",
+      "id": "2f80d783-16a8-42eb-8ef6-9c3c965f36da",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        420,
-        99.01570275417487
+        -600,
+        419
       ]
     },
     {
@@ -981,13 +975,13 @@
         "height": 559.3297578376718,
         "width": 527.9520702775047
       },
-      "id": "817a3ace-776b-4fa9-90c4-b4115269cac4",
+      "id": "54733d25-f8e8-4f1d-9e9d-8384dc850bf4",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2180,
-        100
+        1160,
+        420
       ]
     },
     {
@@ -996,13 +990,13 @@
         "height": 80,
         "width": 627.0206354874701
       },
-      "id": "9e309945-0ca6-4c5a-96d2-f99010d2f3e7",
+      "id": "df233820-d221-4eef-a444-4cc022d0ce55",
       "name": "Sticky Note7",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1220,
-        -140
+        200,
+        180
       ]
     }
   ],
@@ -1017,6 +1011,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-10-14T16:44:39.546Z",
-  "versionId": "f8041680-2d7d-4b85-bd44-0df387e8c4e8"
+  "updatedAt": "2023-11-18T09:19:16.000Z",
+  "versionId": "1b18e10a-d4ef-4198-aef1-4d7366939f3a"
 }
