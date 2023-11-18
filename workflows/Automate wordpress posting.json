@@ -43,7 +43,7 @@
       "main": [
         [
           {
-            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "node": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
             "type": "main",
             "index": 0
           },
@@ -53,7 +53,7 @@
             "index": 0
           },
           {
-            "node": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
+            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
             "type": "main",
             "index": 0
           }
@@ -92,7 +92,7 @@
       "typeVersion": 1,
       "position": [
         1200,
-        -400
+        -640
       ]
     },
     {
@@ -105,7 +105,7 @@
       "typeVersion": 1,
       "position": [
         1200,
-        -200
+        -440
       ]
     },
     {
@@ -178,7 +178,7 @@
       "typeVersion": 2.1,
       "position": [
         880,
-        -160
+        -120
       ]
     },
     {
@@ -194,8 +194,13 @@
               "stringValue": "-1002108829785"
             },
             {
+              "name": "reddit_profile",
+              "stringValue": "=u_tys203831"
+            },
+            {
               "name": "subreddit",
-              "stringValue": "=test"
+              "type": "arrayValue",
+              "arrayValue": "[\"test\",\"apiTesting\"]"
             }
           ]
         },
@@ -235,7 +240,7 @@
       "typeVersion": 1,
       "position": [
         1200,
-        20
+        -220
       ]
     },
     {
@@ -250,6 +255,19 @@
         1060,
         1220
       ]
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "00380587-9fab-48d3-9c42-c2d7e42de6bd",
+      "name": "LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        160
+      ]
     }
   ],
   "pinData": {},
@@ -259,6 +277,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-18T18:32:46.000Z",
-  "versionId": "b9ff8956-261f-40a9-bf75-b9ef96becbae"
+  "updatedAt": "2023-11-18T20:15:02.000Z",
+  "versionId": "618c9d3a-d277-47b4-9349-44e3b2a9d64d"
 }
