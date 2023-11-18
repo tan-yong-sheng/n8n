@@ -1,0 +1,119 @@
+{
+  "active": false,
+  "connections": {
+    "Publish a post at Facebook Page": {
+      "main": [
+        [
+          {
+            "node": "Comment on the published post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Publish a post at Facebook Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-18T14:43:24.907Z",
+  "id": "pPg5GT17OwiI4aSn",
+  "meta": null,
+  "name": "Publish to FB page",
+  "nodes": [
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "171188196071772/photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $json.post_thumbnail }}"
+              },
+              {
+                "name": "message",
+                "value": "={{ $json.post_title }}\n\n{{ $json.post_excerpt }}\n\nRead more here:  {{ $json.post_permalink }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "659a0232-2790-4ad2-bf20-be835e38b91a",
+      "name": "Publish a post at Facebook Page",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        280,
+        40
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.post_id }}/comments",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "🚀 Unlock automation hacks & marketing insights to boost your work — join our Telegram channel now: https://bit.ly/49KyUF2"
+              }
+            ]
+          }
+        }
+      },
+      "id": "e10bfbbf-cece-40ce-bd22-ce6d47f71d2f",
+      "name": "Comment on the published post",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        540,
+        40
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "6052446c-87f7-4cfb-a3d6-fb9b24d5e65f",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        80
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-11-18T15:15:27.000Z",
+  "versionId": "cbb373c9-9a15-4828-8d44-6f196e20660e"
+}
