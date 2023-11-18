@@ -11,6 +11,11 @@
           }
         ]
       ]
+    },
+    "Reddit": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2023-11-18T17:54:45.099Z",
@@ -20,7 +25,7 @@
   "nodes": [
     {
       "parameters": {
-        "subreddit": "={{ $json.subreddit }}",
+        "subreddit": "={{ $json.reddit_profile }}",
         "title": "={{ $json.post_title }}",
         "text": "={{ $json.post_excerpt }}\n\nRead more: {{ $json.post_permalink }} "
       },
@@ -29,12 +34,12 @@
       "type": "n8n-nodes-base.reddit",
       "typeVersion": 1,
       "position": [
-        480,
+        460,
         180
       ],
       "credentials": {
         "redditOAuth2Api": {
-          "id": "1GNVI5lGAZR4wXiE",
+          "id": "whsuKkkbz95KIlEO",
           "name": "Reddit account"
         }
       }
@@ -52,7 +57,7 @@
     },
     {
       "parameters": {
-        "content": "Share to profile page first, then:\n\nCross post to other subreddit?",
+        "content": "Share to profile page first, then:",
         "height": 270.97561491783125
       },
       "id": "99ba185f-6b62-4a9e-a922-034b67ec80cb",
@@ -60,9 +65,93 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        420,
-        79.55712356776792
+        400,
+        80
       ]
+    },
+    {
+      "parameters": {
+        "content": "crosspost to other subreddit\n\nhttps://www.reddit.com/r/redditdev/comments/myvvr8/is_it_possible_to_crosspost_via_the_reddit_api/\nhttps://www.reddit.com/r/redditdev/comments/k1lo76/how_to_make_simple_submit_post_to_reddit_api/",
+        "height": 321.1888763086548,
+        "width": 746.3280928023789
+      },
+      "id": "18d72a4b-6ee7-4c76-b8eb-b695a53d22b5",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://oauth.reddit.com/api/submit",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "redditOAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "kind",
+              "value": "link"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.post_title }}"
+            },
+            {
+              "name": "sr",
+              "value": "={{ $json.subreddit }}"
+            },
+            {
+              "name": "nsfw",
+              "value": "False"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.post_excerpt }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ee2bdcf8-a5d5-46ce-94ec-d2c6e40c84a6",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        820,
+        -180
+      ],
+      "credentials": {
+        "redditOAuth2Api": {
+          "id": "whsuKkkbz95KIlEO",
+          "name": "Reddit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subreddit": "={{ $json.subreddit }}",
+        "title": "={{ $json.post_title }}",
+        "text": "={{ $json.post_excerpt }}\n\nRead more: {{ $json.post_permalink }} "
+      },
+      "id": "85511bdb-a846-4db2-8e47-93b51de65706",
+      "name": "Reddit1",
+      "type": "n8n-nodes-base.reddit",
+      "typeVersion": 1,
+      "position": [
+        640,
+        400
+      ],
+      "credentials": {
+        "redditOAuth2Api": {
+          "id": "whsuKkkbz95KIlEO",
+          "name": "Reddit account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -72,6 +161,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-18T17:55:58.000Z",
-  "versionId": "40940542-3df3-4a08-8d3a-c0802a6026bc"
+  "updatedAt": "2023-11-18T20:14:57.000Z",
+  "versionId": "e2dd77ee-de26-4c8c-b317-1cf736895bd0"
 }
