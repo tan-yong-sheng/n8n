@@ -1,0 +1,66 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Publish post to Telegram Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-18T15:07:43.055Z",
+  "id": "zto5ieWYNupvp5p5",
+  "meta": null,
+  "name": "Publish to Telegram Channel",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "61a1c3b0-5036-4669-8427-25b7c8a3a2cc",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        300,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "-1001678378433",
+        "file": "={{ $json.post_thumbnail }}",
+        "additionalFields": {
+          "caption": "={{ $json.post_title }}\n\n{{ $json.post_excerpt }} \n\nRead more here: {{ $json.post_permalink }}"
+        }
+      },
+      "id": "342cdbfe-a26b-4dfe-987d-3b809a6749ef",
+      "name": "Publish post to Telegram Channel",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "pj6044qZWUZTzUOL",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-11-18T15:09:35.000Z",
+  "versionId": "10db0991-dd57-463b-a30c-65a38276faa2"
+}
