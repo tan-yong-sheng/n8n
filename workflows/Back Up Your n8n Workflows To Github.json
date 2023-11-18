@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "n8n": {
       "main": [
@@ -173,21 +173,10 @@
           }
         ]
       ]
-    },
-    "Workflow Trigger": {
-      "main": [
-        [
-          {
-            "node": "Globals",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
-  "createdAt": "2023-10-13T13:48:30.423Z",
-  "id": "4qkQ2Apyr1oBg5nM",
+  "createdAt": "2023-11-18T11:43:53.390Z",
+  "id": "B5xrY9R0TdNIVl6A",
   "meta": null,
   "name": "Back Up Your n8n Workflows To Github",
   "nodes": [
@@ -224,7 +213,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "githubOAuth2Api": {
-          "id": "lDhVuCm9mTJ67xHo",
+          "id": "oWglcqW1Rij9PHOj",
           "name": "GitHub account"
         }
       },
@@ -294,7 +283,6 @@
     },
     {
       "parameters": {
-        "authentication": "oAuth2",
         "resource": "file",
         "operation": "edit",
         "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
@@ -310,17 +298,10 @@
         2740,
         440
       ],
-      "typeVersion": 1,
-      "credentials": {
-        "githubOAuth2Api": {
-          "id": "lDhVuCm9mTJ67xHo",
-          "name": "GitHub account"
-        }
-      }
+      "typeVersion": 1
     },
     {
       "parameters": {
-        "authentication": "oAuth2",
         "resource": "file",
         "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
@@ -335,13 +316,7 @@
         2740,
         620
       ],
-      "typeVersion": 1,
-      "credentials": {
-        "githubOAuth2Api": {
-          "id": "lDhVuCm9mTJ67xHo",
-          "name": "GitHub account"
-        }
-      }
+      "typeVersion": 1
     },
     {
       "parameters": {
@@ -363,11 +338,11 @@
           "string": [
             {
               "name": "repo.owner",
-              "value": "tan-yong-sheng"
+              "value": "n8n-io"
             },
             {
               "name": "repo.name",
-              "value": "n8n"
+              "value": "n8n-backups"
             },
             {
               "name": "repo.path",
@@ -465,7 +440,7 @@
       "typeVersion": 1,
       "credentials": {
         "n8nApi": {
-          "id": "EaqYKZhZIsl5x6fG",
+          "id": "IRSwRQgFlUhTSqQi",
           "name": "n8n account"
         }
       }
@@ -493,22 +468,6 @@
         440
       ],
       "typeVersion": 2
-    },
-    {
-      "parameters": {
-        "events": [
-          "update",
-          "activate"
-        ]
-      },
-      "id": "c8efc1d2-aa06-4a6e-b13c-a9b0daedca44",
-      "name": "Workflow Trigger",
-      "type": "n8n-nodes-base.workflowTrigger",
-      "typeVersion": 1,
-      "position": [
-        820,
-        800
-      ]
     }
   ],
   "pinData": {},
@@ -517,7 +476,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2023-10-14T08:03:30.739Z",
-  "versionId": "729bd595-282c-45f7-b107-f0d9f7268207"
+  "triggerCount": 0,
+  "updatedAt": "2023-11-18T11:43:53.390Z",
+  "versionId": "8a031bd4-7037-47bc-9253-b791b9fec86f"
 }
