@@ -392,7 +392,8 @@
           "item": [
             {
               "mode": "everyWeek",
-              "hour": 18
+              "hour": 18,
+              "weekday": "0"
             }
           ]
         }
@@ -518,6 +519,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-11-18T16:30:22.000Z",
-  "versionId": "f565ff00-7876-42b3-8ba0-0d52f211bacb"
+  "updatedAt": "2023-11-18T16:30:39.000Z",
+  "versionId": "6b3df6c7-61d5-4b4c-99f7-3380fa15562c"
 }
