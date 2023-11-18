@@ -17,22 +17,6 @@
         ]
       ]
     },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "(Need Edit) Social media settings configuration": {
       "main": [
         [
@@ -49,6 +33,27 @@
         [
           {
             "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
             "type": "main",
             "index": 0
           }
@@ -87,7 +92,7 @@
       "typeVersion": 1,
       "position": [
         1200,
-        -320
+        -400
       ]
     },
     {
@@ -100,18 +105,7 @@
       "typeVersion": 1,
       "position": [
         1200,
-        20
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "b298174c-a9a2-4085-a306-b639b3d884f3",
-      "name": "Reddit",
-      "type": "n8n-nodes-base.reddit",
-      "typeVersion": 1,
-      "position": [
-        980,
-        1040
+        -200
       ]
     },
     {
@@ -123,8 +117,8 @@
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        1020,
-        1440
+        1200,
+        260
       ]
     },
     {
@@ -136,8 +130,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
       "position": [
-        1000,
-        1280
+        1180,
+        680
       ],
       "credentials": {
         "telegramApi": {
@@ -155,8 +149,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1240,
-        820
+        1200,
+        480
       ]
     },
     {
@@ -168,8 +162,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        960,
-        920
+        1160,
+        880
       ]
     },
     {
@@ -196,7 +190,12 @@
               "stringValue": "171188196071772"
             },
             {
-              "name": "telegram_channel_id"
+              "name": "telegram_channel_id",
+              "stringValue": "-1002108829785"
+            },
+            {
+              "name": "subreddit",
+              "stringValue": "=test"
             }
           ]
         },
@@ -225,6 +224,32 @@
         620,
         -300
       ]
+    },
+    {
+      "parameters": {
+        "workflowId": "iGmi85xkl2kLVMiT"
+      },
+      "id": "387958d8-bdfb-4506-9f36-d4be659d2787",
+      "name": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Google Indexing API: \n\nhttps://community.n8n.io/t/google-indexing-workflow/25174\n\nhttps://developers.google.com/search/apis/indexing-api/v3/using-api\n\n"
+      },
+      "id": "d0b440fc-a4b6-4e49-951a-b87dc5c604f7",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        1220
+      ]
     }
   ],
   "pinData": {},
@@ -234,6 +259,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-18T16:24:43.000Z",
-  "versionId": "10d91850-8bb3-4964-a631-c741515afed6"
+  "updatedAt": "2023-11-18T18:32:46.000Z",
+  "versionId": "b9ff8956-261f-40a9-bf75-b9ef96becbae"
 }
