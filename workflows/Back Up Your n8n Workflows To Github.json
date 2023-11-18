@@ -391,8 +391,8 @@
         "triggerTimes": {
           "item": [
             {
-              "mode": "everyX",
-              "value": 12
+              "mode": "everyWeek",
+              "hour": 18
             }
           ]
         }
@@ -518,6 +518,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-11-18T11:47:42.000Z",
-  "versionId": "cc8e3adb-afcf-4718-86f4-1698165dc424"
+  "updatedAt": "2023-11-18T16:30:22.000Z",
+  "versionId": "f565ff00-7876-42b3-8ba0-0d52f211bacb"
 }
