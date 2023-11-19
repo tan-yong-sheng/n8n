@@ -1,0 +1,62 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-19T03:39:40.069Z",
+  "id": "k7h45SUM7Ch0fgUI",
+  "meta": null,
+  "name": "Publish post to Twitter",
+  "nodes": [
+    {
+      "parameters": {
+        "text": "This is a test",
+        "additionalFields": {}
+      },
+      "id": "8f8ae9ea-8d7c-41e0-952c-e7d865536774",
+      "name": "X",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        720,
+        180
+      ],
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "tUOdfQLo94Ill5AI",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "ea982ced-f52f-44c1-8dd0-94038ad72f31",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        500,
+        180
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-11-19T03:40:09.000Z",
+  "versionId": "bf2e93b3-a721-4e4b-90fa-9823bdde03ee"
+}
