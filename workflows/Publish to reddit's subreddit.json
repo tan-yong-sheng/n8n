@@ -5,16 +5,27 @@
       "main": [
         [
           {
-            "node": "Reddit",
+            "node": "Publish post to reddit profile",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "split subreddit list",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Reddit": {
+    "split subreddit list": {
       "main": [
-        []
+        [
+          {
+            "node": "Publish post to other subreddits",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -23,27 +34,6 @@
   "meta": null,
   "name": "Publish to reddit's subreddit",
   "nodes": [
-    {
-      "parameters": {
-        "subreddit": "={{ $json.reddit_profile }}",
-        "title": "={{ $json.post_title }}",
-        "text": "={{ $json.post_excerpt }}\n\nRead more: {{ $json.post_permalink }} "
-      },
-      "id": "cb72a306-665a-4c5b-b2ed-28d14224afd6",
-      "name": "Reddit",
-      "type": "n8n-nodes-base.reddit",
-      "typeVersion": 1,
-      "position": [
-        460,
-        180
-      ],
-      "credentials": {
-        "redditOAuth2Api": {
-          "id": "whsuKkkbz95KIlEO",
-          "name": "Reddit account"
-        }
-      }
-    },
     {
       "parameters": {},
       "id": "4ae8a9fd-44ea-471f-9bb1-bb05a7f4a110",
@@ -80,8 +70,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        700,
-        80
+        900,
+        160
       ]
     },
     {
@@ -134,16 +124,38 @@
     },
     {
       "parameters": {
+        "subreddit": "={{ $json.reddit_profile }}",
+        "title": "={{ $json.post_title }}",
+        "text": "={{ $json.post_excerpt }}\n\nRead more: {{ $json.post_permalink }} "
+      },
+      "id": "6699375d-b77d-48c7-840a-ec35ee60281d",
+      "name": "Publish post to reddit profile",
+      "type": "n8n-nodes-base.reddit",
+      "typeVersion": 1,
+      "position": [
+        480,
+        180
+      ],
+      "executeOnce": false,
+      "credentials": {
+        "redditOAuth2Api": {
+          "id": "whsuKkkbz95KIlEO",
+          "name": "Reddit account"
+        }
+      }
+    },
+    {
+      "parameters": {
         "subreddit": "={{ $json.subreddit }}",
         "title": "={{ $json.post_title }}",
         "text": "={{ $json.post_excerpt }}\n\nRead more: {{ $json.post_permalink }} "
       },
-      "id": "85511bdb-a846-4db2-8e47-93b51de65706",
-      "name": "Reddit1",
+      "id": "3f75ab9a-ec35-40fb-a9d1-b0bf22366bcd",
+      "name": "Publish post to other subreddits",
       "type": "n8n-nodes-base.reddit",
       "typeVersion": 1,
       "position": [
-        640,
+        680,
         400
       ],
       "credentials": {
@@ -152,6 +164,22 @@
           "name": "Reddit account"
         }
       }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "subreddit",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "post_title, post_excerpt, post_permalink, post_thumbnail",
+        "options": {}
+      },
+      "id": "a38acabc-c5cf-4d32-8e67-9b9ddd17c05c",
+      "name": "split subreddit list",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        480,
+        400
+      ]
     }
   ],
   "pinData": {},
@@ -161,6 +189,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-18T20:14:57.000Z",
-  "versionId": "e2dd77ee-de26-4c8c-b317-1cf736895bd0"
+  "updatedAt": "2023-11-19T02:40:55.000Z",
+  "versionId": "1b5515f6-6215-43b1-bca4-a2cf26928881"
 }
