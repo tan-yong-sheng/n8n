@@ -1,11 +1,51 @@
 {
   "active": false,
   "connections": {
-    "When clicking \"Execute Workflow\"": {
+    "Execute Workflow Trigger": {
       "main": [
         [
           {
-            "node": "X",
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "X1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "X1",
             "type": "main",
             "index": 0
           }
@@ -28,8 +68,8 @@
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        720,
-        180
+        800,
+        440
       ],
       "credentials": {
         "twitterOAuth2Api": {
@@ -40,14 +80,71 @@
     },
     {
       "parameters": {},
-      "id": "ea982ced-f52f-44c1-8dd0-94038ad72f31",
-      "name": "When clicking \"Execute Workflow\"",
-      "type": "n8n-nodes-base.manualTrigger",
+      "id": "486508ae-c902-4961-b8cd-f7f551f0a5c4",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
         500,
-        180
+        240
       ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7349c75f-da9a-4b0e-99a7-705f26bbb6f8",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "aa78d69d-2252-4fad-aa61-4ca32fdba1e1",
+      "name": "Google PaLM Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        860,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "76721954-4603-44b5-88a3-caad3a80d054",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        720,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "text": "This is a test",
+        "additionalFields": {}
+      },
+      "id": "415808de-f702-41be-b374-01c43f686f78",
+      "name": "X1",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        260
+      ],
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "tUOdfQLo94Ill5AI",
+          "name": "X account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -57,6 +154,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-19T03:40:09.000Z",
-  "versionId": "bf2e93b3-a721-4e4b-90fa-9823bdde03ee"
+  "updatedAt": "2023-11-19T07:13:52.000Z",
+  "versionId": "b1bffea8-7537-46a3-b799-f5d0b07bc434"
 }
