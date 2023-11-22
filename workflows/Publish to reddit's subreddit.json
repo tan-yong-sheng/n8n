@@ -48,7 +48,7 @@
     {
       "parameters": {
         "content": "Share to profile page first, then:",
-        "height": 270.97561491783125
+        "height": 248.4491162300426
       },
       "id": "99ba185f-6b62-4a9e-a922-034b67ec80cb",
       "name": "Sticky Note",
@@ -56,71 +56,23 @@
       "typeVersion": 1,
       "position": [
         400,
-        80
+        82.52649868778866
       ]
     },
     {
       "parameters": {
-        "content": "crosspost to other subreddit\n\nhttps://www.reddit.com/r/redditdev/comments/myvvr8/is_it_possible_to_crosspost_via_the_reddit_api/\nhttps://www.reddit.com/r/redditdev/comments/k1lo76/how_to_make_simple_submit_post_to_reddit_api/",
-        "height": 321.1888763086548,
-        "width": 746.3280928023789
+        "content": "Post to other subreddits",
+        "height": 235.58818129505798,
+        "width": 471.5048088113573
       },
       "id": "18d72a4b-6ee7-4c76-b8eb-b695a53d22b5",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        900,
-        160
+        400,
+        360
       ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://oauth.reddit.com/api/submit",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "redditOAuth2Api",
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "kind",
-              "value": "link"
-            },
-            {
-              "name": "title",
-              "value": "={{ $json.post_title }}"
-            },
-            {
-              "name": "sr",
-              "value": "={{ $json.subreddit }}"
-            },
-            {
-              "name": "nsfw",
-              "value": "False"
-            },
-            {
-              "name": "text",
-              "value": "={{ $json.post_excerpt }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "ee2bdcf8-a5d5-46ce-94ec-d2c6e40c84a6",
-      "name": "HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        820,
-        -180
-      ],
-      "credentials": {
-        "redditOAuth2Api": {
-          "id": "whsuKkkbz95KIlEO",
-          "name": "Reddit account"
-        }
-      }
     },
     {
       "parameters": {
@@ -133,8 +85,8 @@
       "type": "n8n-nodes-base.reddit",
       "typeVersion": 1,
       "position": [
-        480,
-        180
+        460,
+        140
       ],
       "executeOnce": false,
       "credentials": {
@@ -189,6 +141,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-19T02:40:55.000Z",
-  "versionId": "1b5515f6-6215-43b1-bca4-a2cf26928881"
+  "updatedAt": "2023-11-20T15:46:42.000Z",
+  "versionId": "e90e6af3-101e-499e-8f29-25099966c423"
 }
