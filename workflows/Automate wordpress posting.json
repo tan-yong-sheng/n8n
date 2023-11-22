@@ -17,17 +17,6 @@
         ]
       ]
     },
-    "(Need Edit) Social media settings configuration": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Extract blog title, post excerpt, url and thumbnail": {
       "main": [
         [
@@ -39,49 +28,85 @@
         ]
       ]
     },
-    "IF": {
+    "Merge": {
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Insert record of blog article",
             "type": "main",
             "index": 0
-          }
-        ],
-        [
+          },
           {
-            "node": "X1",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "AI Agent": {
+    "Edit Fields": {
       "main": [
         [
           {
-            "node": "X1",
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Publish a post at Facebook Page",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Google PaLM Chat Model": {
-      "ai_languageModel": [
+    "(Need Edit) Social media settings configuration": {
+      "main": [
         [
           {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Comment on the published post": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "X1": {
+    "Merge1": {
       "main": [
         []
+      ]
+    },
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "node": "Share post to group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish a post at Facebook Page": {
+      "main": [
+        [
+          {
+            "node": "Comment on the published post",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -108,25 +133,6 @@
     },
     {
       "parameters": {
-        "additionalFields": {}
-      },
-      "id": "7feca032-6570-4e2f-a87a-15ce87d6b60a",
-      "name": "Send to Telegram Group",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.1,
-      "position": [
-        1400,
-        880
-      ],
-      "credentials": {
-        "telegramApi": {
-          "id": "pj6044qZWUZTzUOL",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "options": {}
       },
       "id": "20d28c8b-f6db-48c2-85ee-df8134bd6e2b",
@@ -134,8 +140,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1620,
-        80
+        1420,
+        -620
       ]
     },
     {
@@ -147,8 +153,8 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1160,
-        880
+        1560,
+        -360
       ]
     },
     {
@@ -168,6 +174,166 @@
     },
     {
       "parameters": {
+        "include": "selected",
+        "includeFields": "body.post_id, body.post.post_title, body.post.post_excerpt, body.post_permalink, body.post_thumbnail, body.post.post_date, body.post.post_content",
+        "options": {}
+      },
+      "id": "1b3dc1c7-3921-4605-a209-dc8e9cef62f9",
+      "name": "Extract blog title, post excerpt, url and thumbnail",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        360,
+        -120
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "content": "Google Indexing API: \n\nhttps://community.n8n.io/t/google-indexing-workflow/25174\n\nhttps://developers.google.com/search/apis/indexing-api/v3/using-api\n\n"
+      },
+      "id": "d0b440fc-a4b6-4e49-951a-b87dc5c604f7",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "pPg5GT17OwiI4aSn"
+      },
+      "id": "1b89cd2b-6b99-433a-bd63-2f0a038734fb",
+      "name": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -660
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": "zto5ieWYNupvp5p5"
+      },
+      "id": "a4886aa9-f559-4fee-b4b2-bd3d8e374ead",
+      "name": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -440
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": "iGmi85xkl2kLVMiT"
+      },
+      "id": "387958d8-bdfb-4506-9f36-d4be659d2787",
+      "name": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -220
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": "k7h45SUM7Ch0fgUI"
+      },
+      "id": "83522ffe-4782-49f9-9590-9426b84fc149",
+      "name": "Publish post to Twitter - id: k7h45SUM7Ch0fgUI",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -20
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pet3gkr5nb0r329",
+        "table": "md1pmox9bybc8vc",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Title",
+              "fieldValue": "={{ $json.post_title }}"
+            },
+            {
+              "fieldName": "Post permalink",
+              "fieldValue": "={{ $json.post_permalink }}"
+            },
+            {
+              "fieldName": "Thumbnail URL",
+              "fieldValue": "={{ $json.post_thumbnail }}"
+            },
+            {
+              "fieldName": "Post excerpt",
+              "fieldValue": "={{ $json.post_excerpt }}"
+            },
+            {
+              "fieldName": "Date published",
+              "fieldValue": "={{ $json.post_date }}"
+            },
+            {
+              "fieldName": "Post content",
+              "fieldValue": "={{ $json.post_content }}"
+            },
+            {
+              "fieldName": "Post ID",
+              "fieldValue": "={{ $json.post_id }}"
+            }
+          ]
+        }
+      },
+      "id": "7af0541d-6b93-40fc-8064-d04c30821b9e",
+      "name": "Insert record of blog article",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1100,
+        240
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "lAHf5CVpXMWer3BZ",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "post_thumbnail",
+              "stringValue": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Test.svg/930px-Test.svg.png?20231107004156"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fb9a97d3-07fc-436e-a5d0-0e456fe0a46b",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        580,
+        -620
+      ]
+    },
+    {
+      "parameters": {
         "fields": {
           "values": [
             {
@@ -175,20 +341,30 @@
               "stringValue": "171188196071772"
             },
             {
+              "name": "facebook_group_ids",
+              "type": "arrayValue",
+              "arrayValue": "[\"1641689236149805\",\"aibusinesshackers\"]"
+            },
+            {
               "name": "telegram_channel_id",
               "stringValue": "-1002108829785"
             },
             {
-              "name": "reddit_profile",
+              "name": "reddit_username",
               "stringValue": "=u_tys203831"
             },
             {
               "name": "subreddit",
               "type": "arrayValue",
               "arrayValue": "[\"test\",\"APItestSub\"]"
+            },
+            {
+              "name": "twitter_username",
+              "stringValue": "tan990220"
             }
           ]
         },
+        "include": "none",
         "options": {}
       },
       "id": "41bbffc9-df2a-47a2-83e3-6123a9141566",
@@ -202,150 +378,133 @@
     },
     {
       "parameters": {
-        "include": "selected",
-        "includeFields": "body.post.post_title, body.post.post_excerpt, body.post_permalink, body.post_thumbnail",
-        "options": {}
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.post_id }}/comments",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "🚀 Unlock automation hacks & marketing insights to boost your work — join our Telegram channel now: https://bit.ly/3G2CRHM"
+              }
+            ]
+          }
+        }
       },
-      "id": "1b3dc1c7-3921-4605-a209-dc8e9cef62f9",
-      "name": "Extract blog title, post excerpt, url and thumbnail",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.2,
-      "position": [
-        360,
-        -120
-      ]
-    },
-    {
-      "parameters": {
-        "content": "Google Indexing API: \n\nhttps://community.n8n.io/t/google-indexing-workflow/25174\n\nhttps://developers.google.com/search/apis/indexing-api/v3/using-api\n\n"
-      },
-      "id": "d0b440fc-a4b6-4e49-951a-b87dc5c604f7",
-      "name": "Sticky Note",
-      "type": "n8n-nodes-base.stickyNote",
+      "id": "755156ed-6dd3-4400-ba85-35482248dd0d",
+      "name": "Comment on the published post",
+      "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1060,
-        1220
-      ]
-    },
-    {
-      "parameters": {
-        "workflowId": "pPg5GT17OwiI4aSn"
-      },
-      "id": "1b89cd2b-6b99-433a-bd63-2f0a038734fb",
-      "name": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1,
-      "position": [
-        1300,
-        -700
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "workflowId": "zto5ieWYNupvp5p5"
-      },
-      "id": "a4886aa9-f559-4fee-b4b2-bd3d8e374ead",
-      "name": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1,
-      "position": [
-        1300,
-        -500
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "workflowId": "iGmi85xkl2kLVMiT"
-      },
-      "id": "387958d8-bdfb-4506-9f36-d4be659d2787",
-      "name": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1,
-      "position": [
-        1300,
-        -300
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "workflowId": "k7h45SUM7Ch0fgUI"
-      },
-      "id": "83522ffe-4782-49f9-9590-9426b84fc149",
-      "name": "Publish post to Twitter - id: k7h45SUM7Ch0fgUI",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1,
-      "position": [
-        1300,
-        -100
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "text": "This is a test",
-        "additionalFields": {}
-      },
-      "id": "d89cd76d-4b9d-44c2-ad40-8e687d03c323",
-      "name": "X1",
-      "type": "n8n-nodes-base.twitter",
-      "typeVersion": 2,
-      "position": [
-        1280,
-        320
+        1100,
+        -1040
       ],
       "credentials": {
-        "twitterOAuth2Api": {
-          "id": "tUOdfQLo94Ill5AI",
-          "name": "X account"
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.facebook_group_ids }}/feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "Hi"
+              },
+              {}
+            ]
+          }
+        }
+      },
+      "id": "2f1f63b6-c101-4b1a-b6dd-1ff996cd5326",
+      "name": "Share post to group",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        -900
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {},
-      "id": "4821268c-1eb6-4acf-8ae4-ba395429e018",
-      "name": "IF",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
+      "id": "14cbe44a-d429-4111-bbce-784408044e2f",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
       "position": [
-        720,
-        280
-      ]
+        1340,
+        -900
+      ],
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
+        "fieldToSplitOut": "facebook_group_ids",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": " id, post_permalink, post_id, facebook_page_id",
         "options": {}
       },
-      "id": "078b3616-7866-4d79-8b02-d31e3774f94c",
-      "name": "Google PaLM Chat Model",
-      "type": "@n8n/n8n-nodes-langchain.lmChatGooglePalm",
+      "id": "9b620835-117a-494c-97c6-c5435efed7f4",
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        1560,
+        -900
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.facebook_page_id }}/photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $json.post_thumbnail }}"
+              },
+              {
+                "name": "message",
+                "value": "={{ $json.post_title }}\n\n{{ $json.post_excerpt }}\n\nRead more here:  {{ $json.post_permalink }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "35151a94-d9ec-4808-bba0-12489f710ce8",
+      "name": "Publish a post at Facebook Page",
+      "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        900,
-        400
+        760,
+        -880
       ],
       "credentials": {
-        "googlePalmApi": {
-          "id": "8fmczF5mQEWudNVW",
-          "name": "GooglePaLMApi account"
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
         }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
       },
-      "id": "abf45c6c-77c3-4972-ae7b-76e3112d2c96",
-      "name": "AI Agent",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1,
-      "position": [
-        980,
-        180
-      ]
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {},
@@ -355,6 +514,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-19T07:15:49.000Z",
-  "versionId": "ec99afc7-c07d-4d59-b2db-cbb1607d4285"
+  "updatedAt": "2023-11-20T16:39:47.000Z",
+  "versionId": "169d81a3-04d9-405f-9f34-02efb3d5d31b"
 }
