@@ -242,6 +242,28 @@
           }
         ]
       ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-11-18T08:54:48.206Z",
@@ -254,8 +276,8 @@
       "name": "On clicking 'execute'",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        -1120,
-        480
+        -1160,
+        460
       ],
       "typeVersion": 1,
       "id": "6b36e423-a459-4f60-961f-fb71d29d2ca7"
@@ -273,8 +295,20 @@
                 4,
                 5
               ],
+              "triggerAtHour": 12,
+              "triggerAtMinute": 35
+            },
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
               "triggerAtHour": 17,
-              "triggerAtMinute": 10
+              "triggerAtMinute": 5
             }
           ]
         }
@@ -284,7 +318,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1120,
+        -1140,
         680
       ]
     },
@@ -392,7 +426,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1240,
+        1460,
         640
       ],
       "credentials": {
@@ -401,25 +435,6 @@
           "name": "Telegram account"
         }
       }
-    },
-    {
-      "parameters": {
-        "operation": "sendPhoto",
-        "chatId": "1004394120",
-        "binaryData": true,
-        "binaryPropertyName": "bg",
-        "additionalFields": {
-          "caption": "Hi guys, it's market update in this bot!"
-        }
-      },
-      "id": "2cdadadb-38ea-4f51-a448-abc3ddc1ddc8",
-      "name": "Send message to telegram bot",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1,
-      "position": [
-        700,
-        2120
-      ]
     },
     {
       "parameters": {
@@ -466,7 +481,7 @@
       "retryOnFail": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "zkMf1ADZ6eWkkMGz",
+          "id": "SgLXGsDdW20ccsDE",
           "name": "Header Auth account"
         }
       }
@@ -644,7 +659,7 @@
       "retryOnFail": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "zkMf1ADZ6eWkkMGz",
+          "id": "SgLXGsDdW20ccsDE",
           "name": "Header Auth account"
         }
       }
@@ -707,7 +722,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "httpHeaderAuth": {
-          "id": "zkMf1ADZ6eWkkMGz",
+          "id": "SgLXGsDdW20ccsDE",
           "name": "Header Auth account"
         }
       }
@@ -998,6 +1013,45 @@
         200,
         180
       ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9b25f4e1-333d-4807-bba8-8c6ef2f754c2",
+      "name": "Date & Time",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "text": "Date as of ",
+        "options": {}
+      },
+      "id": "111be47c-641d-4289-b8f4-af8483387cb2",
+      "name": "Edit Image1",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        1040
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "facdaedb-0097-4a7a-b54f-553db4d120db",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1180,
+        1140
+      ]
     }
   ],
   "pinData": {},
@@ -1011,6 +1065,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-18T09:19:16.000Z",
-  "versionId": "1b18e10a-d4ef-4198-aef1-4d7366939f3a"
+  "updatedAt": "2023-11-22T03:07:18.000Z",
+  "versionId": "47b17af6-51a0-465a-a834-63d6de1444be"
 }
