@@ -1,0 +1,258 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Publish a post at Facebook Page1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Item Lists1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Comment on the published post1": {
+      "main": [
+        []
+      ]
+    },
+    "Publish a post at Facebook Page1": {
+      "main": [
+        [
+          {
+            "node": "Comment on the published post1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item Lists1": {
+      "main": [
+        [
+          {
+            "node": "Share post to group1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-18T14:43:24.907Z",
+  "id": "pPg5GT17OwiI4aSn",
+  "meta": null,
+  "name": "Publish to Facebook page",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "6052446c-87f7-4cfb-a3d6-fb9b24d5e65f",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**Page Photos endpoint**\n\nReference: https://developers.facebook.com/docs/graph-api/reference/page/photos/",
+        "height": 293.40314136125636,
+        "width": 311.8324607329842
+      },
+      "id": "ec998218-7f76-450d-8016-2e53705079d1",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**Comment endpoint**\n\nReference: https://developers.facebook.com/docs/graph-api/reference/v18.0/object/comments",
+        "height": 295.11343804537483,
+        "width": 311.8324607329845
+      },
+      "id": "86fc02af-9841-4ada-bfad-37232e7d6d7e",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        520,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**Group Feed**\n\nReference: https://developers.facebook.com/docs/graph-api/reference/v18.0/group/feed#publish\n\nhttps://developers.facebook.com/docs/groups-api/get-started#step-2--post-on-a-group",
+        "height": 319.4040523584267,
+        "width": 440.22570781625905
+      },
+      "id": "d3223751-f657-40fd-a37c-46d8ae5a790e",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        860,
+        -104.29061431305189
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "357386bf-b71f-4500-9a6e-4b18d02dd004",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1220,
+        -400
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.post_id }}/comments",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "🚀 Unlock automation hacks & marketing insights to boost your work — join our Telegram channel now: https://bit.ly/3G2CRHM"
+              }
+            ]
+          }
+        }
+      },
+      "id": "71828744-205f-455c-ac4d-fbb6b826d838",
+      "name": "Comment on the published post1",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        580,
+        60
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.facebook_page_id }}/photos",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "url",
+                "value": "={{ $json.post_thumbnail }}"
+              },
+              {
+                "name": "message",
+                "value": "={{ $json.post_title }}\n\n{{ $json.post_excerpt }}\n\nRead more here:  {{ $json.post_permalink }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "486241cb-461a-4ea2-aee1-bfa52c7ab7e3",
+      "name": "Publish a post at Facebook Page1",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        240,
+        40
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "facebook_group_ids",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": " id, post_permalink",
+        "options": {}
+      },
+      "id": "2e6b0fa8-01fb-48fd-b8b8-9214f8e25d30",
+      "name": "Item Lists1",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        900,
+        60
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.facebook_group_ids }}/feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "Hi everyone"
+              },
+              {
+                "name": "link",
+                "value": "=https://facebook.com/}}{{ $json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "10313a56-9c37-41f4-a6ee-b1cb5c17f940",
+      "name": "Share post to group1",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        60
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-11-20T17:01:08.000Z",
+  "versionId": "3d30b437-fbc4-46d8-9c55-a800516314a9"
+}
