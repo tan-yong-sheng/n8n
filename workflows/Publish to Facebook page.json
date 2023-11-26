@@ -23,11 +23,6 @@
         ]
       ]
     },
-    "Comment on the published post1": {
-      "main": [
-        []
-      ]
-    },
     "Publish a post at Facebook Page1": {
       "main": [
         [
@@ -108,8 +103,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        860,
-        -104.29061431305189
+        880,
+        -100
       ]
     },
     {
@@ -253,6 +248,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-20T17:01:08.000Z",
-  "versionId": "3d30b437-fbc4-46d8-9c55-a800516314a9"
+  "updatedAt": "2023-11-26T08:32:56.000Z",
+  "versionId": "53e6ded5-d39a-4251-b5e0-524a6eab7288"
 }
