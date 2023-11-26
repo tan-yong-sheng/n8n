@@ -1,0 +1,65 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Bitly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-26T02:08:32.421Z",
+  "id": "KwPeRB7m1cI2Enaj",
+  "meta": null,
+  "name": "URL shortener - Bitly",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "854b7c58-0cca-49ed-9730-5ed1e3fb0768",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        560,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "longUrl": "={{ $json.URL }}",
+        "additionalFields": {
+          "title": "Blog link - Tan Yong Sheng"
+        }
+      },
+      "id": "cf2581f0-ebea-4bf9-a9d9-1b2d057bbc45",
+      "name": "Bitly",
+      "type": "n8n-nodes-base.bitly",
+      "typeVersion": 1,
+      "position": [
+        780,
+        180
+      ],
+      "credentials": {
+        "bitlyOAuth2Api": {
+          "id": "m2OYzwgeLbf4aRZd",
+          "name": "Bitly account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-11-26T02:13:29.000Z",
+  "versionId": "cab86d6a-0b13-47b2-a2da-555993991fe6"
+}
