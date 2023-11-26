@@ -30,18 +30,7 @@
     },
     "Merge": {
       "main": [
-        [
-          {
-            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "(Need Edit) Social media settings configuration": {
@@ -121,7 +110,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        600,
+        500,
         -360
       ]
     },
@@ -191,8 +180,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1,
       "position": [
-        1120,
-        -220
+        1160,
+        180
       ],
       "onError": "continueErrorOutput"
     },
@@ -206,7 +195,7 @@
       "typeVersion": 1,
       "position": [
         1120,
-        -20
+        -240
       ],
       "onError": "continueErrorOutput"
     },
@@ -223,7 +212,7 @@
               "fieldValue": "={{ $json.post_title }}"
             },
             {
-              "fieldName": "Post permalink",
+              "fieldName": "Article URL",
               "fieldValue": "={{ $json.post_permalink }}"
             },
             {
@@ -254,8 +243,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        1380,
-        -880
+        480,
+        -140
       ],
       "credentials": {
         "nocoDbApiToken": {
@@ -446,6 +435,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-11-25T15:41:09.000Z",
-  "versionId": "9323336e-6535-4d3e-9a96-33f6cb1e5ba8"
+  "updatedAt": "2023-11-26T08:30:27.000Z",
+  "versionId": "18bb7fc0-4dfa-4d24-a927-66f61cf36cef"
 }
