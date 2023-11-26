@@ -1,7 +1,29 @@
 {
   "active": false,
   "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "X1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
       "main": [
         [
           {
@@ -12,40 +34,33 @@
         ]
       ]
     },
-    "AI Agent": {
-      "main": [
-        [
-          {
-            "node": "X1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Google PaLM Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "IF": {
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
         [
           {
-            "node": "X1",
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code",
             "type": "main",
             "index": 0
           }
@@ -59,85 +74,67 @@
   "name": "Publish post to Twitter",
   "nodes": [
     {
-      "parameters": {
-        "text": "This is a test",
-        "additionalFields": {}
-      },
-      "id": "8f8ae9ea-8d7c-41e0-952c-e7d865536774",
-      "name": "X",
-      "type": "n8n-nodes-base.twitter",
-      "typeVersion": 2,
-      "position": [
-        800,
-        440
-      ],
-      "credentials": {
-        "twitterOAuth2Api": {
-          "id": "tUOdfQLo94Ill5AI",
-          "name": "X account"
-        }
-      }
-    },
-    {
       "parameters": {},
       "id": "486508ae-c902-4961-b8cd-f7f551f0a5c4",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        500,
-        240
+        240,
+        380
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "7349c75f-da9a-4b0e-99a7-705f26bbb6f8",
-      "name": "AI Agent",
-      "type": "@n8n/n8n-nodes-langchain.agent",
+      "id": "aa92772e-bdb6-44e5-99be-0ce56ece6180",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
       "position": [
-        1000,
-        120
-      ]
+        960,
+        -60
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "DMwXrURDFbYiyX6E",
+          "name": "OpenAi account"
+        }
+      }
     },
     {
       "parameters": {
-        "options": {}
+        "prompt": "={{ $json.post_title }} \n\n{{ $json.body.post.post_content }} \n\nRead more: {{ $json.post_permalink }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You're a Twitter account manager who is responsible to shorten or summarize the copywriting to be less than 250 characters.\n\nPlease make sure you always output CTA link in the copywriting, and assign hashtags to the post."
+            }
+          ]
+        }
       },
-      "id": "aa78d69d-2252-4fad-aa61-4ca32fdba1e1",
-      "name": "Google PaLM Chat Model",
-      "type": "@n8n/n8n-nodes-langchain.lmChatGooglePalm",
+      "id": "43441d2f-c72b-45af-b498-30324a73a908",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1,
       "position": [
-        860,
-        0
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "76721954-4603-44b5-88a3-caad3a80d054",
-      "name": "IF",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [
-        720,
-        240
+        1220,
+        100
       ]
     },
     {
       "parameters": {
-        "text": "This is a test",
+        "text": "={{ $json.post_title }}\n\n{{ $json.meta_description }}\n\nRead more here:  {{ $json.post_permalink }}",
         "additionalFields": {}
       },
-      "id": "415808de-f702-41be-b374-01c43f686f78",
+      "id": "89323c89-c816-4da4-b001-6d7bc6b6e193",
       "name": "X1",
       "type": "n8n-nodes-base.twitter",
       "typeVersion": 2,
       "position": [
-        1400,
-        260
+        500,
+        420
       ],
       "credentials": {
         "twitterOAuth2Api": {
@@ -145,6 +142,87 @@
           "name": "X account"
         }
       }
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "item = _input.all()\n\ntemplate = f\"\"\"\"\n{item.json.post_title}\n\n{item.json.excerpt}\n\nRead more: {item.json.post_permalink}\n\"\"\"\n\nif len(template) < 250: \n  return True\nelse:\n  return False"
+      },
+      "id": "a13fe016-979a-4a12-8171-693237059bc3",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -80
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "c67edaa5-0662-4639-8a9b-82a9997a7510",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        720,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "870fe845-e42d-4a11-a33b-c147b10d131d",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1020,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "9ba28f72-8715-47cf-a4b6-a12835ec5468",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1140,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "f2cacb2c-7793-409b-a639-b3f7e01f3076",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        520,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Need to add image"
+      },
+      "id": "40be1a5c-4968-42c2-b34a-79f51a729751",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        500,
+        580
+      ]
     }
   ],
   "pinData": {},
@@ -154,6 +232,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-19T07:13:52.000Z",
-  "versionId": "b1bffea8-7537-46a3-b799-f5d0b07bc434"
+  "updatedAt": "2023-11-26T06:41:14.000Z",
+  "versionId": "95c9e002-95e4-415e-9308-149273b80327"
 }
