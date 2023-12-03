@@ -1,0 +1,87 @@
+{
+  "active": true,
+  "connections": {
+    "Extract blog title, post excerpt, url and thumbnail": {
+      "main": [
+        [
+          {
+            "node": "Indexing - Google Search API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract blog title, post excerpt, url and thumbnail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-30T00:44:34.882Z",
+  "id": "xWd6ztsX76TnmtQe",
+  "meta": null,
+  "name": "When Wordpress Post Updated",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowId": "KpGzjZailbovROgs"
+      },
+      "id": "a914c573-36c2-4fa9-baad-0a4aa85ac80e",
+      "name": "Indexing - Google Search API",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        920,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "include": "selected",
+        "includeFields": "body.post_id, body.post.post_title, body.post.post_excerpt, body.post_permalink, body.post_thumbnail, body.post.post_date, body.post.post_content, body.post_meta.rank_math_description, body.post_meta.rank_math_focus_keyword",
+        "options": {}
+      },
+      "id": "04df1f5b-6e68-4bdc-ad9c-89e0a6a93519",
+      "name": "Extract blog title, post excerpt, url and thumbnail",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        700,
+        180
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b9f93c09-52e5-45f7-a925-a55f658fa1ce",
+        "options": {}
+      },
+      "id": "9a7f9b01-d044-4174-a5a8-87df1fadd957",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        460,
+        260
+      ],
+      "webhookId": "b9f93c09-52e5-45f7-a925-a55f658fa1ce"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-12-01T02:46:34.000Z",
+  "versionId": "9ad234dd-2c8e-4ee6-906d-80f589ba4a30"
+}
