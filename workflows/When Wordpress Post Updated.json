@@ -40,7 +40,8 @@
       "position": [
         920,
         180
-      ]
+      ],
+      "retryOnFail": true
     },
     {
       "parameters": {
@@ -82,6 +83,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-12-01T02:46:34.000Z",
-  "versionId": "9ad234dd-2c8e-4ee6-906d-80f589ba4a30"
+  "updatedAt": "2023-12-09T09:53:57.000Z",
+  "versionId": "cff92fa7-9b2b-4e6e-aeef-af256462f03e"
 }
