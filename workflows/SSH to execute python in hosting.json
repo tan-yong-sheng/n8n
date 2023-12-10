@@ -1,0 +1,69 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "SSH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-03T16:10:32.187Z",
+  "id": "Q7h8M96PIUju0UAN",
+  "meta": null,
+  "name": "SSH to execute python in hosting",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a38deddb-c4a9-430d-975e-15ea08dcd772",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        280,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "command": "python scrape_klsescreener.py",
+        "cwd": "~/API"
+      },
+      "id": "140aeddc-22e9-43eb-9082-03767bb47816",
+      "name": "SSH",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        500,
+        180
+      ],
+      "credentials": {
+        "sshPassword": {
+          "id": "4MfgNvMWuNFgUBkL",
+          "name": "SSH Password account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-04T16:55:06.287Z",
+      "updatedAt": "2023-12-04T16:55:06.287Z",
+      "id": "a7XtspmyWQbn0pg7",
+      "name": "Progress"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-04T16:55:07.000Z",
+  "versionId": "cc210f2b-021e-4933-aa39-01479cc97f4d"
+}
