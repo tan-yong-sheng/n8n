@@ -1,0 +1,124 @@
+{
+  "active": false,
+  "connections": {
+    "Wordpress": {
+      "main": [
+        [
+          {
+            "node": "Item Lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-05T12:39:11.850Z",
+  "id": "3u8Ip1TSGKpc1M5M",
+  "meta": null,
+  "name": "Get WordPress Post - Max 10",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 2,
+        "options": {}
+      },
+      "id": "bb6f0030-8a18-4eb3-815b-ff796b753534",
+      "name": "Wordpress",
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        320
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "wordpressApi": {
+          "id": "ydp9st7ZR3RlXjfG",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "fb2e6d96-ae62-4697-8f5e-b6d8386bfb76",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        760,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "concatenateItems",
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "response",
+        "include": "specifiedFields",
+        "fieldsToInclude": "title, excerpt",
+        "options": {}
+      },
+      "id": "10302e05-94e9-432d-ad42-0cb7f8e15a05",
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3.1,
+      "position": [
+        1280,
+        320
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {},
+      "id": "e3fa2335-cde4-4cf7-a23a-7eb82c638af9",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        900,
+        460
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-05T13:46:34.765Z",
+      "updatedAt": "2023-12-05T13:46:34.765Z",
+      "id": "hZhcsMIPXs0LjU5W",
+      "name": "trash"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-05T13:46:38.000Z",
+  "versionId": "b84b9091-5716-492c-b46b-a03920fcf113"
+}
