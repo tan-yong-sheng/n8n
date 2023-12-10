@@ -46,6 +46,7 @@
         560,
         200
       ],
+      "retryOnFail": false,
       "credentials": {
         "telegramApi": {
           "id": "pj6044qZWUZTzUOL",
@@ -61,6 +62,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-18T16:33:53.000Z",
-  "versionId": "93e27b21-948c-4889-9a3d-6d528959aac3"
+  "updatedAt": "2023-12-09T09:45:21.000Z",
+  "versionId": "fd93856e-4be4-4b2b-8a8a-e826846bf96f"
 }
