@@ -8,11 +8,6 @@
             "node": "Publish post to reddit profile",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "split subreddit list",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -29,12 +24,6 @@
       ]
     },
     "Publish post to reddit profile": {
-      "main": [
-        [],
-        []
-      ]
-    },
-    "Publish post to other subreddits": {
       "main": [
         [],
         []
@@ -126,7 +115,7 @@
     },
     {
       "parameters": {
-        "subreddit": "={{ $json.reddit_profile }}",
+        "subreddit": "={{ $json.reddit_username }}",
         "title": "={{ $json.post_title }}",
         "text": "={{ $json.post_excerpt }}\n\nRead more: {{ $json.post_permalink }} "
       },
@@ -155,6 +144,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-11-26T16:00:08.000Z",
-  "versionId": "8d62b5ea-0c47-4748-80e3-7b063980dd02"
+  "updatedAt": "2023-12-09T09:47:14.000Z",
+  "versionId": "8e8f77f6-2099-4a3d-bc7f-2519732e6061"
 }
