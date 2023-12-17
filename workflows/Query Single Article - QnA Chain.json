@@ -1,0 +1,138 @@
+{
+  "active": false,
+  "connections": {
+    "Workflow Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Language Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-13T12:54:47.625Z",
+  "id": "bC0IZ14CJMmWIfON",
+  "meta": null,
+  "name": "Query Single Article - QnA Chain",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowId": "ygDp8PuCFfZMib5f",
+        "fields": {
+          "values": [
+            {
+              "name": "post_slug",
+              "stringValue": "={{ $json.post_slug }}"
+            }
+          ]
+        }
+      },
+      "id": "a97969f6-7b19-4e92-bdff-8dd48eaa5515",
+      "name": "Workflow Retriever",
+      "type": "@n8n/n8n-nodes-langchain.retrieverWorkflow",
+      "typeVersion": 1,
+      "position": [
+        700,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "44d91c37-a80c-4f00-aa1d-3c7b799a333a",
+      "name": "Google PaLM Language Model",
+      "type": "@n8n/n8n-nodes-langchain.lmGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        560,
+        680
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9mgBMYFAFRrImmEw",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "42a17ef5-f878-4817-a7ec-4fe801d8fb3c",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        120,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "content": "When people asked any questions on current articles they visited",
+        "height": 346.41894762574043,
+        "width": 466.7776888643028
+      },
+      "id": "04141b70-a090-420e-9086-a106b462c42e",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        480
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0f89cd41-dcbc-4be1-b017-f4c7779fbf49",
+      "name": "Question and Answer Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        520
+      ],
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-13T12:08:54.022Z",
+      "updatedAt": "2023-12-13T12:08:54.022Z",
+      "id": "4UxfwpmCTNXoN4Xc",
+      "name": "chat"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-16T13:22:43.000Z",
+  "versionId": "012503bc-dc89-4586-b5aa-f0b173ccac69"
+}
