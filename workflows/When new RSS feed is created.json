@@ -1,0 +1,277 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Language Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-14T14:26:38.358Z",
+  "id": "38oCLXyHJj5Aej8C",
+  "meta": null,
+  "name": "When new RSS feed is created",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "67bf6c44-d6c2-4509-a869-b6cbac1f6f62",
+        "responseMode": "lastNode",
+        "options": {
+          "rawBody": true,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "X-Miniflux-Signature",
+                "value": "f6842099f283e27cfa92c12f5ff473f477d53f7cbc88f55a872aa21e0857de30"
+              },
+              {
+                "name": "X-Miniflux-Event-Type",
+                "value": "new_entries"
+              },
+              {
+                "name": "User-Agent",
+                "value": "Miniflux/2.0.48"
+              }
+            ]
+          }
+        }
+      },
+      "id": "d26c13e3-9a1e-4837-8dd3-038af661b12f",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        320
+      ],
+      "webhookId": "67bf6c44-d6c2-4509-a869-b6cbac1f6f62"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.entries",
+        "options": {}
+      },
+      "id": "0ad2b41d-87ed-4194-965d-524b9722fc66",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        980,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5084cc47-bef7-4210-b790-506795cff3c0",
+      "name": "Google PaLM Language Model",
+      "type": "@n8n/n8n-nodes-langchain.lmGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        660
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9mgBMYFAFRrImmEw",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "ptukutuixk0mswv",
+        "table": "mloqfokerjoor1t",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldName": "URL",
+              "fieldValue": "={{ $json.url }}"
+            },
+            {
+              "fieldName": "Score",
+              "fieldValue": "={{ $json.score }}"
+            },
+            {
+              "fieldName": "Last Updated",
+              "fieldValue": "={{ $json.currentDate }}"
+            }
+          ]
+        }
+      },
+      "id": "a3d74c88-9184-4bc3-9c15-03728b28c273",
+      "name": "NocoDB",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1760,
+        400
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "lAHf5CVpXMWer3BZ",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchema": "{\n  \"type\": \"object\",\n  \n  \"properties\": {\n      \"score\": {\n        \"type\": \"integer\"\n      }\n    }\n}"
+      },
+      "id": "d0a165bf-34c3-4faa-b196-02c0a0f1b174",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "88bcea74-6048-439e-a4b4-0a7782ec5154",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1580,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-1001678378433",
+        "text": "={{ $json.title }}\n\nRead more: {{ $json.url }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "ec8c13a6-d04c-4f9d-9804-b184a8cc2d1a",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        1300,
+        160
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "pj6044qZWUZTzUOL",
+          "name": "Telegram account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "prompt": "=score of 1 to 10 for the title,1 is very boring, 10 is very interesting. Please make sure that you only output integer or float\n\ntitle: ```{{ $json.title }}```",
+        "hasOutputParser": true
+      },
+      "id": "cc3fbfdc-1023-4a0c-a5c6-d62e701b6c9c",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        480
+      ],
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-12-16T22:16:43.000Z",
+  "versionId": "cc4baf64-94c0-48db-bad5-949898f5c927"
+}
