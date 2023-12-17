@@ -1,0 +1,347 @@
+{
+  "active": true,
+  "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Insert record of blog article",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Action - Share WordPress Post to Social Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(Need Edit) Social media settings configuration": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Form Trigger - Extract blog title, post excerpt, url and thumbnail1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "(Need Edit) Social media settings configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form Trigger - Extract blog title, post excerpt, url and thumbnail1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-10T12:48:10.792Z",
+  "id": "HggXTvOVoigCqgME",
+  "meta": null,
+  "name": "Manual Form Trigger - Share the WordPress Post",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "b1a3acac-e889-4530-bc69-f62d729aa243",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        700,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "facebook_page_id",
+              "stringValue": "171188196071772"
+            },
+            {
+              "name": "facebook_group_ids",
+              "type": "arrayValue",
+              "arrayValue": "[\"1641689236149805\",\"aibusinesshackers\"]"
+            },
+            {
+              "name": "telegram_channel_id",
+              "stringValue": "-1002108829785"
+            },
+            {
+              "name": "reddit_username",
+              "stringValue": "=u_tys203831"
+            },
+            {
+              "name": "subreddit",
+              "type": "arrayValue",
+              "arrayValue": "[]"
+            },
+            {
+              "name": "twitter_username",
+              "stringValue": "tan990220"
+            }
+          ]
+        },
+        "include": "none",
+        "options": {}
+      },
+      "id": "54eaa48e-5e2a-4416-8545-0c9217ddf533",
+      "name": "(Need Edit) Social media settings configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        500,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://tanyongsheng.net/?wpwhpro_action=n8n",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "action",
+              "value": "get_post"
+            },
+            {
+              "name": "post_value",
+              "value": "={{ $json['Post ID'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e2905683-7be2-43a1-b5cb-1ebbc6959d31",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        240,
+        460
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "vsyeQssMHac5DUEi",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Manual way to trigger this event",
+        "height": 238.94430024910193,
+        "width": 348.14489675417286
+      },
+      "id": "bd31eac2-3fa8-43be-88d4-db3d7162e751",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        41,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "method",
+              "stringValue": "form"
+            }
+          ]
+        },
+        "include": "selected",
+        "includeFields": "data.post.ID, data.post.post_title, data.post.post_excerpt, data.post_permalink, data.post_thumbnail, data.post.post_date, data.post.post_content, data.post_meta.rank_math_description, data.post_meta.rank_math_focus_keyword",
+        "options": {}
+      },
+      "id": "853ae6d5-919d-41c6-9cbb-c82f9e8007ee",
+      "name": "Form Trigger - Extract blog title, post excerpt, url and thumbnail1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        500,
+        280
+      ],
+      "executeOnce": false,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "workflowId": "vrgIebglf07DHKaE"
+      },
+      "id": "efe99e35-2897-4078-89b3-5b512397024a",
+      "name": "Action - Share WordPress Post to Social Post",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        920,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Manual Posting",
+        "formDescription": "Trigger the automation when WordPress Post ID is given",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Post ID",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "formSubmittedText": "Your response has been recorded"
+        }
+      },
+      "id": "6315359b-dcd3-4e58-ba92-8f1ceac49905",
+      "name": "n8n Form Trigger",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        460
+      ],
+      "webhookId": "b9448d95-0c3e-46fd-a6c2-d97cb1d0fc94"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pp2jcxnyx15ptoe",
+        "table": "mw8lz6ly4jou5g1",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Title",
+              "fieldValue": "={{ $json.post_title }}"
+            },
+            {
+              "fieldName": "Permalink",
+              "fieldValue": "={{ $json.post_permalink }}"
+            },
+            {
+              "fieldName": "Thumbnail URL",
+              "fieldValue": "={{ $json.post_thumbnail }}"
+            },
+            {
+              "fieldName": "Excerpt",
+              "fieldValue": "={{ $json.post_excerpt }}"
+            },
+            {
+              "fieldName": "Post ID",
+              "fieldValue": "={{ $json.ID }}"
+            },
+            {
+              "fieldName": "Published Date",
+              "fieldValue": "={{ $json.post_date }}"
+            },
+            {
+              "fieldName": "Meta Description",
+              "fieldValue": "={{ $json.rank_math_description[0] }}"
+            },
+            {
+              "fieldName": "Content",
+              "fieldValue": "={{ $json.post_content }}"
+            },
+            {
+              "fieldName": "Focus Keywords",
+              "fieldValue": "={{ $json.rank_math_focus_keyword[0] }}"
+            }
+          ]
+        }
+      },
+      "id": "f6f4040f-613d-4809-b340-276196bae526",
+      "name": "Insert record of blog article",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        920,
+        480
+      ],
+      "executeOnce": false,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "lAHf5CVpXMWer3BZ",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-10T17:31:34.521Z",
+      "updatedAt": "2023-12-10T17:31:34.521Z",
+      "id": "BRfKluWg5qi3cy1f",
+      "name": "id-1"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:58.523Z",
+      "updatedAt": "2023-12-10T17:26:58.523Z",
+      "id": "LJ3uQ8V8cEQRSH0W",
+      "name": "trigger"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:36.183Z",
+      "updatedAt": "2023-12-10T17:26:36.183Z",
+      "id": "frk5Ps2POrmmqrWL",
+      "name": "social media"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:38.958Z",
+      "updatedAt": "2023-12-10T17:26:38.958Z",
+      "id": "s57hAO0IPCwEDIpV",
+      "name": "wordpress"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2023-12-16T11:59:40.000Z",
+  "versionId": "03c0237d-7712-483e-ae4b-1b23d64efc0c"
+}
