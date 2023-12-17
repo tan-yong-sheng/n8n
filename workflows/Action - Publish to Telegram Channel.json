@@ -1,0 +1,86 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Publish post to Telegram Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-18T15:07:43.055Z",
+  "id": "zto5ieWYNupvp5p5",
+  "meta": null,
+  "name": "Action - Publish to Telegram Channel",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "61a1c3b0-5036-4669-8427-25b7c8a3a2cc",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        300,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $json.telegram_channel_id }}",
+        "file": "={{ $json.post_thumbnail }}",
+        "additionalFields": {
+          "caption": "={{ $json.post_title }}\n\n{{ $json.post_excerpt }} \n\nRead more here: {{ $json.link }}"
+        }
+      },
+      "id": "342cdbfe-a26b-4dfe-987d-3b809a6749ef",
+      "name": "Publish post to Telegram Channel",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        200
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "telegramApi": {
+          "id": "pj6044qZWUZTzUOL",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-10T17:26:41.590Z",
+      "updatedAt": "2023-12-10T17:26:41.590Z",
+      "id": "5SSvEdjkNZEuIJ1k",
+      "name": "action"
+    },
+    {
+      "createdAt": "2023-12-10T17:31:34.521Z",
+      "updatedAt": "2023-12-10T17:31:34.521Z",
+      "id": "BRfKluWg5qi3cy1f",
+      "name": "id-1"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:36.183Z",
+      "updatedAt": "2023-12-10T17:26:36.183Z",
+      "id": "frk5Ps2POrmmqrWL",
+      "name": "social media"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-10T18:42:56.000Z",
+  "versionId": "ea80b5de-8f35-4df2-9ac9-64d25f04c8f4"
+}
