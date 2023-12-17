@@ -1,0 +1,467 @@
+{
+  "active": false,
+  "connections": {
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "node": "Share post to group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Mailchimp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Bitly",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Bitly": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Create Post to LinkedIn Page",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "X1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-10T12:50:11.882Z",
+  "id": "vrgIebglf07DHKaE",
+  "meta": null,
+  "name": "Action Controller - Share WordPress Post to Social Media",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowId": "iGmi85xkl2kLVMiT"
+      },
+      "id": "c96d908c-58d9-44eb-a113-6e62bfcedac3",
+      "name": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        260
+      ],
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": "zto5ieWYNupvp5p5"
+      },
+      "id": "cf0cd7a5-6f91-4138-a45c-7b7f2c1e16c8",
+      "name": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        80
+      ],
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.post_title }}\n\n{{ $json.rank_math_description[0] }}\n\nRead more here: {{ $json.link }}",
+        "additionalFields": {}
+      },
+      "id": "937b96d6-7e38-4895-9174-3e7009e57803",
+      "name": "X1",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        460
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "tUOdfQLo94Ill5AI",
+          "name": "X account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": "pPg5GT17OwiI4aSn"
+      },
+      "id": "a940802b-f430-4a41-ad27-f7662ad0feb1",
+      "name": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        -120
+      ],
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v17.0",
+        "node": "={{ $json.facebook_group_ids }}/feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "message",
+                "value": "Hi"
+              },
+              {}
+            ]
+          }
+        }
+      },
+      "id": "32f84dab-d103-43d1-a9bf-f29b91c4cf03",
+      "name": "Share post to group",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        960,
+        1500
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "1FRGHU2tYENW2tV4",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "facebook_group_ids",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": " id, post_permalink, post_id, facebook_page_id",
+        "options": {}
+      },
+      "id": "4217581c-f36d-49ea-a33a-cf074b8abd28",
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        800,
+        1500
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us7.api.mailchimp.com/3.0/campaigns ",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mailchimpOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"type\":\"regular\",\"recipients\":{\"list_id\":\"\",\"segment_opts\":{\"saved_segment_id\":0,\"match\":\"any\",\"conditions\":[]}},\"settings\":{\"subject_line\":\"\",\"preview_text\":\"\",\"title\":\"\",\"from_name\":\"\",\"reply_to\":\"\",\"use_conversation\":false,\"to_name\":\"\",\"folder_id\":\"\",\"authenticate\":false,\"auto_footer\":false,\"inline_css\":false,\"auto_tweet\":false,\"auto_fb_post\":[],\"fb_comments\":false,\"template_id\":0},\"variate_settings\":{\"winner_criteria\":\"opens\",\"wait_time\":0,\"test_size\":0,\"subject_lines\":[],\"send_times\":[],\"from_names\":[],\"reply_to_addresses\":[]},\"tracking\":{\"opens\":false,\"html_clicks\":false,\"text_clicks\":false,\"goal_tracking\":false,\"ecomm360\":false,\"google_analytics\":\"\",\"clicktale\":\"\",\"salesforce\":{\"campaign\":false,\"notes\":false},\"capsule\":{\"notes\":false}},\"rss_opts\":{\"feed_url\":\"\",\"frequency\":\"daily\",\"schedule\":{\"hour\":0,\"daily_send\":{\"sunday\":false,\"monday\":false,\"tuesday\":false,\"wednesday\":false,\"thursday\":false,\"friday\":false,\"saturday\":false},\"weekly_send_day\":\"sunday\",\"monthly_send_date\":0},\"constrain_rss_img\":false},\"social_card\":{\"image_url\":\"\",\"description\":\"\",\"title\":\"\"},\"content_type\":\"template\"}",
+        "options": {}
+      },
+      "id": "c7dbec38-28cd-4c66-bf58-1d664a1de676",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        760,
+        1200
+      ],
+      "executeOnce": false,
+      "credentials": {
+        "mailchimpOAuth2Api": {
+          "id": "4aPPMXv2GQPSoin9",
+          "name": "Mailchimp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "campaign",
+        "operation": "send"
+      },
+      "id": "7da41f35-16bc-429b-af9f-02b85bb2651d",
+      "name": "Mailchimp",
+      "type": "n8n-nodes-base.mailchimp",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        1280
+      ],
+      "credentials": {
+        "mailchimpOAuth2Api": {
+          "id": "4aPPMXv2GQPSoin9",
+          "name": "Mailchimp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "cannot specify which list to send?",
+        "height": 193.82728532069748,
+        "width": 286.24522728174645
+      },
+      "id": "b6104446-1e38-47a2-beb4-e19398ee333e",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        960,
+        1220
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "longUrl": "={{ $json.post_permalink }}",
+        "additionalFields": {
+          "title": "=[Social Media] {{ $json.post_title }}"
+        }
+      },
+      "id": "0d9173ee-e3cb-4622-8b86-f1f4337c8614",
+      "name": "Bitly",
+      "type": "n8n-nodes-base.bitly",
+      "typeVersion": 1,
+      "position": [
+        580,
+        120
+      ],
+      "credentials": {
+        "bitlyOAuth2Api": {
+          "id": "m2OYzwgeLbf4aRZd",
+          "name": "Bitly account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "56ba407a-872b-48f2-b91d-fd5adc217939",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        360,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "43ba9ee2-67d3-4b04-ac7c-c1114ce937ad",
+      "name": "TinyURL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        980
+      ],
+      "notes": "https://tinyurl.com/app/dev"
+    },
+    {
+      "parameters": {
+        "content": "bit.ly - 50 links per month\n\ntinyurl - 600 links per month",
+        "height": 187.3868103167394
+      },
+      "id": "ed12ef41-29a6-4fbe-84fd-40fa23e7483b",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "content": "FB page post is hard to share to groups? Use personal profile instead?  https://developers.facebook.com/docs/groups-api/get-started",
+        "height": 241.71218687922595,
+        "width": 553.3340365812545
+      },
+      "id": "182695a0-21ec-46f3-8400-72bd10db68af",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "content": "LinkedIn credentials error: https://community.n8n.io/t/error-when-posting-to-linkedin-as-person-or-organization/26736\n\nProblem: the post cannot add title, read more...",
+        "height": 333.64168900973647,
+        "width": 254.55605392849023
+      },
+      "id": "453286ee-d9e3-4974-9f56-559542f6e2ef",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "dec84bbf-f0ce-465c-97f1-d63187229e0f",
+      "name": "Pinterest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1060,
+        1020
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Pinterest Node: https://community.n8n.io/t/pinterest-node/2373/2",
+        "height": 234.33576670113794,
+        "width": 388.6715334022759
+      },
+      "id": "522e6eb5-d85f-48e8-8a25-aa4bed83295a",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        980,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "3dcfadb0-ed5f-4f5f-b7a6-f886c9e2ddb7",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        760,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "postAs": "organization",
+        "organization": "98827202",
+        "text": "={{ $json.post_excerpt }}",
+        "shareMediaCategory": "ARTICLE",
+        "additionalFields": {
+          "description": "={{ $json.rank_math_description[0] }}",
+          "originalUrl": "={{ $json.link }}",
+          "title": "={{ $json.post_title }}"
+        }
+      },
+      "id": "8fe7f129-c6da-4928-b357-d20aec0427f6",
+      "name": "Create Post to LinkedIn Page",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        760
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "ZYvVGM42l6IGZvvE",
+          "name": "LinkedIn account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-10T17:26:41.590Z",
+      "updatedAt": "2023-12-10T17:26:41.590Z",
+      "id": "5SSvEdjkNZEuIJ1k",
+      "name": "action"
+    },
+    {
+      "createdAt": "2023-12-10T17:31:34.521Z",
+      "updatedAt": "2023-12-10T17:31:34.521Z",
+      "id": "BRfKluWg5qi3cy1f",
+      "name": "id-1"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:36.183Z",
+      "updatedAt": "2023-12-10T17:26:36.183Z",
+      "id": "frk5Ps2POrmmqrWL",
+      "name": "social media"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:38.958Z",
+      "updatedAt": "2023-12-10T17:26:38.958Z",
+      "id": "s57hAO0IPCwEDIpV",
+      "name": "wordpress"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-16T04:21:50.000Z",
+  "versionId": "1a40a9fb-8c91-43e4-91b0-f44725ab33b8"
+}
