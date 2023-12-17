@@ -1,0 +1,134 @@
+{
+  "active": false,
+  "connections": {
+    "Workflow Retriever1": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Suggest articles",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google PaLM Language Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Suggest articles",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Suggest articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-16T13:20:30.719Z",
+  "id": "byizjrvUeTp6OA6K",
+  "meta": null,
+  "name": "Suggest articles - QnA chain",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowId": "7xP8U73Pa5XSGT7V"
+      },
+      "id": "9dd7cda5-b115-431f-a843-2c0b2c0a7c72",
+      "name": "Workflow Retriever1",
+      "type": "@n8n/n8n-nodes-langchain.retrieverWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "1688a5c4-39f1-4767-8cb9-5c3feb8ee36a",
+      "name": "Google PaLM Language Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmGooglePalm",
+      "typeVersion": 1,
+      "position": [
+        860,
+        380
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9mgBMYFAFRrImmEw",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "When people asked for the article suggestion",
+        "height": 317.5912753124815,
+        "width": 505.2145852819813
+      },
+      "id": "0bf5929f-7f2f-4787-a287-4012fb533cd6",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        780,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "query": "={{ $json.chat_input }}\n\nPlease output the articles recommended in a markdown list form, with its permalink:\n\n```\nAny simple reply to user chat, like 'We suggest you to read these articles which you could be interested:\n1. [Article 1](post permalink 1)\n2. [Article 2](post permalink 2)\n3. [Article 3](post permalink 3)\n```"
+      },
+      "id": "da1d7a2c-749b-4945-91ce-26634ad16998",
+      "name": "Suggest articles",
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        240
+      ],
+      "notesInFlow": false,
+      "onError": "continueErrorOutput",
+      "notes": "Suggest Articles"
+    },
+    {
+      "parameters": {},
+      "id": "588d91ff-f725-4985-a60d-7111698341b2",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        560,
+        260
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-13T12:08:54.022Z",
+      "updatedAt": "2023-12-13T12:08:54.022Z",
+      "id": "4UxfwpmCTNXoN4Xc",
+      "name": "chat"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-16T13:21:08.000Z",
+  "versionId": "7effdd15-633e-4b4b-a750-af01839f0bfa"
+}
