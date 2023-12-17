@@ -1,0 +1,71 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-15T17:44:41.587Z",
+  "id": "7xP8U73Pa5XSGT7V",
+  "meta": null,
+  "name": "Get many WordPress articles",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "6e5f460c-c304-4fc1-8deb-7ff07ee45b4b",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        580,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pp2jcxnyx15ptoe",
+        "table": "mw8lz6ly4jou5g1",
+        "returnAll": true,
+        "options": {
+          "fields": [
+            "Id,Title,Permalink"
+          ],
+          "where": ""
+        }
+      },
+      "id": "b08e0ad1-095b-4d13-a415-5c67265bf1dc",
+      "name": "NocoDB",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        780,
+        420
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "lAHf5CVpXMWer3BZ",
+          "name": "NocoDB Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-16T09:53:09.000Z",
+  "versionId": "1fde0398-cbf7-46dd-a626-1991549ecfc8"
+}
