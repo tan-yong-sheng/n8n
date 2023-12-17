@@ -1,0 +1,84 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Scrape WordPress website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-13T12:28:48.960Z",
+  "id": "ygDp8PuCFfZMib5f",
+  "meta": null,
+  "name": "Scrape 1 WordPress Post",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://tanyongsheng.net/wp-json/wp/v2/posts",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "slug",
+              "value": "={{ $json.post_slug }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0fc1f963-8725-4a49-84ab-c28c2e0cbd68",
+      "name": "Scrape WordPress website",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        840,
+        400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0c4173f6-1392-4a7b-9bc5-8deade3bce63",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        600,
+        400
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-13T12:08:54.022Z",
+      "updatedAt": "2023-12-13T12:08:54.022Z",
+      "id": "4UxfwpmCTNXoN4Xc",
+      "name": "chat"
+    },
+    {
+      "createdAt": "2023-12-13T12:29:22.557Z",
+      "updatedAt": "2023-12-13T12:29:22.557Z",
+      "id": "534nGQZsFGOX4hjk",
+      "name": "scraping"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:38.958Z",
+      "updatedAt": "2023-12-10T17:26:38.958Z",
+      "id": "s57hAO0IPCwEDIpV",
+      "name": "wordpress"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-15T01:07:35.000Z",
+  "versionId": "b4f1e1c1-bfe7-42e0-a012-11e92f6ce8ee"
+}
