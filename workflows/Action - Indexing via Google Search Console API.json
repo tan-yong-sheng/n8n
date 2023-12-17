@@ -1,0 +1,104 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Indexing - Google Console Search API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-11-26T11:24:08.820Z",
+  "id": "KpGzjZailbovROgs",
+  "meta": null,
+  "name": "Action - Indexing via Google Search Console API",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9eae8837-a79a-46c3-a20d-84c075dd5a6f",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        500,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**Reference:**\n1. Google URL Inspection API with Python https://www.jcchouinard.com/google-url-inspection-api-with-python/\n2. Google: Service Account https://docs.n8n.io/integrations/builtin/credentials/google/service-account/?utm_source=n8n_app&utm_medium=credential_settings&utm_campaign=create_new_credentials_modal",
+        "height": 399,
+        "width": 307.30328347485926
+      },
+      "id": "acbd01b5-71f0-446d-8618-847b3bffacaf",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"siteUrl\": \"https://{{ $json.post_permalink.extractDomain() }}/\",\n  \"inspectionUrl\": \"{{  $json.post_permalink }}\",\n  \"languageCode\": \"en-US\"\n}",
+        "options": {}
+      },
+      "id": "2a6bfa5f-6a34-4dc9-8a78-50bf2fce1e61",
+      "name": "Indexing - Google Console Search API1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        760,
+        200
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "googleApi": {
+          "id": "BRmLHfu8L0avSpXD",
+          "name": "Google Search Console API"
+        }
+      },
+      "notes": "Automatically send an indexing request via Google Search Console whenever a new post is published."
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-10T17:26:41.590Z",
+      "updatedAt": "2023-12-10T17:26:41.590Z",
+      "id": "5SSvEdjkNZEuIJ1k",
+      "name": "action"
+    },
+    {
+      "createdAt": "2023-12-10T17:31:34.521Z",
+      "updatedAt": "2023-12-10T17:31:34.521Z",
+      "id": "BRfKluWg5qi3cy1f",
+      "name": "id-1"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:38.958Z",
+      "updatedAt": "2023-12-10T17:26:38.958Z",
+      "id": "s57hAO0IPCwEDIpV",
+      "name": "wordpress"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2023-12-10T17:31:49.000Z",
+  "versionId": "2b3f5a52-8a10-4a71-9ce0-a4063c33b780"
+}
