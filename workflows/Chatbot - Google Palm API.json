@@ -1,11 +1,11 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Webhook": {
       "main": [
         [
           {
-            "node": "Transform request body",
+            "node": "Chatbot Action",
             "type": "main",
             "index": 0
           }
@@ -63,17 +63,6 @@
         ]
       ]
     },
-    "Transform request body": {
-      "main": [
-        [
-          {
-            "node": "Chatbot Action",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Code1": {
       "main": [
         [
@@ -96,23 +85,45 @@
         ]
       ]
     },
-    "Agent": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Google PaLM Chat Model": {
       "ai_languageModel": [
         [
           {
             "node": "Agent",
             "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QnA chain - answer current article": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QnA chain - suggest articles": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
             "index": 0
           }
         ]
@@ -138,8 +149,8 @@
       ],
       "credentials": {
         "googlePalmApi": {
-          "id": "d8ZcgyB6qrWYMPQx",
-          "name": "GooglePaLMApi account 2"
+          "id": "9mgBMYFAFRrImmEw",
+          "name": "GooglePaLMApi account"
         }
       }
     },
@@ -148,16 +159,14 @@
         "httpMethod": "POST",
         "path": "c532cbf1-64cb-46a5-8f33-05b9cd11e1e0",
         "responseMode": "responseNode",
-        "options": {
-          "rawBody": false
-        }
+        "options": {}
       },
       "id": "af5f3adf-b441-4c03-9045-a2ce527e1a97",
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        200,
+        420,
         640
       ],
       "webhookId": "c532cbf1-64cb-46a5-8f33-05b9cd11e1e0"
@@ -177,9 +186,7 @@
       ]
     },
     {
-      "parameters": {
-        "simplifyOutput": false
-      },
+      "parameters": {},
       "id": "55727a39-8976-413f-915a-7181776c830c",
       "name": "Memory Chat Retriever",
       "type": "@n8n/n8n-nodes-langchain.memoryChatRetriever",
@@ -206,7 +213,7 @@
     {
       "parameters": {
         "dataType": "string",
-        "value1": "={{ $json.body.action }}",
+        "value1": "={{ $json.body.action  }}",
         "rules": {
           "rules": [
             {
@@ -225,19 +232,6 @@
       "typeVersion": 1,
       "position": [
         600,
-        640
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.body = JSON.parse(item.json.body);\n}\n\nreturn $input.all();"
-      },
-      "id": "baa4dc4a-dc99-43fa-9bbc-9d017c32bb06",
-      "name": "Transform request body",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        400,
         640
       ]
     },
@@ -277,8 +271,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        1700,
-        660
+        1920,
+        600
       ]
     },
     {
@@ -303,34 +297,79 @@
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        1280,
-        1060
+        1600,
+        940
       ]
     },
     {
       "parameters": {
-        "options": {}
+        "name": "QnA_article_tool",
+        "description": "Call this tool when people ask for MANY articles to read, especially if he or she got any specific topic of interest.",
+        "workflowId": "byizjrvUeTp6OA6K",
+        "fields": {
+          "values": [
+            {
+              "name": "chat_input",
+              "stringValue": "={{ $json.body.chat_input }}"
+            }
+          ]
+        }
       },
-      "id": "10d0c4dd-45dd-4a85-96bb-ed6ee13a097c",
-      "name": "OpenAI Chat Model",
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "id": "35c47a57-f0a1-4e85-900b-ab90b8fba633",
+      "name": "QnA chain - suggest articles",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1,
       "position": [
-        660,
-        1000
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "DMwXrURDFbYiyX6E",
-          "name": "OpenAi account"
-        }
-      }
+        1340,
+        1260
+      ]
     },
     {
       "parameters": {
-        "text": "={{ $json.body.message }}",
+        "content": "suggest articles feature worst - as hard to classify - still thinking a better design"
+      },
+      "id": "d4de5439-6aaf-4efc-9d77-9e23950792e0",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "name": "QnA_article_tool",
+        "description": "Call this tool to answer questions using information for the SINGLE article that the user currently landed on. \n\nFor example, they might ask the questions, as below:\n1. summarize this article\n2. what the author is talking about in this article",
+        "workflowId": "bC0IZ14CJMmWIfON",
+        "fields": {
+          "values": [
+            {
+              "name": "post_slug",
+              "stringValue": "={{ $json.query.post_slug }}"
+            },
+            {
+              "name": "chat_input",
+              "stringValue": "={{ $json.body.chat_input }}"
+            }
+          ]
+        }
+      },
+      "id": "6174ec76-8aef-4b89-b09b-eaca1c8f911e",
+      "name": "QnA chain - answer current article",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.body.chat_input }}",
         "options": {
-          "systemMessage": "Assistant is a large language model\n\nSYSTEM's OUTPUT\n--------------------\n- Output format is always text. it does not support non-string message content.\n- If the output is in JSON form, convert it into sentences in text form\n- The output does not consist of JSON object or code script inside the inner text\n\nAssistant is designed to be able to assist with a wide range of tasks, from answering simple questions to providing in-depth explanations and discussions on a wide range of topics. As a language model, Assistant is able to generate human-like text based on the input it receives, allowing it to engage in natural-sounding conversations and provide responses that are coherent and relevant to the topic at hand.\n\nAssistant is constantly learning and improving, and its capabilities are constantly evolving. It is able to process and understand large amounts of text, and can use this knowledge to provide accurate and informative responses to a wide range of questions. Additionally, Assistant is able to generate its own text based on the input it receives, allowing it to engage in discussions and provide explanations and descriptions on a wide range of topics.\n\nOverall, Assistant is a powerful system that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.",
+          "humanMessage": "TOOLS\n------\nYou can ask the user to use tools to look up information that may help answer the user's original question. The tools the human can use are:\n\n{tools}\n\n{format_instructions}\n\nUSER'S INPUT\n--------------------\nHere is the user's input (remember to respond with a markdown code snippet of a JSON blob with a single action, and NOTHING else):\n\n{{input}}",
+          "systemMessage": "You're designed to be able to assist with a wide range of tasks, from answering simple questions to providing in-depth explanations and discussions on a wide range of topics. As a language model, you can generate human-like text based on the input it receives, allowing it to engage in natural-sounding conversations and provide responses that are coherent and relevant to the topic at hand.\n\nAssistant is constantly learning and improving, and its capabilities are constantly evolving. It can process and understand large amounts of text and can use this knowledge to provide accurate and informative responses to a wide range of questions. Additionally, you can generate its text based on the input it receives, allowing it to engage in discussions and provide explanations and descriptions on a wide range of topics.\n\nOverall, you are a powerful system that can help with a wide range of tasks and provide valuable insights and information on various topics. You could offer help to answer specific questions or want to talk about a particular topic.\n\nTOOLS to be used\n-----------------\n- Whenever someone asks about the article content or how the author does something, do use \"QnA chain - answer current article\" to get the info.\n- Whenever someone asks about the article suggestion, do use \"QnA chain - suggest articles\" to get the info.\n\nSYSTEM's OUTPUT\n--------------------\n- Output format is always text. it does not support non-string message content.\n- If the output is in JSON form, convert it into sentences in text form\n- The output does not consist of JSON object or code script inside the inner text",
           "maxIterations": 3
         }
       },
@@ -339,8 +378,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1,
       "position": [
-        1060,
-        780
+        1080,
+        700
       ]
     }
   ],
@@ -349,8 +388,15 @@
     "executionOrder": "v1"
   },
   "staticData": null,
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2023-12-13T12:08:54.022Z",
+      "updatedAt": "2023-12-13T12:08:54.022Z",
+      "id": "4UxfwpmCTNXoN4Xc",
+      "name": "chat"
+    }
+  ],
   "triggerCount": 1,
-  "updatedAt": "2023-12-06T14:29:21.000Z",
-  "versionId": "83a4a686-b88d-4f7f-b930-d268c4a2a042"
+  "updatedAt": "2023-12-16T14:41:14.000Z",
+  "versionId": "668908b6-106b-4cf8-8d79-9bf1611ddbbd"
 }
