@@ -53,7 +53,7 @@
             "index": 0
           },
           {
-            "node": "Insert record of blog article",
+            "node": "Insert record of blog article1",
             "type": "main",
             "index": 0
           }
@@ -279,25 +279,27 @@
             },
             {
               "fieldName": "Focus Keywords",
-              "fieldValue": "={{ $json.rank_math_description[0] }}"
+              "fieldValue": "={{ $json.rank_math_focus_keyword[0].split(\",\") }}"
             }
           ]
         }
       },
-      "id": "3e6da551-82ae-4b7e-8848-8a9606c6c3e3",
-      "name": "Insert record of blog article",
+      "id": "0523806a-c308-485d-b48f-a52fe256d0e7",
+      "name": "Insert record of blog article1",
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
         560,
-        60
+        80
       ],
+      "executeOnce": false,
       "credentials": {
         "nocoDbApiToken": {
           "id": "lAHf5CVpXMWer3BZ",
           "name": "NocoDB Token account"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     }
   ],
   "pinData": {},
@@ -332,6 +334,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2023-12-16T12:00:08.000Z",
-  "versionId": "4c642a5a-31fb-489f-a18b-3708b0dbac40"
+  "updatedAt": "2023-12-17T15:00:33.000Z",
+  "versionId": "c5bba438-8dd8-4bf4-87f9-8ac2ab4734a3"
 }
