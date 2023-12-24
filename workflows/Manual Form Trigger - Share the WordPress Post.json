@@ -287,7 +287,7 @@
             },
             {
               "fieldName": "Focus Keywords",
-              "fieldValue": "={{ $json.rank_math_focus_keyword[0] }}"
+              "fieldValue": "={{ $json.rank_math_focus_keyword[0].split(\",\") }}"
             }
           ]
         }
@@ -342,6 +342,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2023-12-16T11:59:40.000Z",
-  "versionId": "03c0237d-7712-483e-ae4b-1b23d64efc0c"
+  "updatedAt": "2023-12-17T15:04:16.000Z",
+  "versionId": "c5aac379-9ba4-4d35-b39a-b31abdc7aaa7"
 }
