@@ -53,7 +53,7 @@
             "index": 0
           },
           {
-            "node": "Insert record of blog article1",
+            "node": "Insert record of blog article",
             "type": "main",
             "index": 0
           }
@@ -104,6 +104,10 @@
             {
               "name": "method",
               "stringValue": "webhook"
+            },
+            {
+              "name": "pinterest_image",
+              "stringValue": "={{ $json.data.acf_data.pinterest_image.url}}"
             }
           ]
         },
@@ -285,7 +289,7 @@
         }
       },
       "id": "0523806a-c308-485d-b48f-a52fe256d0e7",
-      "name": "Insert record of blog article1",
+      "name": "Insert record of blog article",
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
@@ -334,6 +338,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2023-12-17T15:00:33.000Z",
-  "versionId": "c5bba438-8dd8-4bf4-87f9-8ac2ab4734a3"
+  "updatedAt": "2023-12-27T11:00:38.000Z",
+  "versionId": "964a254a-13bf-4b77-922d-9945dbaee848"
 }
