@@ -1,0 +1,183 @@
+{
+  "active": false,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JotForm Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Bitly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bitly": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-29T06:20:12.727Z",
+  "id": "0E7aDAqOi8YZlqRW",
+  "meta": null,
+  "name": "Failed - Batch create bitly link",
+  "nodes": [
+    {
+      "parameters": {
+        "longUrl": "={{ $json.UTM_URL }}",
+        "additionalFields": {
+          "title": "={{ $json.Title }}"
+        }
+      },
+      "id": "ed1cae12-25bb-4c97-8a1e-fbad9836606b",
+      "name": "Bitly",
+      "type": "n8n-nodes-base.bitly",
+      "typeVersion": 1,
+      "position": [
+        940,
+        340
+      ],
+      "executeOnce": false,
+      "credentials": {
+        "bitlyApi": {
+          "id": "LtOVybF6nOWSTZp1",
+          "name": "InvestingNote bitly"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fileFormat": "csv",
+        "options": {}
+      },
+      "id": "a257b2d3-194b-4ac8-8e13-0adea86ef355",
+      "name": "Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        720,
+        340
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.rawRequest.fileUpload[0] }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "3cd82846-db7e-45dd-b628-b1b8a5d769d8",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        500,
+        340
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "7Uv0IshNNzK83Cj0",
+          "name": "Jotform Query Auth "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "form": "233638857096067",
+        "resolveData": false,
+        "onlyAnswers": false
+      },
+      "id": "0a5fa533-cd24-4083-9218-08e358359337",
+      "name": "JotForm Trigger",
+      "type": "n8n-nodes-base.jotFormTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        340
+      ],
+      "webhookId": "2da4fc07-753f-4e62-bda8-d766cea26fb7",
+      "credentials": {
+        "jotFormApi": {
+          "id": "zkggcPVyWgziWD0V",
+          "name": "JotForm account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Public form: https://form.jotform.com/233638857096067\n\n*API Settings:*\nhttps://www.jotform.com/myaccount/api",
+        "height": 302.7364470532872,
+        "width": 344.46653008972487
+      },
+      "id": "a783631c-606b-4a71-b392-c39fd70a1509",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        100,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "85705c79-fa05-4129-8a64-423243833373",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        340
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:JotForm Trigger": {}
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-12-31T08:38:12.000Z",
+  "versionId": "9c3402a5-12dc-44f4-ace4-f27d3706801d"
+}
