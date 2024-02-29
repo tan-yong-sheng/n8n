@@ -54,27 +54,7 @@
       "main": [
         [
           {
-            "node": "Create Post to LinkedIn Page",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "X1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "node": "Publish to Pinterest",
             "type": "main",
             "index": 0
           }
@@ -84,12 +64,15 @@
   },
   "createdAt": "2023-12-10T12:50:11.882Z",
   "id": "vrgIebglf07DHKaE",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Action Controller - Share WordPress Post to Social Media",
   "nodes": [
     {
       "parameters": {
-        "workflowId": "iGmi85xkl2kLVMiT"
+        "workflowId": "iGmi85xkl2kLVMiT",
+        "options": {}
       },
       "id": "c96d908c-58d9-44eb-a113-6e62bfcedac3",
       "name": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
@@ -104,7 +87,8 @@
     },
     {
       "parameters": {
-        "workflowId": "zto5ieWYNupvp5p5"
+        "workflowId": "zto5ieWYNupvp5p5",
+        "options": {}
       },
       "id": "cf0cd7a5-6f91-4138-a45c-7b7f2c1e16c8",
       "name": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
@@ -128,7 +112,7 @@
       "typeVersion": 2,
       "position": [
         1100,
-        460
+        440
       ],
       "retryOnFail": true,
       "credentials": {
@@ -141,7 +125,8 @@
     },
     {
       "parameters": {
-        "workflowId": "pPg5GT17OwiI4aSn"
+        "workflowId": "pPg5GT17OwiI4aSn",
+        "options": {}
       },
       "id": "a940802b-f430-4a41-ad27-f7662ad0feb1",
       "name": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
@@ -177,7 +162,7 @@
       "typeVersion": 1,
       "position": [
         960,
-        1500
+        1680
       ],
       "credentials": {
         "facebookGraphApi": {
@@ -199,8 +184,8 @@
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        800,
-        1500
+        780,
+        1680
       ],
       "onError": "continueRegularOutput"
     },
@@ -220,8 +205,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        760,
-        1200
+        600,
+        1340
       ],
       "executeOnce": false,
       "credentials": {
@@ -243,7 +228,7 @@
       "typeVersion": 1,
       "position": [
         1060,
-        1280
+        1360
       ],
       "credentials": {
         "mailchimpOAuth2Api": {
@@ -264,7 +249,7 @@
       "typeVersion": 1,
       "position": [
         960,
-        1220
+        1320
       ]
     },
     {
@@ -281,7 +266,7 @@
       "typeVersion": 1,
       "position": [
         580,
-        120
+        100
       ],
       "credentials": {
         "bitlyOAuth2Api": {
@@ -311,7 +296,7 @@
       "typeVersion": 4.1,
       "position": [
         460,
-        980
+        1160
       ],
       "notes": "https://tinyurl.com/app/dev"
     },
@@ -325,8 +310,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        900
+        380,
+        1080
       ]
     },
     {
@@ -340,51 +325,23 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        700,
-        1440
+        680,
+        1620
       ]
     },
     {
       "parameters": {
-        "content": "LinkedIn credentials error: https://community.n8n.io/t/error-when-posting-to-linkedin-as-person-or-organization/26736\n\nProblem: the post cannot add title, read more...",
+        "content": "LinkedIn credentials error: https://community.n8n.io/t/error-when-posting-to-linkedin-as-person-or-organization/26736\n\nProblem: the post cannot add title, read more...\n\n(Ps: you need ot request the access to LinkedIn Product for their API: https://www.linkedin.com/help/linkedin/answer/a526048)\n\n(Note 2: remember to verify your custom domain email in your Linkedin, which has same domain as your n8n oauth2 redirect uri)",
         "height": 333.64168900973647,
-        "width": 254.55605392849023
+        "width": 501.64453035505755
       },
       "id": "453286ee-d9e3-4974-9f56-559542f6e2ef",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1020,
-        600
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "dec84bbf-f0ce-465c-97f1-d63187229e0f",
-      "name": "Pinterest",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        1060,
-        1020
-      ]
-    },
-    {
-      "parameters": {
-        "content": "Pinterest Node: https://community.n8n.io/t/pinterest-node/2373/2",
-        "height": 234.33576670113794,
-        "width": 388.6715334022759
-      },
-      "id": "522e6eb5-d85f-48e8-8a25-aa4bed83295a",
-      "name": "Sticky Note4",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
         980,
-        960
+        560
       ]
     },
     {
@@ -399,7 +356,7 @@
       "typeVersion": 2.1,
       "position": [
         760,
-        200
+        180
       ]
     },
     {
@@ -428,6 +385,35 @@
           "name": "LinkedIn account"
         }
       }
+    },
+    {
+      "parameters": {
+        "workflowId": "Klm5FB0lJ4apuPWe",
+        "options": {}
+      },
+      "id": "e526dc1c-81d1-4dbc-a800-f78f2eb9c10c",
+      "name": "Publish to Pinterest",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        1020
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Pinterest node: https://community.n8n.io/t/pinterest-node/2373/2\n\nPinterest node is on the way to do, almost done",
+        "height": 276.7770468566697,
+        "width": 505.98137149545084
+      },
+      "id": "7a1154eb-241e-49f7-81d5-57e940511ddb",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        980,
+        940
+      ]
     }
   ],
   "pinData": {},
@@ -462,6 +448,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2023-12-16T04:21:50.000Z",
-  "versionId": "1a40a9fb-8c91-43e4-91b0-f44725ab33b8"
+  "updatedAt": "2024-01-30T12:50:14.000Z",
+  "versionId": "8ad7698d-7fec-4a7a-a457-036066bd8e8f"
 }
