@@ -1,0 +1,415 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get list of Pinterest boards": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Create Pin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create board": {
+      "main": [
+        [
+          {
+            "node": "Create Pin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-01-30T13:01:53.074Z",
+  "id": "lW63If5i22Hb1zEf",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "testing pinterest node",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "413c3fde-5335-43b9-9d59-04a654b28a36",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        480,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "pinterest_username",
+              "stringValue": "tan_yong_sheng"
+            },
+            {
+              "name": "pinterest_board_name",
+              "stringValue": "Email Marketing"
+            },
+            {
+              "name": "pinterest_board_description",
+              "stringValue": "this is a test"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e7db549b-5a28-4601-9d87-16364478afc9",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        660,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.pinterest.com/v5/boards",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {}
+      },
+      "id": "120ee4a6-d7c6-44ff-8a0d-9c27b785595c",
+      "name": "Get list of Pinterest boards",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1060,
+        300
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "zhQSIwcM0QGBX5DB",
+          "name": "Pinterest Oauth2 API - Production Limited"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.all()\nconsole.log(data)\n\nconst boardNameToFind = \"Email Marketing\";\n\n// Create a Map for fast lookups\nconst boardMap = new Map();\n\n// Populate the Map with board names as keys and their IDs as values\nfor (const item of data) {\n  boardMap.set(item.json.name, item.json.id);\n  console.log(item.json.name, item.json.id);\n}\n\n// Perform a fast lookup using the Map\nconst boardId = boardMap.get(boardNameToFind);\n\nreturn boardMap;"
+      },
+      "id": "7b7db216-e219-470e-bab6-451aca43c63a",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.pinterest.com/v5/pins",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"title\": \"this is a test\", \"description\": \"this is a test\", \"board_id\": \"687432399312084965\", \"media_source\": {\"source_type\": \"image_url\", \"url\": \"https://images.contentstack.io/v3/assets/bltd582a520b3ab6888/blt33a78ba4b52058bc/624cff6f7737b40a532f903b/050422_SEA_EN_7_Day_Futures_Trading_Competition_SM_1600x900_(1).png\"}} ",
+        "options": {}
+      },
+      "id": "9178a2a6-96a1-4baa-ab6a-8a21dc4c5fa5",
+      "name": "Create Pin",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1480,
+        60
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "zhQSIwcM0QGBX5DB",
+          "name": "Pinterest Oauth2 API - Production Limited"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.pinterest.com/v5/boards",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.pinterest_board_name }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.pinterest_board_description || \" \" }}"
+            },
+            {
+              "name": "privacy",
+              "value": "PUBLIC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6768f000-6d08-42fa-baf0-708da9797509",
+      "name": "Create board",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        880,
+        180
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "oAuth2Api": {
+          "id": "zhQSIwcM0QGBX5DB",
+          "name": "Pinterest Oauth2 API - Production Limited"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://www.pinterest.com/resource/BoardResource/get",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "source_url",
+              "value": "=/{{ $json.pinterest_username }}/{{ $json.pinterest_board_name.toLowerCase().replace(' ','-') }}"
+            },
+            {
+              "name": "data",
+              "value": "={\"options\":{\"username\":\"{{ $json.pinterest_username }}\",\"slug\":\"{{ $json.pinterest_board_name.toLowerCase().replace(' ','-') }}\",\"field_set_key\":\"detailed\"},\"context\":{}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "authority",
+              "value": "www.pinterest.com"
+            },
+            {
+              "name": "accept",
+              "value": "application/json, text/javascript, */*, q=0.01"
+            },
+            {
+              "name": "accept-language",
+              "value": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7"
+            },
+            {
+              "name": "referer",
+              "value": "https://www.pinterest.com/"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "x-app-version",
+              "value": "4ef13ec"
+            },
+            {
+              "name": "x-pinterest-appstate",
+              "value": "active"
+            },
+            {
+              "name": "x-pinterest-pws-handler",
+              "value": "www/[username]/_saved.js"
+            },
+            {
+              "name": "x-pinterest-source-url",
+              "value": "=/{{ $json.pinterest_username }}/{{ $json.pinterest_board_name.toLowerCase().replace(' ','-') }}"
+            },
+            {
+              "name": "x-requested-with",
+              "value": "XMLHttpRequest"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fe775543-7544-4332-812f-d3108e61269c",
+      "name": "(Unofficial) Get board id from board name",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1340,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.pinterest.com/resource/BoardResource/get",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "source_url",
+              "value": "=/{{ $json.pinterest_username }}/{{ $json.pinterest_board_name.toLowerCase().replace(' ','-') }}/"
+            },
+            {
+              "name": "data",
+              "value": "={\"options\":{\"username\":\"{{ $json.pinterest_username }}\",\"slug\":\"{{ $json.pinterest_board_name.toLowerCase().replace(' ','-') }}\",\"field_set_key\":\"detailed\"},\"context\":{}}"
+            },
+            {
+              "name": "_",
+              "value": "1706624952065"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "authority",
+              "value": "www.pinterest.com"
+            },
+            {
+              "name": "accept",
+              "value": "application/json, text/javascript, */*, q=0.01"
+            },
+            {
+              "name": "accept-language",
+              "value": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7"
+            },
+            {
+              "name": "cookie",
+              "value": "_pinterest_sess=TWc9PSZHd3hWZnBSRTYrbFhTY2k5VDNiSzhaSE1PL1BVOEp4TkdzWjd1Rm1WRlJjbGtxSExHRjY0SFVSRzlJTHc5WldTUHRIa1lxQmFLUm1yNS9POG9ubDBaay9oWm5YQkJnYjhTZEptZk1GYURGUm5qdkdlSzJaMmRteTJDMlJ6L1RGL1M3SlpwOHg3cjdOK0ZVYXNESzNMd2RGUzdVd2NxMHlvdUpsU1BhUWU5bC8wa3VtN2tUKytMampvMVlCM2I4bmRPNmxIVTN6ZmYxQnBRMWMxYlZ0TjBjN0REVHJ3bkpwekVwamJOL1lDZGN0djJERGZmeWNNMUN1R1F0MDFoL05EZFd1eVBjY2NxS21EbHJlWGVDWi9SR2Q1Q2g3enBtamVOUlhUSkwzWUZWTCthRzF6Rk0wRmpwREV4TjVyZ2ZWeU96QW9aS2xSK2tGT0ZNVlJWMVlTZk1ONDJpT3prQ0ZkdkUyUVNNc2NDWHI1ODMrTnZTZkk4SzQxR0pSZjlpZUtrUnhZTjQwLzBKL0dYVjFiM2Vjb01BPT0mRUlEdnhUQnUzUFAyRzdRYVVsN05pYytUaUZrPQ==; __Secure-s_a=QW1oUHZaRGt4YmNlWTBieTJWQmxTWEEwRW11OGlUbnlyYmwzL3crcjlCV2JuZlFHZHI5dlN3UG1ScmVDU3lCUHptYkZEWUJobjQzL1NjZFpaZTRoK0RCakR4bTRrU3RwTWsxNXlUQ1FuNENGMEJqL3Z1a0pkRWMremNxTm5vOFZqMVFTYkdpbHBQRDRFYnlVNytvbDFLOWppZXNOUm9zaWJubUNVOVI3Q0FNdkU3ZHlBQmJQNUVSNEVmVzZVZTdGYWxnNmdSb3lFeWZxRWhTbEdMcmhPVkhMc0ZBSkgwc2IzalZoSlJ5YXArbHdWbzB5aHhwSDlpTG9wVFJnRzhkK1pRbHVHS3A0NVJHOElBalFLTU5FcFc1K2MvTllwTDYxeS80RjgwcHpvd0U9JnduUU1Ld1NZbXVIcCtpeUlDR0NtUFZOVHZCMD0=; ar_debug=1; _auth=1; _b=\"AXc+q56th2FFRJ/nNh0lLM8oCZWHGV/9gmq+NvMagcJwq/1C7fxzUpoX32VMzH5tiIU=\"; csrftoken=62ed27a61caefd010382bcf7f8021bc2; ar_debug=1; _pinterest_cm=\"TWc9PSZGcnZ4bW1wSkx1UUdOcWpXc0JJc1BjeTk3YjJTY2x2cVpLOU1mMnRtaHEvU0VRQnNFNnp4MzFmOFhYMFczM3BaaDQwaDEvS1EvN2xiVlFDTDFkWnJwUTdramhNV1lCa001aExGK09JOWVDeDJ4YUY3MU9LYkxrZi9ncHZJSXdBcysyRmZZR01WeXB6K0pGMWNqZVVDVXpmK1JVWSs2aTlzZ0FsTXFnbXViUnh6bElYc0xOR2w2S1UyN0xCQmg3Z2gmVGV2WENod3JmYkdHTU9uakM4UmdXZ1N0MVlZPQ==\"; _routing_id=\"70990db9-e681-44b2-8185-2371d57bed7d\"; sessionFunnelEventLogged=1; cm_sub=denied"
+            },
+            {
+              "name": "referer",
+              "value": "https://www.pinterest.com/"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
+            },
+            {
+              "name": "sec-ch-ua-full-version-list",
+              "value": "\"Not_A Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"120.0.6099.225\", \"Google Chrome\";v=\"120.0.6099.225\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-model",
+              "value": "\"\""
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"Windows\""
+            },
+            {
+              "name": "sec-ch-ua-platform-version",
+              "value": "\"15.0.0\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "same-origin"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "x-app-version",
+              "value": "4ef13ec"
+            },
+            {
+              "name": "x-pinterest-appstate",
+              "value": "active"
+            },
+            {
+              "name": "x-pinterest-pws-handler",
+              "value": "www/[username]/_saved.js"
+            },
+            {
+              "name": "x-pinterest-source-url",
+              "value": "=/{{ $json.pinterest_username }}/{{ $json.pinterest_board_name.toLowerCase().replace(' ','-') }}/"
+            },
+            {
+              "name": "x-requested-with",
+              "value": "XMLHttpRequest"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a98974f0-a882-44d7-b4e2-841c44d05303",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        780,
+        500
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-02-01T03:36:38.239Z",
+      "updatedAt": "2024-02-01T03:36:38.239Z",
+      "id": "YypyNZfSNsyVPDjM",
+      "name": "otw"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-02-01T03:36:54.000Z",
+  "versionId": "703dcf81-820b-4284-9f74-2c3ae765aabd"
+}
