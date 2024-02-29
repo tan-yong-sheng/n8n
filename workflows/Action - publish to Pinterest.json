@@ -1,0 +1,253 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create board",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Create Pin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create board": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get list of boards",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        []
+      ]
+    },
+    "Get list of boards": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2024-01-29T14:08:37.391Z",
+  "id": "Klm5FB0lJ4apuPWe",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Action - publish to Pinterest",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7a69e196-1c84-4f52-8288-4f6b9aeb30ee",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        40,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "pinterest_image",
+              "stringValue": "={{ $json.pinterest_image }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "57462484-3b0f-4d5a-8ad9-b9f43d5798fa",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        280,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "3b421cb6-ec3f-4406-8ea3-7be3f5a41ce9",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.pinterest.com/v5/boards",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.pinterest_board_name }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.pinterest_board_description || 1 }}"
+            },
+            {
+              "name": "privacy",
+              "value": "PUBLIC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6232541c-e88a-4920-b08c-6fdab8d647e7",
+      "name": "Create board",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        260,
+        200
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "oAuth2Api": {
+          "id": "zhQSIwcM0QGBX5DB",
+          "name": "Pinterest Oauth2 API - Production Limited"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.pinterest.com/v5/pins",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"title\": \"{{ $json.pinterest_post_title }}\", \"description\": \"{{ $json.pinterest_post_description }}\", \"board_id\": \"{{ $json.id }}\", \"media_source\": {\"source_type\": \"image_url\", \"url\": \"{{ $json.pinterest_image }}\"}} ",
+        "options": {}
+      },
+      "id": "8024eb48-1a5e-452f-9e78-71176d65bdb6",
+      "name": "Create Pin",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        780,
+        380
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "u2q8fHEXRh4InbSm",
+          "name": "Pinterest Sandbox Oauth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "9b2bfac8-cf7f-486a-8ee8-09fb82b473d7",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        720,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.pinterest.com/v5/boards",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {}
+      },
+      "id": "450bd138-89d0-4952-a800-2a9201d647f7",
+      "name": "Get list of boards",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        500,
+        100
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "zhQSIwcM0QGBX5DB",
+          "name": "Pinterest Oauth2 API - Production Limited"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "id": "51961547-442d-4f56-af33-75f8ce6f5d47",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        180
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-30T14:27:28.000Z",
+  "versionId": "d773580e-ff22-44ee-a6d3-dc6c7a668433"
+}
