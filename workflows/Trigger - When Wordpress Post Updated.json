@@ -26,12 +26,15 @@
   },
   "createdAt": "2023-11-30T00:44:34.882Z",
   "id": "xWd6ztsX76TnmtQe",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Trigger - When Wordpress Post Updated",
   "nodes": [
     {
       "parameters": {
-        "workflowId": "KpGzjZailbovROgs"
+        "workflowId": "KpGzjZailbovROgs",
+        "options": {}
       },
       "id": "a914c573-36c2-4fa9-baad-0a4aa85ac80e",
       "name": "Indexing - Google Search API",
@@ -62,7 +65,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
       "position": [
-        720,
+        680,
         180
       ],
       "executeOnce": false
@@ -78,7 +81,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        540,
+        460,
         180
       ],
       "webhookId": "b9f93c09-52e5-45f7-a925-a55f658fa1ce"
@@ -116,6 +119,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2023-12-27T11:00:24.000Z",
-  "versionId": "e1f41be9-a111-4048-b606-e5f2f65bef02"
+  "updatedAt": "2024-01-29T05:13:12.000Z",
+  "versionId": "47b346d5-dfe0-4e5f-9e05-0d62a56481e6"
 }
