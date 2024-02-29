@@ -12,17 +12,6 @@
         ]
       ]
     },
-    "JotForm Trigger": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Spreadsheet File": {
       "main": [
         [
@@ -44,11 +33,24 @@
           }
         ]
       ]
+    },
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-12-29T06:20:12.727Z",
   "id": "0E7aDAqOi8YZlqRW",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Failed - Batch create bitly link",
   "nodes": [
     {
@@ -64,13 +66,13 @@
       "typeVersion": 1,
       "position": [
         940,
-        340
+        360
       ],
       "executeOnce": false,
       "credentials": {
         "bitlyApi": {
-          "id": "LtOVybF6nOWSTZp1",
-          "name": "InvestingNote bitly"
+          "id": "tFXcBnoXjlTb9pUQ",
+          "name": "Bitly InvestingNote API"
         }
       }
     },
@@ -85,14 +87,14 @@
       "typeVersion": 2,
       "position": [
         720,
-        340
+        360
       ],
       "executeOnce": true,
       "alwaysOutputData": true
     },
     {
       "parameters": {
-        "url": "={{ $json.rawRequest.fileUpload[0] }}",
+        "url": "=",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpQueryAuth",
         "options": {
@@ -108,35 +110,13 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        500,
-        340
+        480,
+        360
       ],
       "credentials": {
         "httpQueryAuth": {
           "id": "7Uv0IshNNzK83Cj0",
           "name": "Jotform Query Auth "
-        }
-      }
-    },
-    {
-      "parameters": {
-        "form": "233638857096067",
-        "resolveData": false,
-        "onlyAnswers": false
-      },
-      "id": "0a5fa533-cd24-4083-9218-08e358359337",
-      "name": "JotForm Trigger",
-      "type": "n8n-nodes-base.jotFormTrigger",
-      "typeVersion": 1,
-      "position": [
-        200,
-        340
-      ],
-      "webhookId": "2da4fc07-753f-4e62-bda8-d766cea26fb7",
-      "credentials": {
-        "jotFormApi": {
-          "id": "zkggcPVyWgziWD0V",
-          "name": "JotForm account"
         }
       }
     },
@@ -165,7 +145,18 @@
       "typeVersion": 1,
       "position": [
         1160,
-        340
+        360
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8e614a81-6279-4b10-b773-25176efc17f8",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        360
       ]
     }
   ],
@@ -176,8 +167,15 @@
   "staticData": {
     "node:JotForm Trigger": {}
   },
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2024-02-01T03:36:38.239Z",
+      "updatedAt": "2024-02-01T03:36:38.239Z",
+      "id": "YypyNZfSNsyVPDjM",
+      "name": "otw"
+    }
+  ],
   "triggerCount": 1,
-  "updatedAt": "2023-12-31T08:38:12.000Z",
-  "versionId": "9c3402a5-12dc-44f4-ace4-f27d3706801d"
+  "updatedAt": "2024-02-01T03:36:47.000Z",
+  "versionId": "ce245c96-4709-4de7-b140-3ab299203005"
 }
