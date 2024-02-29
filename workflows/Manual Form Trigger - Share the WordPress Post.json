@@ -12,22 +12,6 @@
         ]
       ]
     },
-    "HTTP Request1": {
-      "main": [
-        [
-          {
-            "node": "Form Trigger - Extract blog title, post excerpt, url and thumbnail1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "(Need Edit) Social media settings configuration",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Form Trigger - Extract blog title, post excerpt, url and thumbnail1": {
       "main": [
         [
@@ -43,7 +27,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request1",
+            "node": "Get data from n8n Form",
             "type": "main",
             "index": 0
           }
@@ -65,11 +49,29 @@
           }
         ]
       ]
+    },
+    "Get data from n8n Form": {
+      "main": [
+        [
+          {
+            "node": "Form Trigger - Extract blog title, post excerpt, url and thumbnail1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "(Need Edit) Social media settings configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-12-10T12:48:10.792Z",
   "id": "HggXTvOVoigCqgME",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Manual Form Trigger - Share the WordPress Post",
   "nodes": [
     {
@@ -83,8 +85,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        680,
-        380
+        700,
+        420
       ]
     },
     {
@@ -133,41 +135,6 @@
     },
     {
       "parameters": {
-        "url": "https://tanyongsheng.net/?wpwhpro_action=n8n",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpQueryAuth",
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "action",
-              "value": "get_post"
-            },
-            {
-              "name": "post_value",
-              "value": "={{ $json['Post ID'] }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "e2905683-7be2-43a1-b5cb-1ebbc6959d31",
-      "name": "HTTP Request1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        240,
-        460
-      ],
-      "credentials": {
-        "httpQueryAuth": {
-          "id": "vsyeQssMHac5DUEi",
-          "name": "Query Auth account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "Manual way to trigger this event",
         "height": 238.94430024910193,
         "width": 348.14489675417286
@@ -192,6 +159,22 @@
             {
               "name": "pinterest_image",
               "stringValue": "={{ $json.data.acf_data.pinterest_image.url}}"
+            },
+            {
+              "name": "pinterest_board_name",
+              "stringValue": "={{ $json.data.post_meta.pinterest_board_name[0] }}"
+            },
+            {
+              "name": "pinterest_board_description",
+              "stringValue": "={{ $json.data.post_meta.pinterest_board_description[0] }}"
+            },
+            {
+              "name": "pinterest_post_title",
+              "stringValue": "={{ $json.data.post_meta.pinterest_post_title[0] }}"
+            },
+            {
+              "name": "pinterest_post_description",
+              "stringValue": "={{ $json.data.post_meta.pinterest_post_description[0] }}"
             }
           ]
         },
@@ -205,14 +188,15 @@
       "typeVersion": 3.2,
       "position": [
         500,
-        280
+        340
       ],
       "executeOnce": false,
       "alwaysOutputData": true
     },
     {
       "parameters": {
-        "workflowId": "vrgIebglf07DHKaE"
+        "workflowId": "vrgIebglf07DHKaE",
+        "options": {}
       },
       "id": "efe99e35-2897-4078-89b3-5b512397024a",
       "name": "Action - Share WordPress Post to Social Post",
@@ -220,11 +204,12 @@
       "typeVersion": 1,
       "position": [
         920,
-        280
+        320
       ]
     },
     {
       "parameters": {
+        "path": "b9448d95-0c3e-46fd-a6c2-d97cb1d0fc94",
         "formTitle": "Manual Posting",
         "formDescription": "Trigger the automation when WordPress Post ID is given",
         "formFields": {
@@ -302,7 +287,7 @@
       "typeVersion": 3,
       "position": [
         920,
-        480
+        520
       ],
       "executeOnce": false,
       "credentials": {
@@ -312,6 +297,41 @@
         }
       },
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://tanyongsheng.net/?wpwhpro_action=n8n",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "action",
+              "value": "get_post"
+            },
+            {
+              "name": "post_value",
+              "value": "={{ $json['Post ID'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e2905683-7be2-43a1-b5cb-1ebbc6959d31",
+      "name": "Get data from n8n Form",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        260,
+        460
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "vsyeQssMHac5DUEi",
+          "name": "WP Webhooks - tanyongsheng.net"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -346,6 +366,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2023-12-27T13:35:52.000Z",
-  "versionId": "fd882f67-49d6-45b4-b79d-7b16c1c1da8b"
+  "updatedAt": "2024-01-30T13:16:46.000Z",
+  "versionId": "22309319-b915-4ccb-99ff-012455039b16"
 }
