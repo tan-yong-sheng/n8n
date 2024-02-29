@@ -1,0 +1,125 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Extract From File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract From File": {
+      "main": [
+        [
+          {
+            "node": "Bitly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-02-02T01:46:33.158Z",
+  "id": "eryhe8DAPxjVolRI",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Create bitly link for InvestingNote",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8e03e408-e3d1-4e92-96dc-bdd5dc7acbba",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        700,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "longUrl": "={{ $json.URL }}",
+        "additionalFields": {
+          "title": "={{ $json.Filter }}"
+        }
+      },
+      "id": "f51807e7-219b-4c29-b049-f54f9e0d018e",
+      "name": "Bitly",
+      "type": "n8n-nodes-base.bitly",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        180
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "bitlyApi": {
+          "id": "tFXcBnoXjlTb9pUQ",
+          "name": "Bitly InvestingNote API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/tan-yong-sheng/n8n/master/blog_link.csv",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "0f872255-7ba9-4993-89ee-cdd0e6623e47",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        920,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "=data",
+        "options": {
+          "delimiter": ","
+        }
+      },
+      "id": "465c03cf-bc3b-41b4-80b0-ddaa326266f4",
+      "name": "Extract From File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        180
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-02-02T01:56:06.000Z",
+  "versionId": "5856efa4-9d8a-4ed5-a303-0333f6c2eb8c"
+}
