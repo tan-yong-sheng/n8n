@@ -1,0 +1,240 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Read from useArtemis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read from useArtemis": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spreadsheet File1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Listmonk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listmonk": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-01-08T13:40:07.550Z",
+  "id": "5xNma4z3fz23jMdO",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "useArtemis - Export LinkedIn Prospects",
+  "nodes": [
+    {
+      "parameters": {
+        "fileFormat": "csv",
+        "options": {}
+      },
+      "id": "b5c70e1e-20c0-4de0-857c-dd059e695885",
+      "name": "Spreadsheet File1",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        960,
+        140
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e6168996-715d-4d99-bfe5-de4c1ef18f94",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        340,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.useartemis.co/v2/csvlist",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Origin",
+              "value": "https://app.useartemis.co"
+            },
+            {
+              "name": "Referer",
+              "value": "https://app.useartemis.co/"
+            },
+            {
+              "name": "Sec-Fetch-Dest",
+              "value": "empty"
+            },
+            {
+              "name": "Sec-Fetch-Mode",
+              "value": "cors"
+            },
+            {
+              "name": "Sec-Fetch-Site",
+              "value": "same-site"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"Windows\""
+            },
+            {
+              "name": "cookie",
+              "value": "_ga=GA1.1.1771738811.1704627854;_gcl_au=1.1.1049078269.1704627855;intercom-device-id-hav4rqtk=eb8ad6ff-bd76-44a9-8f4d-ed6cd7688ee3;access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWE4ZWE3MzQzZTkwN2MxMDg3MTc0MiIsImVtYWlsIjoidHlzMjAzODMxQGdtYWlsLmNvbSIsImlhdCI6MTcwNDY3NjgxM30.uRtGBprnlfKiXnhs2WVECDdqPxhZv5EbSTOACEi0FrQ;intercom-session-hav4rqtk=TjJmQ0Y3WU82a3pSbkdMekZHbjRaRmdaRmdrNnRlcmpCTGFEb1NUY1htV3lRdGxFVnBiSVR5UmdMa3JaV3Fmdy0tV01UWWJjYmFaOWZaM1krTHVMWFI0Zz09--0e20dfde63ecc581fc53cf67124bac38f9d0e744;_ga_K29KX46KCP=GS1.1.1704718382.5.1.1704721016.0.0.0;"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "listid",
+              "value": "659a9706343e907c1089bb71"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "d03122bb-4b64-4a98-9edd-850dc644227e",
+      "name": "Read from useArtemis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        760,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "height": 315.3370059074334
+      },
+      "id": "80fcb31f-56af-4266-b339-e37beae8bacc",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        280,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "b63b65db-d8f1-44b5-8184-1eb10699e4de",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1240,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "subscriber",
+        "name": "={{ $json.Name }}",
+        "subscriberEmail": "={{ $json.Firstname }}",
+        "subscriberLists": "[\"CEO\"]",
+        "subscriberAttributes": "={\n\"jobTitle\": \"{{ $json.JobTitle }}\",\n\"Company\":  \"{{ $json.Company }}\",\n\"linkedin\":  \"{{ $json.linkedin }}\",\n}",
+        "operation": "createSubscriber"
+      },
+      "id": "c88bf73b-5157-4885-8942-e75085b93527",
+      "name": "Listmonk",
+      "type": "n8n-nodes-listmonk.listmonk",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        280
+      ],
+      "credentials": {
+        "listmonkApi": {
+          "id": "5koiPU1pdx1DaeYM",
+          "name": "Listmonk account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-16T14:30:47.000Z",
+  "versionId": "859c9cb4-0b7b-46f8-a2e4-cf99e3dd360a"
+}
