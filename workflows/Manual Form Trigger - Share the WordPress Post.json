@@ -41,11 +41,6 @@
             "node": "Action - Share WordPress Post to Social Post",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Insert record of blog article",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -366,6 +361,6 @@
     }
   ],
   "triggerCount": 2,
-  "updatedAt": "2024-01-30T13:16:46.000Z",
-  "versionId": "22309319-b915-4ccb-99ff-012455039b16"
+  "updatedAt": "2024-03-07T17:04:13.000Z",
+  "versionId": "7c91118a-e470-4900-bf3d-98411faacd96"
 }
