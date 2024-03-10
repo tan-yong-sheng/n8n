@@ -54,7 +54,43 @@
       "main": [
         [
           {
+            "node": "Exclude bitly id field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exclude bitly id field": {
+      "main": [
+        [
+          {
             "node": "Publish to Pinterest",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Post to LinkedIn Page",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Publish to reddit's subreddit - id: iGmi85xkl2kLVMiT",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "X1",
             "type": "main",
             "index": 0
           }
@@ -265,7 +301,7 @@
       "type": "n8n-nodes-base.bitly",
       "typeVersion": 1,
       "position": [
-        580,
+        540,
         100
       ],
       "credentials": {
@@ -355,7 +391,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        760,
+        660,
         180
       ]
     },
@@ -376,8 +412,8 @@
       "type": "n8n-nodes-base.linkedIn",
       "typeVersion": 1,
       "position": [
-        1100,
-        760
+        1120,
+        720
       ],
       "credentials": {
         "linkedInOAuth2Api": {
@@ -397,7 +433,7 @@
       "typeVersion": 1,
       "position": [
         1100,
-        1020
+        1060
       ]
     },
     {
@@ -413,6 +449,22 @@
       "position": [
         980,
         940
+      ]
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "include": "except",
+        "excludeFields": "id",
+        "options": {}
+      },
+      "id": "72d8e4e0-7f0e-442e-9703-cbc836d0b4a8",
+      "name": "Exclude bitly id field",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        840,
+        180
       ]
     }
   ],
@@ -448,6 +500,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-01-30T12:50:14.000Z",
-  "versionId": "8ad7698d-7fec-4a7a-a457-036066bd8e8f"
+  "updatedAt": "2024-03-07T17:04:27.000Z",
+  "versionId": "84eaa6b2-cb91-4bef-8fcc-767a1cc33932"
 }
