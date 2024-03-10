@@ -1,0 +1,57 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2024-03-07T05:30:59.071Z",
+  "id": "lHK337opOdy0QVYy",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Manual form trigger - Social media Posting Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "path": "66ca7dfb-398b-4708-b76b-cbd4f10ea76f",
+        "options": {}
+      },
+      "id": "2ba5e504-27c2-4cfc-8af4-d0f131903919",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -200,
+        280
+      ],
+      "webhookId": "66ca7dfb-398b-4708-b76b-cbd4f10ea76f",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "SgLXGsDdW20ccsDE",
+          "name": "User Agent Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Idea: use Google form webhook\n\n- that Google form can let people to upload image and text\n- n8n receives that rensponse\n- n8n processes that response to post it to social media\n\nRefer \"Manual form trigger - Share to WordPress\"",
+        "height": 365
+      },
+      "id": "ab8d7199-6cd6-4719-9ee4-6bc6c23a0232",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        140
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-03-07T05:33:17.000Z",
+  "versionId": "818deb66-d2dc-4d84-873e-51d9c7d98743"
+}
