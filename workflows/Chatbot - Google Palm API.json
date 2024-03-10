@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Webhook": {
       "main": [
@@ -132,7 +132,9 @@
   },
   "createdAt": "2023-12-04T12:47:40.164Z",
   "id": "AkdjJLX22KrGt2AK",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Chatbot - Google Palm API",
   "nodes": [
     {
@@ -397,6 +399,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2023-12-16T14:41:14.000Z",
-  "versionId": "668908b6-106b-4cf8-8d79-9bf1611ddbbd"
+  "updatedAt": "2024-03-09T02:18:05.000Z",
+  "versionId": "4cd446c3-e81b-49e0-8f9d-633816f7a01b"
 }
