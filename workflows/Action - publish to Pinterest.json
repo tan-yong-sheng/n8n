@@ -13,15 +13,9 @@
             "node": "Create board",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
+          },
           {
-            "node": "Merge",
+            "node": "Merge2",
             "type": "main",
             "index": 1
           }
@@ -39,6 +33,33 @@
         ]
       ]
     },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Search board",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Create board": {
       "main": [
         [
@@ -50,21 +71,55 @@
         ],
         [
           {
-            "node": "Get list of boards",
+            "node": "Merge1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Merge1": {
+    "Search board": {
       "main": [
-        []
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "Get list of boards": {
+    "Merge2": {
       "main": [
-        []
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -82,9 +137,66 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        40,
-        340
+        -20,
+        260
       ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "3b421cb6-ec3f-4406-8ea3-7be3f5a41ce9",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        2020,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Search board: \nhttps://developers.pinterest.com/docs/api/v5/#tag/search",
+        "height": 192.99766204427397,
+        "width": 267.10522239351076
+      },
+      "id": "c7be1496-19c3-4fff-b85d-2deb4e8a05d4",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        740,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-sandbox.pinterest.com/v5/pins",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"title\": \"{{ $json.pinterest_post_title }}\", \"description\": \"{{ $json.pinterest_post_description }}\", \"board_id\": \"{{ $json.id }}\", \"media_source\": {\"source_type\": \"image_url\", \"url\": \"{{ $json.pinterest_image }}\"}} ",
+        "options": {}
+      },
+      "id": "8024eb48-1a5e-452f-9e78-71176d65bdb6",
+      "name": "Create Pin",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        2280,
+        260
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "u2q8fHEXRh4InbSm",
+          "name": "Pinterest Sandbox Oauth2 API"
+        }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -93,6 +205,10 @@
             {
               "name": "pinterest_image",
               "stringValue": "={{ $json.pinterest_image }}"
+            },
+            {
+              "name": "ad_account_id",
+              "stringValue": "549767040555"
             }
           ]
         },
@@ -113,13 +229,13 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "3b421cb6-ec3f-4406-8ea3-7be3f5a41ce9",
-      "name": "Merge",
+      "id": "d5d4bd90-eba0-4662-8dfe-9c9b34c753fa",
+      "name": "Merge1",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        580,
-        380
+        520,
+        60
       ]
     },
     {
@@ -137,7 +253,7 @@
             },
             {
               "name": "description",
-              "value": "={{ $json.pinterest_board_description || 1 }}"
+              "value": "={{ $json.pinterest_board_description || \" \" }}"
             },
             {
               "name": "privacy",
@@ -152,41 +268,50 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        260,
-        200
+        240,
+        180
       ],
       "alwaysOutputData": false,
       "credentials": {
         "oAuth2Api": {
-          "id": "zhQSIwcM0QGBX5DB",
-          "name": "Pinterest Oauth2 API - Production Limited"
+          "id": "u2q8fHEXRh4InbSm",
+          "name": "Pinterest Sandbox Oauth2 API"
         }
       },
       "onError": "continueErrorOutput"
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://api-sandbox.pinterest.com/v5/pins",
+        "url": "https://api.pinterest.com/v5/search/boards",
         "authentication": "genericCredentialType",
         "genericAuthType": "oAuth2Api",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\"title\": \"{{ $json.pinterest_post_title }}\", \"description\": \"{{ $json.pinterest_post_description }}\", \"board_id\": \"{{ $json.id }}\", \"media_source\": {\"source_type\": \"image_url\", \"url\": \"{{ $json.pinterest_image }}\"}} ",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ad_account_id",
+              "value": "={{ $json.ad_account_id }}"
+            },
+            {
+              "name": "query",
+              "value": "={{ $json.pinterest_board_name }}"
+            }
+          ]
+        },
         "options": {}
       },
-      "id": "8024eb48-1a5e-452f-9e78-71176d65bdb6",
-      "name": "Create Pin",
+      "id": "e7aefa29-9b53-4f58-99d0-c04193befbe8",
+      "name": "Search board",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        780,
-        380
+        820,
+        -40
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "u2q8fHEXRh4InbSm",
-          "name": "Pinterest Sandbox Oauth2 API"
+          "id": "zhQSIwcM0QGBX5DB",
+          "name": "Pinterest Oauth2 API - Production Limited"
         }
       }
     },
@@ -196,48 +321,60 @@
         "combinationMode": "multiplex",
         "options": {}
       },
-      "id": "9b2bfac8-cf7f-486a-8ee8-09fb82b473d7",
-      "name": "Merge1",
+      "id": "611ea089-e8c7-42fa-86b5-4fb36c4afaef",
+      "name": "Merge2",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 2.1,
       "position": [
-        720,
-        180
+        1280,
+        20
       ]
     },
     {
       "parameters": {
-        "url": "https://api.pinterest.com/v5/boards",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "oAuth2Api",
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "638a6b45-7400-43f5-8bfc-a730d488929c",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "={{ $json.pinterest_board_name }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
         "options": {}
       },
-      "id": "450bd138-89d0-4952-a800-2a9201d647f7",
-      "name": "Get list of boards",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
+      "id": "4190916d-3301-42cc-a83b-f978d8a6f98c",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
       "position": [
-        500,
-        100
-      ],
-      "credentials": {
-        "oAuth2Api": {
-          "id": "zhQSIwcM0QGBX5DB",
-          "name": "Pinterest Oauth2 API - Production Limited"
-        }
-      }
+        1520,
+        -20
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+        "fieldToSplitOut": "items",
+        "options": {}
       },
-      "id": "51961547-442d-4f56-af33-75f8ce6f5d47",
-      "name": "Code",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "id": "ca5cbbc3-6388-47ad-919c-3b5d4e5a688b",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
       "position": [
-        940,
-        180
+        1020,
+        -60
       ]
     }
   ],
@@ -248,6 +385,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2024-01-30T14:27:28.000Z",
-  "versionId": "d773580e-ff22-44ee-a6d3-dc6c7a668433"
+  "updatedAt": "2024-03-07T17:00:47.000Z",
+  "versionId": "1b5a8db8-389e-47f4-a60a-623e677bacfb"
 }
