@@ -75,11 +75,6 @@
             "index": 0
           },
           {
-            "node": "Publish to facebook page - id: pPg5GT17OwiI4aSn",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Publish to Telegram Channel - id: zto5ieWYNupvp5p5",
             "type": "main",
             "index": 0
@@ -466,6 +461,19 @@
         840,
         180
       ]
+    },
+    {
+      "parameters": {
+        "content": "FB needs verification..."
+      },
+      "id": "177f3983-10a2-4b3e-a764-9c097a90adb0",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -160
+      ]
     }
   ],
   "pinData": {},
@@ -500,6 +508,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-03-07T17:04:27.000Z",
-  "versionId": "84eaa6b2-cb91-4bef-8fcc-767a1cc33932"
+  "updatedAt": "2024-03-24T12:44:35.000Z",
+  "versionId": "37ac4b07-f833-4556-ac33-6314955c2d56"
 }
