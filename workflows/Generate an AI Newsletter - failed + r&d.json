@@ -1,0 +1,502 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Item Lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "node": "Item Lists1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item Lists1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-04-13T14:53:33.499Z",
+  "id": "tdTRXcVem7P0jzH7",
+  "meta": null,
+  "name": "Generate an AI Newsletter - failed + r&d",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 15
+            }
+          ]
+        }
+      },
+      "id": "6ae27bff-6f2e-4c1c-b9b1-4d3df38b6258",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "18i_AhGcP5TAzDBYt0CgaVzxx03Wr0PdUdEksbBJwCJg",
+          "mode": "list",
+          "cachedResultName": "NewsletterData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18i_AhGcP5TAzDBYt0CgaVzxx03Wr0PdUdEksbBJwCJg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Daily",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18i_AhGcP5TAzDBYt0CgaVzxx03Wr0PdUdEksbBJwCJg/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "date",
+              "lookupValue": "={{ $today.toFormat(\"yyyy-MM-dd\") }}"
+            }
+          ]
+        },
+        "options": {
+          "returnAllMatches": "returnAllMatches"
+        }
+      },
+      "id": "a6084faa-88b4-4fc1-9576-2d62a97182d3",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        680,
+        460
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleApi": {
+          "id": "BRmLHfu8L0avSpXD",
+          "name": "Google Search Console API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sort",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "type"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8cdfcf68-fc27-456b-9595-825f588db91c",
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        1300,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.link }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.excerpt }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.link }}",
+              "operation": "notContains",
+              "value2": "?"
+            },
+            {
+              "value1": "={{ $json.excerpt }}",
+              "operation": "regex",
+              "value2": "^(?!.*\\bsurvey\\b)(?!.*\\bdiscount\\b).*"
+            }
+          ]
+        }
+      },
+      "id": "eb23df04-334e-4988-9a53-5fd60ce51aa2",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        900,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.type }}",
+              "value2": "news"
+            },
+            {
+              "value1": "={{ $json.type }}",
+              "value2": "tool"
+            },
+            {
+              "value1": "={{ $json.type }}",
+              "value2": "research"
+            }
+          ]
+        },
+        "combineConditions": "OR"
+      },
+      "id": "2ec5bcce-8aff-4fab-bd78-b3e042eda744",
+      "name": "Filter1",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-3.5-turbo-16k-0613",
+        "options": {
+          "temperature": 0.9
+        }
+      },
+      "id": "edff01e5-65d3-47c5-a037-865e7600a32c",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "jsonSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"email_title\": {\n      \"type\": \"string\",\n      \"description\": \"Generate a short catchy title for the email.\"\n    },\n    \"email_subtitle\": {\n      \"type\": \"string\",\n      \"description\": \"Generate a short subtitle for the email.\"\n    },\n    \"email_intro\": {\n      \"type\": \"string\",\n      \"description\": \"A short catchy intro paragraph of the email based on the links provided. This should contain some excerpts from the links provided to build some excitement around the links.\"\n    },\n    \"email_outro\": {\n      \"type\": \"string\",\n      \"description\": \"A short concluding outro paragraph to end in some either a rhetoric discussion or a thought provoking question based on the links\"\n    }\n  }\n}"
+      },
+      "id": "7bfcafe8-9e0e-4f3b-b2d8-f6e93cef2c52",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "concatenateItems",
+        "aggregate": "aggregateAllItemData",
+        "include": "specifiedFields",
+        "fieldsToInclude": "title, link, excerpt, type",
+        "options": {}
+      },
+      "id": "f2bd8462-0e76-4022-90f0-7b5a8791d459",
+      "name": "Item Lists1",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        1520,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "alfalivin@gmail.com",
+        "subject": "={{ $('Basic LLM Chain').item.json.email_title }}",
+        "message": "=Hello AI enthusiasts,\n<br>\n<br>\n{{ $('Basic LLM Chain').item.json[\"email_intro\"] }}\n<br>\n{{  $('Code').item.json[\"result\"] }}\n<br>\n{{ $('Basic LLM Chain').item.json[\"email_outro\"] }}\n<br>\nRegards,\n<br>\nAI x AI",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "f5fdf9a2-186b-47d0-9d66-0f0e5d27a89b",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2580,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const jsonData = $('Item Lists1').item.json.data \n\n\n// Grouping data by type\nconst groupedData = jsonData.reduce((acc, item) => {\n  if (!acc[item.type]) acc[item.type] = [];\n  acc[item.type].push(item);\n  return acc;\n}, {});\n\nlet htmlResult = \"\";\n\n// Iterating over each type\nfor (let type in groupedData) {\n  htmlResult += `<h2>${type.toUpperCase()}</h2>\\n<ul>`;\n\n  groupedData[type].forEach(item => {\n    htmlResult += `<li><a href=\"${item.link}\">${item.title}</a>: ${item.excerpt}</li>`;\n  });\n\n  htmlResult += \"</ul>\\n<hr>\\n\";\n}\n\n// Output the HTML result\nreturn [{json: {result: htmlResult}}];\n\n"
+      },
+      "id": "3d8c61eb-5ed2-4cd9-940a-012fa59aa8a2",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2120,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "html": "Hello AI enthusiasts,\n<br>\n<br>\n{{ $('Basic LLM Chain').item.json[\"email_intro\"] }}\n<br>\n{{ $json.result }}\n<br>\n{{ $('Basic LLM Chain').item.json[\"email_outro\"] }}\n<br>\nRegards,\n<br>\nAI x AI"
+      },
+      "id": "ea2eb60b-1a99-415c-95c0-192dda1e0053",
+      "name": "HTML",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "18i_AhGcP5TAzDBYt0CgaVzxx03Wr0PdUdEksbBJwCJg",
+          "mode": "list",
+          "cachedResultName": "NewsletterData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18i_AhGcP5TAzDBYt0CgaVzxx03Wr0PdUdEksbBJwCJg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1198928100,
+          "mode": "list",
+          "cachedResultName": "NewsletterEmail",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18i_AhGcP5TAzDBYt0CgaVzxx03Wr0PdUdEksbBJwCJg/edit#gid=1198928100"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "date": "={{ $today.toFormat(\"yyyy-MM-dd\") }}",
+            "subject": "={{ $('Basic LLM Chain').item.json.email_title }}",
+            "content": "={{ $('HTML').item.json.html }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5c15911c-6302-4a58-9a9a-88b1f308c208",
+      "name": "Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        2840,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Source: \n\nhttps://www.youtube.com/watch?v=RaifqGT3eEI\n\nhttps://langbotz.com/item/1700118836339x321084377850183700",
+        "height": 189.64877073682177,
+        "width": 410.6643118957486
+      },
+      "id": "41faabf4-0046-4d56-bdea-d7776429ce54",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        360,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "prompt": "=You are provided with a list of links that are AI articles including link and exceprt about the article. Your tak is to generate a newsletter email that is automatically generated by AI and consolidates the information from the links provided. These links are taken from 15 top AI newsletter. Your task is to help write the Title, Subtitle, Email Intro and Email Outro for the newly generated newsletter email. Make sure to use the knowledge from the list of topics provided below to generate the Title, Subtitle, Email Intro and Email Outro.\n\n\n{{ $json[\"data\"] }}\n"
+      },
+      "id": "453795a1-4808-4e7f-ba49-3976eedc44ff",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        460
+      ]
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2023-11-15T15:00:00.002-08:00",
+          "Readable date": "November 15th 2023, 3:00:00 pm",
+          "Readable time": "3:00:00 pm",
+          "Day of week": "Wednesday",
+          "Year": "2023",
+          "Month": "November",
+          "Day of month": "15",
+          "Hour": "15",
+          "Minute": "00",
+          "Second": "00",
+          "Timezone": "PST -08:00"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-04-13T14:54:48.000Z",
+  "versionId": "c52b53c0-f93e-4519-990a-bc8cbcd8b3a5"
+}
