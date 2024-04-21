@@ -1,0 +1,114 @@
+{
+  "active": true,
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-04-20T18:38:09.315Z",
+  "id": "cA33SM3KsYwcc4hY",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Check email inbox for jobs recommendation",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Sa2Mkh0Sbr_T0c9T6l3AiqjaxEnHFs6Bnqd3JIEne30",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sa2Mkh0Sbr_T0c9T6l3AiqjaxEnHFs6Bnqd3JIEne30/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "4f8e0866-5044-4515-8c30-eeb991dd78a2",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        380,
+        320
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8qd0OpumfcbGLAYF",
+          "name": "Google Sheets - tanyongsheng.net@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "hour": 0
+            }
+          ]
+        },
+        "filters": {
+          "labelIds": [
+            "INBOX",
+            "CATEGORY_PROMOTIONS",
+            "CATEGORY_SOCIAL",
+            "IMPORTANT",
+            "UNREAD",
+            "SPAM",
+            "CATEGORY_PERSONAL",
+            "CATEGORY_UPDATES",
+            "STARRED"
+          ],
+          "sender": "jobalerts-noreply@linkedin.com"
+        }
+      },
+      "id": "c71d0590-aa14-4a7c-8db3-ccd6bc78999c",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1,
+      "position": [
+        180,
+        320
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "afhA1YfYaD2SNfFK",
+          "name": "Gmail account - tanyongsheng.net@gmail.com"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Gmail Trigger": {
+      "lastTimeChecked": 1713666474
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2024-04-21T02:27:56.000Z",
+  "versionId": "6747f4d9-a7c8-435e-8006-aac1c4cbd6f8"
+}
