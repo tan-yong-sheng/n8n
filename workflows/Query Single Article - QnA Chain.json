@@ -23,7 +23,25 @@
         ]
       ]
     },
-    "Execute Workflow Trigger": {
+    "Question and Answer Chain": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
       "main": [
         [
           {
@@ -37,7 +55,9 @@
   },
   "createdAt": "2023-12-13T12:54:47.625Z",
   "id": "bC0IZ14CJMmWIfON",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Query Single Article - QnA Chain",
   "nodes": [
     {
@@ -81,17 +101,6 @@
       }
     },
     {
-      "parameters": {},
-      "id": "42a17ef5-f878-4817-a7ec-4fe801d8fb3c",
-      "name": "Execute Workflow Trigger",
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1,
-      "position": [
-        120,
-        620
-      ]
-    },
-    {
       "parameters": {
         "content": "When people asked any questions on current articles they visited",
         "height": 346.41894762574043,
@@ -117,6 +126,36 @@
         520
       ],
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "da458c05-dc3e-41aa-9327-e62324b5e72a",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1020,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "5d2b4c0a-74d7-4d7c-a6e0-ed575eeb0005",
+        "options": {}
+      },
+      "id": "1b879a54-cd3a-4f39-a6bc-df4d7be5bada",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        600
+      ],
+      "webhookId": "5d2b4c0a-74d7-4d7c-a6e0-ed575eeb0005"
     }
   ],
   "pinData": {},
@@ -132,7 +171,7 @@
       "name": "chat"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2023-12-16T13:22:43.000Z",
-  "versionId": "012503bc-dc89-4586-b5aa-f0b173ccac69"
+  "triggerCount": 1,
+  "updatedAt": "2024-04-20T12:12:55.000Z",
+  "versionId": "6d0bda5f-e543-45d3-ad87-33359eb0c752"
 }
