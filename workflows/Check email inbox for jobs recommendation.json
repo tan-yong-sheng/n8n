@@ -22,7 +22,7 @@
   "nodes": [
     {
       "parameters": {
-        "operation": "appendOrUpdate",
+        "operation": "append",
         "documentId": {
           "__rl": true,
           "value": "1Sa2Mkh0Sbr_T0c9T6l3AiqjaxEnHFs6Bnqd3JIEne30",
@@ -38,8 +38,121 @@
         "columns": {
           "mappingMode": "autoMapInputData",
           "value": {},
-          "matchingColumns": [],
-          "schema": []
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "From",
+              "displayName": "From",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "To",
+              "displayName": "To",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "threadId",
+              "displayName": "threadId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "snippet",
+              "displayName": "snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "payload",
+              "displayName": "payload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sizeEstimate",
+              "displayName": "sizeEstimate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "historyId",
+              "displayName": "historyId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "internalDate",
+              "displayName": "internalDate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "labels",
+              "displayName": "labels",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
         },
         "options": {}
       },
@@ -63,22 +176,12 @@
         "pollTimes": {
           "item": [
             {
-              "hour": 0
+              "hour": 1
             }
           ]
         },
         "filters": {
-          "labelIds": [
-            "INBOX",
-            "CATEGORY_PROMOTIONS",
-            "CATEGORY_SOCIAL",
-            "IMPORTANT",
-            "UNREAD",
-            "SPAM",
-            "CATEGORY_PERSONAL",
-            "CATEGORY_UPDATES",
-            "STARRED"
-          ],
+          "readStatus": "both",
           "sender": "jobalerts-noreply@linkedin.com"
         }
       },
@@ -104,11 +207,14 @@
   },
   "staticData": {
     "node:Gmail Trigger": {
-      "lastTimeChecked": 1713666474
+      "lastTimeChecked": 1714218557,
+      "possibleDuplicates": [
+        "18f1f6373b7dded1"
+      ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-04-21T02:27:56.000Z",
-  "versionId": "6747f4d9-a7c8-435e-8006-aac1c4cbd6f8"
+  "updatedAt": "2024-04-27T17:01:06.000Z",
+  "versionId": "31a6e6c5-a488-409e-99ca-67c71bab37b1"
 }
