@@ -91,6 +91,12 @@
           }
         ]
       ]
+    },
+    "Publish to Telegram Channel - id: zto5ieWYNupvp5p5": {
+      "main": [
+        [],
+        []
+      ]
     }
   },
   "createdAt": "2023-12-10T12:50:11.882Z",
@@ -131,28 +137,6 @@
       ],
       "retryOnFail": true,
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "text": "={{ $json.post_title }}\n\n{{ $json.rank_math_description[0] }}\n\nRead more here: {{ $json.link }}",
-        "additionalFields": {}
-      },
-      "id": "937b96d6-7e38-4895-9174-3e7009e57803",
-      "name": "X1",
-      "type": "n8n-nodes-base.twitter",
-      "typeVersion": 2,
-      "position": [
-        1100,
-        440
-      ],
-      "retryOnFail": true,
-      "credentials": {
-        "twitterOAuth2Api": {
-          "id": "tUOdfQLo94Ill5AI",
-          "name": "X account"
-        }
-      },
-      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -392,33 +376,6 @@
     },
     {
       "parameters": {
-        "postAs": "organization",
-        "organization": "98827202",
-        "text": "={{ $json.post_excerpt }}",
-        "shareMediaCategory": "ARTICLE",
-        "additionalFields": {
-          "description": "={{ $json.rank_math_description[0] }}",
-          "originalUrl": "={{ $json.link }}",
-          "title": "={{ $json.post_title }}"
-        }
-      },
-      "id": "8fe7f129-c6da-4928-b357-d20aec0427f6",
-      "name": "Create Post to LinkedIn Page",
-      "type": "n8n-nodes-base.linkedIn",
-      "typeVersion": 1,
-      "position": [
-        1120,
-        720
-      ],
-      "credentials": {
-        "linkedInOAuth2Api": {
-          "id": "ZYvVGM42l6IGZvvE",
-          "name": "LinkedIn account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "workflowId": "Klm5FB0lJ4apuPWe",
         "options": {}
       },
@@ -474,6 +431,69 @@
         1040,
         -160
       ]
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.post_title }}\n\n{{ $json.rank_math_description[0] }}\n\nRead more here: {{ $json.link }}",
+        "additionalFields": {}
+      },
+      "id": "937b96d6-7e38-4895-9174-3e7009e57803",
+      "name": "X1",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        440
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "tUOdfQLo94Ill5AI",
+          "name": "X account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "postAs": "organization",
+        "organization": "98827202",
+        "text": "={{ $json.post_excerpt }}",
+        "shareMediaCategory": "ARTICLE",
+        "additionalFields": {
+          "description": "={{ $json.rank_math_description[0] }}",
+          "originalUrl": "={{ $json.link }}",
+          "title": "={{ $json.post_title }}"
+        }
+      },
+      "id": "8fe7f129-c6da-4928-b357-d20aec0427f6",
+      "name": "Create Post to LinkedIn Page",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        720
+      ],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "ZYvVGM42l6IGZvvE",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Perhaps build a gotify notification system that summarize what has failed.",
+        "height": 91.95966397799596
+      },
+      "id": "b4c35161-0f5b-48b2-b941-f882e5476805",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        360
+      ]
     }
   ],
   "pinData": {},
@@ -508,6 +528,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-04-13T12:29:45.000Z",
-  "versionId": "b89bddbe-fb1f-4367-a289-06049d3e545f"
+  "updatedAt": "2024-04-28T11:20:44.000Z",
+  "versionId": "6c67b8a1-1276-4f22-b0b5-9430d2052fee"
 }
