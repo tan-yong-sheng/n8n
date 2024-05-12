@@ -1,0 +1,162 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request to Cloudflare workers AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-05-11T13:50:29.615Z",
+  "id": "Q21hs0s7AgF1pZgS",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Cloudflare Workers AI - failed",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "02d67ab9-e09d-45bc-b5a9-5c331c1dcbb0",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3a2c5a0a-d61f-4a48-90b1-5b63a97453d5",
+              "name": "CLOUDFLARE_ACCOUNT_ID",
+              "value": "eb998e8d848b5c7182ad39c49a53e37f",
+              "type": "string"
+            },
+            {
+              "id": "7d42c613-9a98-4712-9eca-76f66d5b9bc4",
+              "name": "CLOUDFLARE_AUTH_TOKEN",
+              "value": "q5XA7Cb2h_IYElLDf9feb2cnEW94j_WhqaxDlTmI",
+              "type": "string"
+            },
+            {
+              "id": "194c96ac-9738-4cb8-bb27-eb71d2d4e5dc",
+              "name": "MODEL_ID",
+              "value": "@cf/google/gemma-7b-it-lora",
+              "type": "string"
+            },
+            {
+              "id": "3b6e9a16-eb1f-4767-96cc-5c51398c4dda",
+              "name": "PROMPT",
+              "value": "tell me a story about ghost",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4cd4b674-8734-43bd-8c19-2f2c5d6f2076",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        460,
+        180
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.cloudflare.com/client/v4/accounts/{{ $json.CLOUDFLARE_ACCOUNT_ID }}/ai/run/{{ $json.MODEL_ID }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.CLOUDFLARE_AUTH_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.PROMPT }}"
+            },
+            {
+              "name": "raw",
+              "value": "={{ true }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f89286c9-2762-4e8e-a8b4-29c983c9d10a",
+      "name": "HTTP Request to Cloudflare workers AI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        700,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Check here for more MODEL_ID: developers.cloudflare.com/workers-ai/models/ if you're interested to use other models in Cloudflare workers AI",
+        "height": 261.54917990486643
+      },
+      "id": "bdb7c622-a30f-4dab-b639-2ceb8184fe6d",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "However, except Gemma 2b, other models always timed out!",
+        "height": 262.0686411202088
+      },
+      "id": "a74a2bdf-f169-475b-810c-e38de7243483",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        80
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-05-11T14:16:01.000Z",
+  "versionId": "ec2e1175-ca93-42f5-acca-171cdbe3cbc3"
+}
