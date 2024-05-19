@@ -242,14 +242,14 @@
   },
   "staticData": {
     "node:Gmail Trigger": {
-      "lastTimeChecked": 1715429060,
+      "lastTimeChecked": 1716050680,
       "possibleDuplicates": [
-        "18f678a70bc8ea8b"
+        "18f8c976b4deea9f"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-05-11T17:00:29.000Z",
+  "updatedAt": "2024-05-18T17:00:32.000Z",
   "versionId": "d17365c9-5135-4b44-87e4-3fc552d74181"
 }
