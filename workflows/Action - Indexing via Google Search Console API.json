@@ -11,11 +11,24 @@
           }
         ]
       ]
+    },
+    "n8n Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "Indexing - Google Console Search API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-11-26T11:24:08.820Z",
   "id": "KpGzjZailbovROgs",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Action - Indexing via Google Search Console API",
   "nodes": [
     {
@@ -25,8 +38,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        500,
-        200
+        440,
+        100
       ]
     },
     {
@@ -50,9 +63,18 @@
         "url": "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "googleApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"siteUrl\": \"https://{{ $json.post_permalink.extractDomain() }}/\",\n  \"inspectionUrl\": \"{{  $json.post_permalink }}\",\n  \"languageCode\": \"en-US\"\n}",
+        "jsonBody": "={\n  \"siteUrl\": \"https://{{ $json.post_permalink.extractDomain() }}/\",\n  \"inspectionUrl\": \"{{ $json.post_permalink }}\",\n  \"languageCode\": \"en-US\"\n}",
         "options": {}
       },
       "id": "2a6bfa5f-6a34-4dc9-8a78-50bf2fce1e61",
@@ -71,6 +93,31 @@
         }
       },
       "notes": "Automatically send an indexing request via Google Search Console whenever a new post is published."
+    },
+    {
+      "parameters": {
+        "path": "81ca95bd-db87-4652-808f-932b1f568d2d",
+        "formTitle": "Indexing your WordPress blog",
+        "formDescription": "Input your blog URL which you want to index",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "post_permalink",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d1051609-645c-4356-adc9-abccc6d43aec",
+      "name": "n8n Form Trigger",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "webhookId": "81ca95bd-db87-4652-808f-932b1f568d2d"
     }
   ],
   "pinData": {},
@@ -99,6 +146,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2023-12-10T17:31:49.000Z",
-  "versionId": "2b3f5a52-8a10-4a71-9ce0-a4063c33b780"
+  "updatedAt": "2024-06-08T15:57:14.000Z",
+  "versionId": "6afbdb70-79fa-4280-840a-6495f6192977"
 }
