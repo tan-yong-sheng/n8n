@@ -14,13 +14,7 @@
     },
     "Google Sheets": {
       "main": [
-        [
-          {
-            "node": "Gotify",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -210,30 +204,6 @@
           "name": "Gmail account - tanyongsheng.net@gmail.com"
         }
       }
-    },
-    {
-      "parameters": {
-        "message": "Google sheets here: https://docs.google.com/spreadsheets/d/1Sa2Mkh0Sbr_T0c9T6l3AiqjaxEnHFs6Bnqd3JIEne30",
-        "additionalFields": {
-          "title": "Job list is updated from LinkedIn email"
-        },
-        "options": {}
-      },
-      "id": "de60adf2-fa35-4e8f-9bff-34f931c5370f",
-      "name": "Gotify",
-      "type": "n8n-nodes-base.gotify",
-      "typeVersion": 1,
-      "position": [
-        600,
-        320
-      ],
-      "executeOnce": true,
-      "credentials": {
-        "gotifyApi": {
-          "id": "EtkGwqX6LbJSx5ME",
-          "name": "Gotify account"
-        }
-      }
     }
   ],
   "pinData": {},
@@ -242,14 +212,14 @@
   },
   "staticData": {
     "node:Gmail Trigger": {
-      "lastTimeChecked": 1719061540,
+      "lastTimeChecked": 1719665407,
       "possibleDuplicates": [
-        "190400db2ca4c3d5"
+        "190640bb894b62b1"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-06-22T17:01:00.000Z",
-  "versionId": "d17365c9-5135-4b44-87e4-3fc552d74181"
+  "updatedAt": "2024-06-28T17:00:46.000Z",
+  "versionId": "3ebf7d54-233e-4f84-aef7-4297d5fec25d"
 }
