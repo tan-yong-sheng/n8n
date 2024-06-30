@@ -1,22 +1,6 @@
 {
   "active": true,
   "connections": {
-    "When WordPress post is Published": {
-      "main": [
-        [
-          {
-            "node": "Extract blog title, post excerpt, url and thumbnail",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "(Need Edit) Social media settings configuration",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Extract blog title, post excerpt, url and thumbnail": {
       "main": [
         [
@@ -39,6 +23,22 @@
         ]
       ]
     },
+    "When WordPress post is Published": {
+      "main": [
+        [
+          {
+            "node": "Extract blog title, post excerpt, url and thumbnail",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "(Need Edit) Social media settings configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Merge": {
       "main": [
         [
@@ -49,11 +49,6 @@
           },
           {
             "node": "Action - Share WordPress Post to Social Post",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Insert record of blog article",
             "type": "main",
             "index": 0
           }
@@ -68,22 +63,6 @@
   },
   "name": "Trigger - When WordPress is created",
   "nodes": [
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "d27d9401-00b4-4be6-9f61-e1d82e47d65f",
-        "options": {}
-      },
-      "id": "19fd047d-8d16-49e5-a5d2-f7db2d953445",
-      "name": "When WordPress post is Published",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [
-        -360,
-        -360
-      ],
-      "webhookId": "d27d9401-00b4-4be6-9f61-e1d82e47d65f"
-    },
     {
       "parameters": {
         "mode": "combine",
@@ -188,20 +167,6 @@
       "position": [
         -100,
         -220
-      ]
-    },
-    {
-      "parameters": {
-        "workflowId": "vrgIebglf07DHKaE",
-        "options": {}
-      },
-      "id": "ecc5606d-64e7-491f-af92-33dfe2963609",
-      "name": "Action - Share WordPress Post to Social Post",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1,
-      "position": [
-        560,
-        -560
       ]
     },
     {
@@ -312,6 +277,37 @@
         }
       },
       "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "d27d9401-00b4-4be6-9f61-e1d82e47d65f",
+        "options": {}
+      },
+      "id": "19fd047d-8d16-49e5-a5d2-f7db2d953445",
+      "name": "When WordPress post is Published",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        -360
+      ],
+      "webhookId": "d27d9401-00b4-4be6-9f61-e1d82e47d65f"
+    },
+    {
+      "parameters": {
+        "workflowId": "vrgIebglf07DHKaE",
+        "options": {}
+      },
+      "id": "ecc5606d-64e7-491f-af92-33dfe2963609",
+      "name": "Action - Share WordPress Post to Social Post",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        560,
+        -560
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {},
@@ -346,6 +342,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-01-29T16:43:15.000Z",
-  "versionId": "9558b487-0220-43ef-82a1-167287d61ae0"
+  "updatedAt": "2024-06-29T13:04:04.000Z",
+  "versionId": "d2fa2f87-9b96-4c9c-91fb-91e5a7f209ff"
 }
