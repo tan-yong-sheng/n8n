@@ -1,0 +1,409 @@
+{
+  "active": false,
+  "connections": {
+    "Memory Chat Retriever": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory Chat Retriever Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Memory Chat Retriever",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chatbot Action": {
+      "main": [
+        [
+          {
+            "node": "Memory Chat Retriever",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QnA chain - answer current article": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QnA chain - suggest articles": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Chatbot Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-04T12:47:40.164Z",
+  "id": "AkdjJLX22KrGt2AK",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Chatbot - Google Gemini",
+  "nodes": [
+    {
+      "parameters": {
+        "sessionKey": "={{ $('Chatbot Action').item.json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "id": "78060985-466a-41f7-b2f1-650f6148e371",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        1040
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "55727a39-8976-413f-915a-7181776c830c",
+      "name": "Memory Chat Retriever",
+      "type": "@n8n/n8n-nodes-langchain.memoryChatRetriever",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "id": "93029457-1488-49b6-8974-3e5cbd1d2cd8",
+      "name": "Memory Chat Retriever Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1,
+      "position": [
+        960,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.action }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "loadPreviousSession"
+            },
+            {
+              "value2": "sendMessage",
+              "output": 1
+            }
+          ]
+        }
+      },
+      "id": "19b25df5-81b8-441b-9642-e674a0bd06c5",
+      "name": "Chatbot Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        600,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = { data: [] };\n\nfor (const item of $input.all()) {\n  response.data.push(item.json);\n}\n\nreturn {\n  json: response,\n  pairedItem: 0\n};"
+      },
+      "id": "6e86af09-22b9-49fe-98c0-0f7befbd9a18",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "sessionId",
+                "value": "={{ $json.body.sessionId }}"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "7b0ea9af-5b71-4ab5-b454-1a3038cd0581",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Reference: https://www.npmjs.com/package/@n8n/chat",
+        "height": 80,
+        "width": 504.6000161499034
+      },
+      "id": "576bb543-1b64-4ba1-aac6-77199f9ba5cf",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        600
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "cf51449f-a17c-4890-a16e-357e86646ea8",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "name": "QnA_article_tool",
+        "description": "Call this tool when people ask for MANY articles to read, especially if he or she got any specific topic of interest.",
+        "workflowId": "byizjrvUeTp6OA6K",
+        "fields": {
+          "values": [
+            {
+              "name": "chat_input",
+              "stringValue": "={{ $('Chatbot Action').item.json.chatInput }}"
+            }
+          ]
+        }
+      },
+      "id": "35c47a57-f0a1-4e85-900b-ab90b8fba633",
+      "name": "QnA chain - suggest articles",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        1260
+      ]
+    },
+    {
+      "parameters": {
+        "content": "suggest articles feature worst - as hard to classify - still thinking a better design"
+      },
+      "id": "d4de5439-6aaf-4efc-9d77-9e23950792e0",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "name": "QnA_article_tool",
+        "description": "Call this tool to answer questions using information for the SINGLE article that the user currently landed on. \n\nFor example, they might ask the questions, as below:\n1. summarize this article\n2. what the author is talking about in this article",
+        "workflowId": "bC0IZ14CJMmWIfON",
+        "fields": {
+          "values": [
+            {
+              "name": "post_slug",
+              "stringValue": "={{ $json.slug }}"
+            },
+            {
+              "name": "chat_input",
+              "stringValue": "={{ $('Chatbot Action').item.json.chatInput }}"
+            }
+          ]
+        }
+      },
+      "id": "6174ec76-8aef-4b89-b09b-eaca1c8f911e",
+      "name": "QnA chain - answer current article",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0
+        }
+      },
+      "id": "667cfdb0-fea9-4a38-83cb-687cba4f9cba",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        800,
+        880
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9mgBMYFAFRrImmEw",
+          "name": "GooglePaLMApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "humanMessage": "TOOLS\n------\nYou can ask the user to use tools to look up information that may help answer the user's original question. The tools the human can use are:\n\n{tools}\n\n{format_instructions}\n\nUSER'S INPUT\n--------------------\nHere is the user's input (remember to respond with a markdown code snippet of a JSON blob with a single action, and NOTHING else):\n\n{{input}}",
+          "systemMessage": "You're designed to be able to assist with a wide range of tasks, from answering simple questions to providing in-depth explanations and discussions on a wide range of topics. As a language model, you can generate human-like text based on the input it receives, allowing it to engage in natural-sounding conversations and provide responses that are coherent and relevant to the topic at hand.\n\nAssistant is constantly learning and improving, and its capabilities are constantly evolving. It can process and understand large amounts of text and can use this knowledge to provide accurate and informative responses to a wide range of questions. Additionally, you can generate its text based on the input it receives, allowing it to engage in discussions and provide explanations and descriptions on a wide range of topics.\n\nOverall, you are a powerful system that can help with a wide range of tasks and provide valuable insights and information on various topics. You could offer help to answer specific questions or want to talk about a particular topic.\n\nTOOLS to be used\n-----------------\n- Whenever someone asks about the article content or how the author does something, do use \"QnA chain - answer current article\" to get the info.\n- Whenever someone asks about the article suggestion, do use \"QnA chain - suggest articles\" to get the info.\n\nSYSTEM's OUTPUT\n--------------------\n- Output format is always text. it does not support non-string message content.\n- If the output is in JSON form, convert it into sentences in text form\n- The output does not consist of JSON object or code script inside the inner text",
+          "maxIterations": 3,
+          "returnIntermediateSteps": true
+        }
+      },
+      "id": "74074266-5aa5-4607-b2c5-f5c8ef23880d",
+      "name": "Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {
+          "allowedOrigins": "*",
+          "responseMode": "responseNode"
+        }
+      },
+      "id": "f29c1a76-0267-4879-ad5d-432245ccae94",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1,
+      "position": [
+        320,
+        660
+      ],
+      "webhookId": "4a5395d0-55da-42c6-8461-1d5458304ff4"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-13T12:08:54.022Z",
+      "updatedAt": "2023-12-13T12:08:54.022Z",
+      "id": "4UxfwpmCTNXoN4Xc",
+      "name": "chat"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2024-06-30T02:48:49.000Z",
+  "versionId": "f3dfefba-d5d6-4fcf-b184-c7025a5cfcda"
+}
