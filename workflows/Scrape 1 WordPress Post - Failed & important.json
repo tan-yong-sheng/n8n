@@ -1,0 +1,92 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-12-13T12:28:48.960Z",
+  "id": "ygDp8PuCFfZMib5f",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Scrape 1 WordPress Post - Failed & important",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "0c4173f6-1392-4a7b-9bc5-8deade3bce63",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        600,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.tanyongsheng.net/",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "026a2ff8-9f46-403e-8793-2c573a4bf6f6",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "content": "not sure why cannot scrape wordpress post from tanyongsheng.net aldy"
+      },
+      "id": "e728bca6-0ef5-4fd6-82a4-5d45999b1c2f",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        760,
+        320
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2023-12-13T12:08:54.022Z",
+      "updatedAt": "2023-12-13T12:08:54.022Z",
+      "id": "4UxfwpmCTNXoN4Xc",
+      "name": "chat"
+    },
+    {
+      "createdAt": "2023-12-13T12:29:22.557Z",
+      "updatedAt": "2023-12-13T12:29:22.557Z",
+      "id": "534nGQZsFGOX4hjk",
+      "name": "scraping"
+    },
+    {
+      "createdAt": "2023-12-10T17:26:38.958Z",
+      "updatedAt": "2023-12-10T17:26:38.958Z",
+      "id": "s57hAO0IPCwEDIpV",
+      "name": "wordpress"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-06-30T02:47:26.000Z",
+  "versionId": "06472a95-b618-4df1-b65d-acbc116504fb"
+}
