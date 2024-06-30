@@ -1,0 +1,463 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Trello - get all lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello - get a card": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello - get all lists": {
+      "main": [
+        [
+          {
+            "node": "Trello - get all cards in a list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello - get all cards in a list": {
+      "main": [
+        [
+          {
+            "node": "Trello - get a card",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Trello - get a list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "update Trello data to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "update Trello data to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Update current datetime to Excel Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello - get a list": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-06-26T14:15:25.067Z",
+  "id": "Dl2UixI7j9sYdz8T",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Trello - download data",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "3f5d892f-500a-44f0-b9a8-bd79ed76ef91",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        260,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "id": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "id": "b3624575-e92b-4542-a798-b4e438fc2634",
+      "name": "Trello - get a card",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        940,
+        180
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "list",
+        "operation": "getAll",
+        "id": "623ea2020a732a5f7260ee97",
+        "returnAll": true,
+        "additionalFields": {}
+      },
+      "id": "6b1f601f-3711-4b5c-8627-46b66381e319",
+      "name": "Trello - get all lists",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        480,
+        180
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "list",
+        "operation": "getCards",
+        "id": "={{ $json.id }}",
+        "returnAll": true,
+        "additionalFields": {}
+      },
+      "id": "564ac323-c5e9-46e9-9982-c4082a459d26",
+      "name": "Trello - get all cards in a list",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        680,
+        180
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "a15f97de-cbe0-4879-b67b-e5553214a959",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1360,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "da65e607-cf59-4173-a53f-0142ae731905",
+              "name": "list_name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "selected",
+        "includeFields": "id",
+        "options": {}
+      },
+      "id": "22ffa7a2-e4ba-4b72-9cb3-b497126fa18a",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1160,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1GmyR1mJRfu1eVLnoAdL1PLljj5daacKhTpEf4KW31YI",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "0",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Last updated at": "={{ $now }}",
+            "Board name": "2. Content Calendar"
+          },
+          "matchingColumns": [
+            "Board name"
+          ],
+          "schema": [
+            {
+              "id": "Board name",
+              "displayName": "Board name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last updated at",
+              "displayName": "Last updated at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "19bfde2a-93d2-400e-8d5c-f72981240f88",
+      "name": "Update current datetime to Excel Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        1760,
+        220
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8qd0OpumfcbGLAYF",
+          "name": "Google Sheets - tanyongsheng.net@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1GmyR1mJRfu1eVLnoAdL1PLljj5daacKhTpEf4KW31YI",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "0",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Members": "={{ $json.idMembers }}",
+            "List name": "={{ $json.list_name }}",
+            "Description": "={{ $json.desc }}",
+            "Due Date": "={{ $json.due }}",
+            "Start Date": "={{ $json.start }}",
+            "Card URL": "={{ $json.url }}",
+            "Card Name": "={{ $json.name }}"
+          },
+          "matchingColumns": [
+            "Card URL"
+          ],
+          "schema": [
+            {
+              "id": "Card ID",
+              "displayName": "Card ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "List name",
+              "displayName": "List name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Card Name",
+              "displayName": "Card Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Due Date",
+              "displayName": "Due Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Members",
+              "displayName": "Members",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Card URL",
+              "displayName": "Card URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {
+          "locationDefine": {
+            "values": {
+              "headerRow": 4,
+              "firstDataRow": 5
+            }
+          }
+        }
+      },
+      "id": "61bb7906-60f9-4627-9e3e-a9a1846278d1",
+      "name": "update Trello data to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        1560,
+        220
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8qd0OpumfcbGLAYF",
+          "name": "Google Sheets - tanyongsheng.net@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "list",
+        "operation": "get",
+        "id": "={{ $json.idList }}",
+        "additionalFields": {}
+      },
+      "id": "18b897c4-7303-43c6-8db1-51df28fd757a",
+      "name": "Trello - get a list",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        940,
+        360
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-06-26T16:25:40.000Z",
+  "versionId": "e64bcbfd-b858-42dc-99d3-645c3f06a2b7"
+}
