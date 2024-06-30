@@ -14,13 +14,7 @@
     },
     "Google PaLM Language Model": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Question and Answer Chain",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Question and Answer Chain": {
@@ -43,10 +37,26 @@
     },
     "Webhook": {
       "main": [
+        []
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
         [
           {
             "node": "Question and Answer Chain",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -90,15 +100,16 @@
       "type": "@n8n/n8n-nodes-langchain.lmGooglePalm",
       "typeVersion": 1,
       "position": [
-        560,
-        680
+        240,
+        900
       ],
       "credentials": {
         "googlePalmApi": {
           "id": "9mgBMYFAFRrImmEw",
           "name": "GooglePaLMApi account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -152,10 +163,41 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        100,
-        600
+        120,
+        560
       ],
-      "webhookId": "5d2b4c0a-74d7-4d7c-a6e0-ed575eeb0005"
+      "webhookId": "5d2b4c0a-74d7-4d7c-a6e0-ed575eeb0005",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "id": "83270d68-38bc-4502-8cb4-303d9f50a6e4",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        140,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "b9d6f086-b963-4107-88d0-4f4aa4da8cf6",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        500,
+        800
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9mgBMYFAFRrImmEw",
+          "name": "GooglePaLMApi account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -172,6 +214,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2024-04-20T12:12:55.000Z",
-  "versionId": "6d0bda5f-e543-45d3-ad87-33359eb0c752"
+  "updatedAt": "2024-06-29T16:00:22.000Z",
+  "versionId": "5ea07387-dc79-4d2e-9f0c-d69616137ae7"
 }
