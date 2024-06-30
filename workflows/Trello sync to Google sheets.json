@@ -1,0 +1,421 @@
+{
+  "active": false,
+  "connections": {
+    "Trello Trigger": {
+      "main": [
+        [
+          {
+            "node": "Trello - get card",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello - get list": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello - get card": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Trello - get list1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Trello - get list",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Trello - get list1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-06-26T12:16:29.110Z",
+  "id": "jsWMa1JUxQx1VTEi",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Trello sync to Google sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "id": "623ea2020a732a5f7260ee97"
+      },
+      "id": "e2e5c3cd-a09f-43ba-b882-f6c45ba995ac",
+      "name": "Trello Trigger",
+      "type": "n8n-nodes-base.trelloTrigger",
+      "typeVersion": 1,
+      "position": [
+        780,
+        360
+      ],
+      "webhookId": "2309faf4-9ee0-4ecd-840c-be80d4c9cd2e",
+      "notesInFlow": true,
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "b48821ce-9828-4dc7-b4db-3d5d5a5c0670",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        1700,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1GmyR1mJRfu1eVLnoAdL1PLljj5daacKhTpEf4KW31YI",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "0",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Card ID": "={{ $json.id }}",
+            "Task": "={{ $json.name }}",
+            "Description": "={{ $json.desc }}",
+            "Start Date": "={{ $json.start }}",
+            "Due Date": "={{ $json.badges.due }}",
+            "Members": "={{ $json.idMembers }}",
+            "List name": "={{ $json['list name'] }}"
+          },
+          "matchingColumns": [
+            "Card ID"
+          ],
+          "schema": [
+            {
+              "id": "Card ID",
+              "displayName": "Card ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Task",
+              "displayName": "Task",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "List name",
+              "displayName": "List name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Start Date",
+              "displayName": "Start Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Due Date",
+              "displayName": "Due Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Members",
+              "displayName": "Members",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "28181dd4-156d-43df-a1a0-9f2992a43dc0",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        1900,
+        360
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8qd0OpumfcbGLAYF",
+          "name": "Google Sheets - tanyongsheng.net@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "list",
+        "operation": "get",
+        "id": "={{ $json.action.data.listAfter.id }}",
+        "additionalFields": {
+          "fields": "=all"
+        }
+      },
+      "id": "394e5783-e796-420f-a168-51dfa66ffdb6",
+      "name": "Trello - get list",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        460
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "id": {
+          "__rl": true,
+          "value": "={{ $json.action.data.card.id }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "id": "759459d1-02bc-4bfc-b939-880ef91df11c",
+      "name": "Trello - get card",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        260
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ad3be478-154b-465e-82f3-6e8c3b69b58d",
+              "name": "list name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5b0be49c-d27d-44ce-be35-e9f4459ea775",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1480,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "list",
+        "operation": "get",
+        "id": "={{ $json.action.data.list.id }}",
+        "additionalFields": {
+          "fields": "=all"
+        }
+      },
+      "id": "cf5c4ba3-ffff-4136-9551-3b5f6d167095",
+      "name": "Trello - get list1",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        640
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "dhputRTzWVQqJ3mx",
+          "name": "Trello account - tys203831@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.action.display.translationKey }}",
+                    "rightValue": "action_move_card_from_list_to_list",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "id": "47e1c8a4-f820-44c5-9b33-25f0a5da19c7",
+                    "leftValue": "={{ $json.action.display.translationKey }}",
+                    "rightValue": "=action_changed_description_of_card",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b9e5cbd4-7788-4349-906f-d1434fc23750",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        980,
+        520
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Trello Trigger": {}
+  },
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2024-06-26T14:14:04.000Z",
+  "versionId": "adeb7984-2294-4c11-82ce-b519d5e59e34"
+}
