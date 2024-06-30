@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "Indexing - Google Console Search API1",
+            "node": "Indexing - Google Console Search API",
             "type": "main",
             "index": 0
           }
@@ -16,11 +16,16 @@
       "main": [
         [
           {
-            "node": "Indexing - Google Console Search API1",
+            "node": "Indexing - Google Console Search API",
             "type": "main",
             "index": 0
           }
         ]
+      ]
+    },
+    "Indexing - Google Console Search API": {
+      "main": [
+        []
       ]
     }
   },
@@ -59,43 +64,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleApi",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "User-Agent",
-              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"siteUrl\": \"https://{{ $json.post_permalink.extractDomain() }}/\",\n  \"inspectionUrl\": \"{{ $json.post_permalink }}\",\n  \"languageCode\": \"en-US\"\n}",
-        "options": {}
-      },
-      "id": "2a6bfa5f-6a34-4dc9-8a78-50bf2fce1e61",
-      "name": "Indexing - Google Console Search API1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        760,
-        200
-      ],
-      "retryOnFail": false,
-      "credentials": {
-        "googleApi": {
-          "id": "BRmLHfu8L0avSpXD",
-          "name": "Google Search Console API"
-        }
-      },
-      "notes": "Automatically send an indexing request via Google Search Console whenever a new post is published."
-    },
-    {
-      "parameters": {
         "path": "81ca95bd-db87-4652-808f-932b1f568d2d",
         "formTitle": "Indexing your WordPress blog",
         "formDescription": "Input your blog URL which you want to index",
@@ -114,10 +82,47 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2,
       "position": [
-        460,
+        440,
         300
       ],
       "webhookId": "81ca95bd-db87-4652-808f-932b1f568d2d"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +https://www.google.com/bot.html) Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"siteUrl\": \"sc-domain:{{ $json.post_permalink.extractDomain().replace(\"www.\",\"\") }}\",\n  \"inspectionUrl\": \"{{ $json.post_permalink }}\",\n  \"languageCode\": \"en-US\"\n}",
+        "options": {}
+      },
+      "id": "2a6bfa5f-6a34-4dc9-8a78-50bf2fce1e61",
+      "name": "Indexing - Google Console Search API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        760,
+        200
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "googleApi": {
+          "id": "BRmLHfu8L0avSpXD",
+          "name": "Google Search Console API"
+        }
+      },
+      "notes": "Automatically send an indexing request via Google Search Console whenever a new post is published."
     }
   ],
   "pinData": {},
@@ -146,6 +151,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2024-06-08T15:57:14.000Z",
-  "versionId": "6afbdb70-79fa-4280-840a-6495f6192977"
+  "updatedAt": "2024-06-29T13:06:02.000Z",
+  "versionId": "c6c71e7d-6260-495c-b412-90d2e99eae49"
 }
